@@ -1,6 +1,7 @@
 package com.example;
 
 import com.example.messages.GroupMessage;
+import com.example.messages.StudentMessage;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -21,6 +22,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -283,5 +285,28 @@ public class MsgController {
                 }).getBody();
 
         return "All messages: \n" + response;
+    }
+
+    private void sendGroupMessage(ResponseEntity response, Long id, HttpMethod httpMethod, String error){
+        producer.sendGroupMsg(
+                new GroupMessage(
+                        "ID: " + (id == 0 ? "not have ID yet" : id) + ". " + response.getStatusCode().getReasonPhrase() + ". Is error: " + response.getStatusCode().isError(),
+                        httpMethod,
+                        response.getStatusCode().toString(),
+                        new Timestamp(System.currentTimeMillis()),
+                        error
+                )
+        );
+    }
+    private void sendStudentMessage(ResponseEntity response, Long id, HttpMethod httpMethod, String error){
+        producer.sendStudentMsg(
+                new StudentMessage(
+                        "ID: " + (id == 0 ? "not have ID yet" : id) + ". " + response.getStatusCode().getReasonPhrase() + ". Is error: " + response.getStatusCode().isError(),
+                        httpMethod,
+                        response.getStatusCode().toString(),
+                        new Timestamp(System.currentTimeMillis()),
+                        error
+                )
+        );
     }
 }
