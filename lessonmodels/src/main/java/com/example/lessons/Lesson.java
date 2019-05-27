@@ -1,5 +1,9 @@
-package com.example;
+package com.example.lessons;
 
+import com.example.Group;
+import com.example.Room;
+import com.example.Subject;
+import com.example.Teacher;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

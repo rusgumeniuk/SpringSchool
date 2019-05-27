@@ -1,4 +1,4 @@
-package com.example;
+package com.example.lessons;
 
 public enum LessonNumber {
     ZERO,
