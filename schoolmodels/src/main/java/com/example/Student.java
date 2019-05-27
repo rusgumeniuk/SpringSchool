@@ -35,9 +35,6 @@ public class Student extends com.example.Entity {
     @JoinColumn(name = "group_id")
     private Group group;
 
-    @JsonIgnore
-    private boolean isDeleted;
-
     public Student(){}
 
     public Student(@NotBlank String name){
@@ -58,13 +55,6 @@ public class Student extends com.example.Entity {
     }
     public int getAge() {
         return age;
-    }
-
-    public void delete(){
-        isDeleted = true;
-    }
-    public boolean getDeleted(){
-        return isDeleted;
     }
 
     public String getCity() {

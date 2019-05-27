@@ -30,9 +30,6 @@ public class Group extends com.example.Entity {
     @NotNull(message = "Group had to start studying in some year")
     private int startYear;
 
-    @JsonIgnore
-    private boolean isDeleted;
-
     @OneToMany(cascade = {CascadeType.ALL})
     private List<Student> students;
 
@@ -60,14 +57,6 @@ public class Group extends com.example.Entity {
         }
         return false;
     }
-
-    public void delete(){
-        isDeleted = true;
-    }
-    public boolean getDeleted(){
-        return isDeleted;
-    }
-
     public void setStartYear(int startYear){
         if(startYear < 1950 || startYear > 2019)
             System.out.println("Oooops, wrong start year");
