@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" addBOMForNewFiles="with NO BOM">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/configuration-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eureka-client-lab-2" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eureka-lab-2" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eureka-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lab-2" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/rabbitmq-consumer" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/schoolmodels" charset="UTF-8" />
+  </component>
+</project>

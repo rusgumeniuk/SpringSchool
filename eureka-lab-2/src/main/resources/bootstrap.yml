@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: eureka-lab-2
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:9999
+      name: eureka-lab-2
+      profile: test
+    bus:
+      enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  jackson:
+    serialization:
+      indent_output: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

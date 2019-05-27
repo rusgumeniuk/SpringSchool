@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: eureka-client-lab-2
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:9999
+      name: eureka-client-lab-2
+      profile: test
+    bus:
+      enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  jackson:
+    serialization:
+      indent_output: true
+
+queue:
+  group:
+    name: LAB.GROUP
+  student:
+    name: LAB.STUDENT
+topic:
+  exchange:
+    name: LAB.TOPIC.EXCHANGE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+good-status: "OK,NOT_ACCEPTABLE"

@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: lab-2
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:9999
+      name: lab-2
+      profile: test
+    bus:
+      enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+

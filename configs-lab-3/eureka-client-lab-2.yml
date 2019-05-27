@@ -1,0 +1,16 @@
+server:
+  port: 8888    #port number
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:7777/eureka/
+    healthcheck:
+      enabled: true
+
+logging:
+  level:
+    com.example.eurekaclientlab2: DEBUG

@@ -1,0 +1,1005 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ccde979f-f200-461d-983b-f97878f238e9" name="Default Changelist" comment="" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/configuration-server/target/" />
+    <ignored path="$PROJECT_DIR$/Lab-1-MS/target/" />
+    <ignored path="$PROJECT_DIR$/models/target/" />
+    <ignored path="$PROJECT_DIR$/rabbitmq-consumer/target/" />
+    <ignored path="$PROJECT_DIR$/lab-2/target/" />
+    <ignored path="$PROJECT_DIR$/eureka-client-lab-2/target/" />
+    <ignored path="$PROJECT_DIR$/eureka_server/target/" />
+    <ignored path="$PROJECT_DIR$/schoolmodels/target/" />
+    <ignored path="$PROJECT_DIR$/eureka-lab-2/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="lab1ms" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="lab1ms" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/MsgController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="395">
+              <caret line="264" column="48" selection-start-line="264" selection-start-column="48" selection-end-line="264" selection-end-column="48" />
+              <folding>
+                <element signature="method#getGroups#0;class#MsgController#0" />
+                <element signature="method#updateGroup#0;class#MsgController#0" />
+                <element signature="method#getStudent#0;class#MsgController#0" />
+                <element signature="method#getStudents#0;class#MsgController#0" />
+                <element signature="method#createStudent#0;class#MsgController#0" />
+                <element signature="method#updateStudent#0;class#MsgController#0" />
+                <element signature="method#info#0;class#MsgController#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/MsgProducer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-277">
+              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/EurekaClientLab2Application.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-668">
+              <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/configs-lab-3/lab-2.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" selection-start-line="5" selection-end-line="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rabbitmq-consumer/src/main/resources/application.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="33" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/configuration-server/src/main/resources/application.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" column="76" selection-start-line="12" selection-start-column="76" selection-end-line="12" selection-end-column="76" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/assemblers/GroupResourcesAssembler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" selection-start-line="5" selection-end-line="10" selection-end-column="77" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/controllers/GroupController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" selection-start-line="6" selection-end-line="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/services/KPIGroupService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1122">
+              <caret line="77" column="9" selection-start-line="77" selection-start-column="9" selection-end-line="77" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/SchoolServiceApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="27" column="14" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>mysql</find>
+      <find>amqp</find>
+      <find>employee</find>
+      <find>order</find>
+      <find>msg</find>
+      <find>Employee</find>
+      <find>Order</find>
+      <find>erder</find>
+      <find>\</find>
+      <find>GroupMessage</find>
+      <find>Optional&lt;Group&gt;</find>
+      <find>student</find>
+      <find>mess</find>
+      <find>group</find>
+      <find>groupAssembler</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>Order</replace>
+      <replace>student</replace>
+      <replace>group</replace>
+      <replace>Group</replace>
+      <replace>Student</replace>
+      <replace>/</replace>
+      <replace>var</replace>
+      <replace>Message</replace>
+      <replace>message</replace>
+      <replace>assembler</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/SpringSchool" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Lab-1-MS/src/main/java/com/example/services/KPIStudentService.java" />
+        <option value="$PROJECT_DIR$/Lab-1-MS/src/main/java/com/example/loaders/LoadDBStudent.java" />
+        <option value="$PROJECT_DIR$/Lab-1-MS/src/main/java/com/example/loaders/LoadDBGroup.java" />
+        <option value="$PROJECT_DIR$/Lab-1-MS/src/main/java/com/example/exceptions/GroupNotExistStudentException.java" />
+        <option value="$PROJECT_DIR$/Lab-1-MS/src/main/java/com/example/exceptions/GroupNotHaveStudentsException.java" />
+        <option value="$PROJECT_DIR$/Lab-1-MS/src/main/java/com/example/assemblers/StudentResourcesAssembler.java" />
+        <option value="$PROJECT_DIR$/Lab-1-MS/src/main/java/com/example/assemblers/GroupResourcesAssembler.java" />
+        <option value="$PROJECT_DIR$/Lab-1-MS/src/main/java/com/example/controllers/GroupController.java" />
+        <option value="$PROJECT_DIR$/Lab-1-MS/src/main/java/com/example/controllers/StudentController.java" />
+        <option value="$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/EurekaClientLab2Application.java" />
+        <option value="$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/MsgProducer.java" />
+        <option value="$PROJECT_DIR$/rabbitmq-consumer/src/main/java/com/example/ConsumerController.java" />
+        <option value="$PROJECT_DIR$/rabbitmq-consumer/src/main/java/com/example/RabbitmqConsumerApplication.java" />
+        <option value="$PROJECT_DIR$/rabbitmq-consumer/src/main/java/com/example/listeners/impl/ListenerGroup.java" />
+        <option value="$PROJECT_DIR$/rabbitmq-consumer/src/main/java/com/example/listeners/impl/ListenerStudent.java" />
+        <option value="$PROJECT_DIR$/models/src/main/java/com/example/Message.java" />
+        <option value="$PROJECT_DIR$/models/src/main/java/com/example/StudentMessage.java" />
+        <option value="$PROJECT_DIR$/rabbitmq-consumer/src/main/java/com/example/listeners/events/GroupEvent.java" />
+        <option value="$PROJECT_DIR$/rabbitmq-consumer/src/main/java/com/example/listeners/events/StudentEvent.java" />
+        <option value="$PROJECT_DIR$/rabbitmq-consumer/src/main/java/com/example/listeners/events/EventsPublisher.java" />
+        <option value="$PROJECT_DIR$/Lab-1-MS/src/main/resources/bootstrap.yml" />
+        <option value="$PROJECT_DIR$/Lab-1-MS/pom.xml" />
+        <option value="$PROJECT_DIR$/lab-2/src/main/java/com/example/Lab1MsApplication.java" />
+        <option value="$PROJECT_DIR$/lab-2/src/main/java/com/example/SchoolServiceApplication.java" />
+        <option value="$PROJECT_DIR$/lab-2/lab-2.iml" />
+        <option value="$PROJECT_DIR$/lab-2/src/main/java/com/example/services/GroupService.java" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
+        <option value="$PROJECT_DIR$/eureka_server/src/main/resources/bootstrap.yml" />
+        <option value="$PROJECT_DIR$/eureka-client-lab-2/src/main/resources/bootstrap.yml" />
+        <option value="$PROJECT_DIR$/eureka-client/src/main/java/com/example/EurekaClientApplication.java" />
+        <option value="$PROJECT_DIR$/eureka-client/src/main/java/com/example/EurekaClientLab2Application.java" />
+        <option value="$PROJECT_DIR$/configuration-server/src/main/resources/application.yml" />
+        <option value="$PROJECT_DIR$/models/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/lab-2/pom.xml" />
+        <option value="$PROJECT_DIR$/eureka-client-lab-2/pom.xml" />
+        <option value="$PROJECT_DIR$/schoolmodels/pom.xml" />
+        <option value="$PROJECT_DIR$/rabbitmq-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/lab-2/src/main/java/com/example/services/Service.java" />
+        <option value="$PROJECT_DIR$/lab-2/src/main/java/com/example/services/KPIGroupService.java" />
+        <option value="$PROJECT_DIR$/lab-2/src/main/java/com/example/services/KPIStudentService.java" />
+        <option value="$PROJECT_DIR$/lab-2/src/main/java/com/example/exceptions/StudentNotFoundException.java" />
+        <option value="$PROJECT_DIR$/lab-2/src/main/java/com/example/exceptions/GroupNotFoundException.java" />
+        <option value="$PROJECT_DIR$/lab-2/src/main/java/com/example/controllers/StudentController.java" />
+        <option value="$PROJECT_DIR$/lab-2/src/main/java/com/example/services/MessageService.java" />
+        <option value="$PROJECT_DIR$/lab-2/src/main/java/com/example/controllers/GroupController.java" />
+        <option value="$PROJECT_DIR$/lab-2/src/main/java/com/example/assemblers/MessageResourcesAssembler.java" />
+        <option value="$PROJECT_DIR$/lab-2/src/main/java/com/example/controllers/MessageController.java" />
+        <option value="$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/MsgController.java" />
+        <option value="$PROJECT_DIR$/configs-lab-3/lab-2.properties" />
+        <option value="$PROJECT_DIR$/rabbitmq-consumer/src/main/resources/application.properties" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="dedicatedModuleDir" value="$USER_HOME$/lab-spring-cloud/rabbitmq-consumer" />
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="950" />
+    <option name="width" value="979" />
+    <option name="height" value="1040" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springschool10" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springschool10" type="462c0819:PsiDirectoryNode" />
+              <item name="configs-lab-3" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springschool10" type="462c0819:PsiDirectoryNode" />
+              <item name="configuration-server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springschool10" type="462c0819:PsiDirectoryNode" />
+              <item name="configuration-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springschool10" type="462c0819:PsiDirectoryNode" />
+              <item name="configuration-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springschool10" type="462c0819:PsiDirectoryNode" />
+              <item name="configuration-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springschool10" type="462c0819:PsiDirectoryNode" />
+              <item name="eureka-client-lab-2" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springschool10" type="462c0819:PsiDirectoryNode" />
+              <item name="eureka-client-lab-2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springschool10" type="462c0819:PsiDirectoryNode" />
+              <item name="eureka-client-lab-2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springschool10" type="462c0819:PsiDirectoryNode" />
+              <item name="eureka-client-lab-2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springschool10" type="462c0819:PsiDirectoryNode" />
+              <item name="eureka-client-lab-2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springschool10" type="462c0819:PsiDirectoryNode" />
+              <item name="eureka-client-lab-2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springschool10" type="462c0819:PsiDirectoryNode" />
+              <item name="rabbitmq-consumer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springschool10" type="462c0819:PsiDirectoryNode" />
+              <item name="rabbitmq-consumer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springschool10" type="462c0819:PsiDirectoryNode" />
+              <item name="rabbitmq-consumer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springschool10" type="462c0819:PsiDirectoryNode" />
+              <item name="rabbitmq-consumer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558939770583" />
+    <property name="database.console.LAST_STATE" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2908046" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="show.run.dashboard.notification" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Omman\Desktop\6s\Jeva 6 s\labspringcloudkpi3\Lab-1-MS\src\main\java\com\example\services" />
+      <recent name="C:\Users\Omman\Desktop\6s\Jeva 6 s\labspringcloudkpi3\Lab-1-MS\src\main\java\com\example\repositories" />
+      <recent name="C:\Users\Omman\Desktop\6s\Jeva 6 s\labspringcloudkpi3\Lab-1-MS\src\main\java\com\example\loaders" />
+      <recent name="C:\Users\Omman\Desktop\6s\Jeva 6 s\labspringcloudkpi3\Lab-1-MS\src\main\java\com\example\exceptions" />
+      <recent name="C:\Users\Omman\Desktop\6s\Jeva 6 s\labspringcloudkpi3\Lab-1-MS\src\main\java\com\example\controllers" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.RabbitmqConsumer">
+    <configuration name="ConfigurationServer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="configuration-server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.ConfigurationServerApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EurekaClient" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
+      <module name="eureka-client-lab-2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.EurekaClientLab2Application" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EurekaServer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="eureka-lab-2" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.EurekaLab2Application" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RabbitmqConsumer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="rabbitmq-consumer" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.RabbitmqConsumerApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SchoolService" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="lab-2" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.SchoolServiceApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SchoolService" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="lab-2" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.SchoolServiceApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Spring Boot.RabbitmqConsumer" />
+      <item itemvalue="Spring Boot.ConfigurationServer" />
+      <item itemvalue="Spring Boot.SchoolService" />
+      <item itemvalue="Spring Boot.EurekaServer" />
+      <item itemvalue="Spring Boot.EurekaClient" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.EurekaClient" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SbtLocalSettings">
+    <option name="projectSyncType">
+      <map>
+        <entry key="$USER_HOME$/Documents/actual/data-load-pipeline" value="PREVIEW" />
+        <entry key="$USER_HOME$/Documents/api-service-base" value="PREVIEW" />
+        <entry key="$USER_HOME$/Documents/new-pipeline" value="PREVIEW" />
+        <entry key="$USER_HOME$/Documents/recommendation-service" value="PREVIEW" />
+        <entry key="$USER_HOME$/Documents/review-service" value="PREVIEW" />
+        <entry key="$USER_HOME$/Documents/sales-service" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ccde979f-f200-461d-983b-f97878f238e9" name="Default Changelist" comment="" />
+      <created>1556074229453</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1556074229453</updated>
+      <workItem from="1556074232359" duration="14194000" />
+      <workItem from="1556089157737" duration="8130000" />
+      <workItem from="1557039039678" duration="3946000" />
+      <workItem from="1557051234546" duration="4565000" />
+      <workItem from="1557156306857" duration="10249000" />
+      <workItem from="1557168923342" duration="962000" />
+      <workItem from="1557205743127" duration="5176000" />
+      <workItem from="1557211165927" duration="727000" />
+      <workItem from="1557293898081" duration="4992000" />
+      <workItem from="1557312601524" duration="2582000" />
+      <workItem from="1557323905133" duration="813000" />
+      <workItem from="1557326111901" duration="707000" />
+      <workItem from="1557397999122" duration="8000" />
+      <workItem from="1557402636356" duration="2282000" />
+      <workItem from="1558937950083" duration="1381000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="60714000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21006711" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Web" order="2" side_tool="true" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="Image Layers" order="7" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.47450426" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.23371105" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3286119" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Database Changes" order="8" />
+      <window_info anchor="bottom" id="Spring" order="9" weight="0.3286119" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.3286119" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.3286119" />
+      <window_info anchor="bottom" id="Java Enterprise" order="13" weight="0.3286119" />
+      <window_info active="true" anchor="bottom" id="Database Console" order="14" visible="true" weight="0.32897604" />
+      <window_info anchor="bottom" id="Docker" order="15" show_stripe_button="false" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Database" order="4" weight="0.15973154" />
+      <window_info anchor="right" id="Bean Validation" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Maven Projects" order="7" weight="0.20254566" />
+      <window_info anchor="right" id="Maven" order="8" weight="0.3295302" />
+      <window_info anchor="right" id="Capture Analysis" order="9" />
+      <window_info anchor="right" id="Theme Preview" order="10" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Capture Tool" order="0" />
+      <window_info id="Image Layers" order="1" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.2557047" />
+      <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
+      <window_info id="Web" order="4" side_tool="true" />
+      <window_info id="Designer" order="5" />
+      <window_info id="UI Designer" order="6" />
+      <window_info id="Favorites" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.32897604" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.32897604" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.39978212" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Spring" order="10" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32897604" />
+      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.32897604" />
+      <window_info anchor="bottom" id="Java Enterprise" order="14" />
+      <window_info active="true" anchor="bottom" id="Database Console" order="15" visible="true" weight="0.32897604" />
+      <window_info anchor="right" id="Maven" order="0" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
+      <window_info anchor="right" id="Theme Preview" order="2" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="3" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="4" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="5" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="6" />
+      <window_info anchor="right" id="Database" order="7" visible="true" weight="0.15973154" />
+      <window_info anchor="right" id="Bean Validation" order="8" />
+      <window_info anchor="right" id="Palette&#9;" order="9" />
+      <window_info anchor="right" id="Maven Projects" order="10" weight="0.20254566" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+      <path value="$PROJECT_DIR$/configs-lab-3" />
+    </ignored-roots>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/eureka_server/src/main/java/com/example/EurekaServerApplication.java" />
+    <entry file="file://$PROJECT_DIR$/eureka-client/src/main/resources/bootstrap.yml" />
+    <entry file="file://$PROJECT_DIR$/eureka-client/pom.xml" />
+    <entry file="file://$PROJECT_DIR$/eureka-client/eureka-client-lab-2.iml" />
+    <entry file="file://$PROJECT_DIR$/eureka_server/src/main/resources/bootstrap.yml" />
+    <entry file="file://$PROJECT_DIR$/eureka-client/target/classes/com/example/MsgController.class" />
+    <entry file="file://$PROJECT_DIR$/eureka-client/src/main/java/com/example/EurekaClientLab2Application.java" />
+    <entry file="file://$PROJECT_DIR$/eureka-client/target/classes/com/example/EurekaClientLab2Application.class" />
+    <entry file="file://$PROJECT_DIR$/eureka-client/target/classes/bootstrap.yml" />
+    <entry file="file://$PROJECT_DIR$/configs-lab-3/eureka-client.yml" />
+    <entry file="file://$PROJECT_DIR$/eureka-client/target/test-classes/com/example/eurekaclientlab2/EurekaClientLab2ApplicationTests.class" />
+    <entry file="file://$PROJECT_DIR$/configs-lab-3/eureka_server.yml" />
+    <entry file="file://$PROJECT_DIR$/eureka-client-lab-2/src/main/resources/bootstrap.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configuration-server/src/main/java/com/example/ConfigurationServerApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eureka-client-lab-2/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="66" column="45" selection-start-line="66" selection-start-column="45" selection-end-line="66" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab-2/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="34" lean-forward="true" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eureka-server/.mvn/wrapper/maven-wrapper.properties" />
+    <entry file="file://$PROJECT_DIR$/eureka-server/.mvn/wrapper/MavenWrapperDownloader.java" />
+    <entry file="file://$PROJECT_DIR$/eureka-server/eureka-server.iml" />
+    <entry file="file://$PROJECT_DIR$/eureka-server/pom.xml" />
+    <entry file="file://$PROJECT_DIR$/eureka-server/src/main/resources/bootstrap.yml" />
+    <entry file="file://$PROJECT_DIR$/eureka-lab-2/src/main/java/com/example/EurekaLab2Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/schoolmodels/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="8" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rabbitmq-consumer/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="51" lean-forward="true" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rabbitmq-consumer/src/main/java/com/example/listeners/impl/ListenerGroup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="59" selection-start-line="13" selection-start-column="59" selection-end-line="13" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configs-lab-3/eureka-client-lab-2.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="15" lean-forward="true" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configs-lab-3/eureka-lab-2.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/RestTemplateResponseErrorHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5">
+          <caret line="26" column="41" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rabbitmq-consumer/src/main/java/com/example/RabbitmqConsumerApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-187">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rabbitmq-consumer/src/main/java/com/example/ConsumerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-19">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/services/Service.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="5" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/exceptions/StudentNotFoundAdvice.java" />
+    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/exceptions/StudentNotFoundException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/exceptions/GroupNotFoundException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="45" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/services/KPIStudentService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-39">
+          <caret line="50" column="30" selection-start-line="50" selection-start-column="30" selection-end-line="50" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/controllers/StudentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="45" column="54" selection-start-line="45" selection-start-column="54" selection-end-line="47" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/schoolmodels/src/main/java/com/example/Group.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="54" column="5" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/services/MessageService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#386#387#0" expanded="true" />
+            <element signature="e#429#430#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/controllers/MessageController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="31" column="26" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/assemblers/MessageResourcesAssembler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/assemblers/GroupResourcesAssembler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="10" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/controllers/GroupController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" selection-start-line="6" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/services/KPIGroupService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1122">
+          <caret line="77" column="9" selection-start-line="77" selection-start-column="9" selection-end-line="77" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/SchoolServiceApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="27" column="14" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configuration-server/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="76" selection-start-line="12" selection-start-column="76" selection-end-line="12" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/MsgController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="264" column="48" selection-start-line="264" selection-start-column="48" selection-end-line="264" selection-end-column="48" />
+          <folding>
+            <element signature="method#getGroups#0;class#MsgController#0" />
+            <element signature="method#updateGroup#0;class#MsgController#0" />
+            <element signature="method#getStudent#0;class#MsgController#0" />
+            <element signature="method#getStudents#0;class#MsgController#0" />
+            <element signature="method#createStudent#0;class#MsgController#0" />
+            <element signature="method#updateStudent#0;class#MsgController#0" />
+            <element signature="method#info#0;class#MsgController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/MsgProducer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-277">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/EurekaClientLab2Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-668">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rabbitmq-consumer/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="33" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configs-lab-3/lab-2.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2908046" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Spring</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2908046" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>mysql-connector-java-8.0.12</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2908046" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8.0_192</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2908046" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>eureka-server</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2908046" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: antlr:antlr:2.7.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2908046" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

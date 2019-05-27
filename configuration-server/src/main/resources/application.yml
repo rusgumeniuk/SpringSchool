@@ -1,0 +1,21 @@
+server:
+  port: 9999
+
+spring:
+  profiles:
+    active: native
+  application:
+    name: configuration-server
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: C:/Users/Omman/Desktop/6s/Jeva 6 s/springschool10/configs-lab-3
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7777/eureka
+  instance:
+    metadata-map:
+      instance-id: ${spring.application.name}:${server.port}
