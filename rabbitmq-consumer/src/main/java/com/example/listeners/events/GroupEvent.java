@@ -1,6 +1,6 @@
 package com.example.listeners.events;
 
-import com.example.GroupMessage;
+import com.example.messages.GroupMessage;
 import org.springframework.context.ApplicationEvent;
 
 @SuppressWarnings("serial")

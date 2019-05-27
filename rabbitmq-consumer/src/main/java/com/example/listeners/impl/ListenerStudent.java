@@ -1,6 +1,6 @@
 package com.example.listeners.impl;
 
-import com.example.StudentMessage;
+import com.example.messages.StudentMessage;
 import com.example.listeners.RabbitListener;
 import com.example.listeners.events.EventsPublisher;
 import com.fasterxml.jackson.core.JsonProcessingException;

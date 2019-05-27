@@ -374,7 +374,7 @@
       <module name="eureka-client-lab-2" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.*" />
+          <option name="PATTERN" value="com.example.messages.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>

@@ -2,6 +2,10 @@ package com.example;
 
 import com.example.listeners.events.GroupEvent;
 import com.example.listeners.events.StudentEvent;
+import com.example.messages.GroupMessage;
+import com.example.messages.Message;
+import com.example.messages.MessageRepository;
+import com.example.messages.StudentMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.example.listeners.events;
 
-import com.example.StudentMessage;
+import com.example.messages.StudentMessage;
 import org.springframework.context.ApplicationEvent;
 
 @SuppressWarnings("serial")

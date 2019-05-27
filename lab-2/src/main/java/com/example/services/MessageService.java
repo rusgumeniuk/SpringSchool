@@ -1,7 +1,7 @@
 package com.example.services;
 
-import com.example.Message;
-import com.example.MessageRepository;
+import com.example.messages.Message;
+import com.example.messages.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

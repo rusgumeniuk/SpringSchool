@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.messages.GroupMessage;
+import com.example.messages.StudentMessage;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.slf4j.Logger;

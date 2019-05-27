@@ -1,7 +1,7 @@
 package com.example.listeners.events;
 
-import com.example.GroupMessage;
-import com.example.StudentMessage;
+import com.example.messages.GroupMessage;
+import com.example.messages.StudentMessage;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Component;

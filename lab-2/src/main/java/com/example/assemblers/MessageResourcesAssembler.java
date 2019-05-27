@@ -1,6 +1,6 @@
 package com.example.assemblers;
 
-import com.example.Message;
+import com.example.messages.Message;
 import com.example.controllers.MessageController;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
