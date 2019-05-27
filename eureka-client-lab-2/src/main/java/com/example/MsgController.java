@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.experimental.var;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,27 +100,11 @@ public class MsgController {
 
         log.info("Info about group: " + id);
 
-        if (response.getStatusCode() == HttpStatus.OK) {
-            GroupMessage msg = new GroupMessage("Group was successfully got - " + id.toString(), OperationType.GET, "200", "");
-            producer.sendGroupMsg(msg);
-        }
-        else if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
-            GroupMessage msg = new GroupMessage("Group was unsuccessfully got - " + id.toString(), OperationType.GET, "404", response.getBody().toString());
-            producer.sendGroupMsg(msg);
-        }
-        else if (response.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR) {
-            GroupMessage msg = new GroupMessage("Internal server error when getting group - " + id.toString(), OperationType.GET, "500", response.getBody().toString());
-            producer.sendGroupMsg(msg);
-        }
-        else {
-            GroupMessage msg = new GroupMessage("Something gone wrong when getting group - " + id.toString(), OperationType.GET, "", response.getBody().toString());
-            producer.sendGroupMsg(msg);
-        }
-
+        sendGroupMessage(response, id, HttpMethod.GET, response.getBody().toString());
         return response.getBody().toString();
     }
 
-    @RequestMapping(value = "/groups", method = RequestMethod.GET)
+    @RequestMapping(value = "/groups", method = RequestMethod.GET, produces="application/json")
     public String getGroups() {
         String url = getInstancesRun();
         log.info("Getting all groups" + " from " + url);
@@ -130,7 +115,7 @@ public class MsgController {
         return "All groups: \n" + response;
     }
 
-    @RequestMapping(value = "/groups", method = RequestMethod.POST)
+    @RequestMapping(value = "/groups", method = RequestMethod.POST, produces="application/json")
     public String createGroup(@RequestBody String object) {
         String url = getInstancesRun();
         log.info("Posting group from json from " + url);
@@ -142,23 +127,11 @@ public class MsgController {
         var response = this.restTemplate.exchange(String.format("%s/groups", url),
                 HttpMethod.POST, entity, new ParameterizedTypeReference<String>() {
                 });
-        if (response.getStatusCode() == HttpStatus.CREATED) {
-            GroupMessage msg = new GroupMessage("Group was successfully created - ", OperationType.POST, "200", "");
-            producer.sendGroupMsg(msg);
-        }
-        else if (response.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR) {
-            GroupMessage msg = new GroupMessage("Internal server error when creating Group - ", OperationType.POST, "500", response.getBody().toString());
-            producer.sendGroupMsg(msg);
-        }
-        else {
-            GroupMessage msg = new GroupMessage("Something gone wrong when creating Group - ", OperationType.POST, "", response.getBody().toString());
-            producer.sendGroupMsg(msg);
-        }
-
+        sendGroupMessage(response, new Long(0), HttpMethod.POST, response.getBody());
         return "Posted group: \n" + response.getBody();
     }
 
-    @RequestMapping(value = "/groups/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/groups/{id}", method = RequestMethod.PUT, produces="application/json")
     public String updateGroup(@RequestBody String object, @PathVariable Long id) {
         String url = getInstancesRun();
         log.info("Updating group from json from " + url);
@@ -167,54 +140,46 @@ public class MsgController {
 
         HttpEntity<String> entity = new HttpEntity<>(object, headers);
 
-        String response = this.restTemplate.exchange(String.format("%s/groups/%s", url, id),
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/groups/%s", url, id),
                 HttpMethod.PUT, entity, new ParameterizedTypeReference<String>() {
-                }, id).getBody();
+                }, id);
 
-        return "Updated group: \n" + response;
+        sendGroupMessage(response, id, HttpMethod.PUT, response.getBody().toString());
+        return "Updated group: \n" + response.getBody();
     }
 
-    @RequestMapping(value = "/groups/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/groups/{id}", method = RequestMethod.DELETE/*, produces="application/json"*/)
     public String deleteGroup(@PathVariable Long id) {
         String url = getInstancesRun();
         log.info("Deleting group from " + url);
-        var response = this.restTemplate.exchange(String.format("%s/groups/%s", url, id),
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/groups/%s", url, id),
                 HttpMethod.DELETE, null, new ParameterizedTypeReference<String>() {
                 }, id);
-        if (response.getStatusCode() == HttpStatus.OK || response.getStatusCode() == HttpStatus.ACCEPTED) {
-            GroupMessage msg = new GroupMessage("Group was successfully deleted - " + id.toString(), OperationType.DELETE, "200", "");
-            producer.sendGroupMsg(msg);
-        }
-        else if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
-            GroupMessage msg = new GroupMessage("Group was not found when delete - " + id.toString(), OperationType.DELETE, "404", response.getBody().toString());
-            producer.sendGroupMsg(msg);
-        }
-        else if (response.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR) {
-            GroupMessage msg = new GroupMessage("Internal server error when deleting group - " + id.toString(), OperationType.DELETE, "500", response.getBody().toString());
-            producer.sendGroupMsg(msg);
-        }
-        else {
-            GroupMessage msg = new GroupMessage("Something gone wrong when deleting group - " + id.toString(), OperationType.DELETE, "", response.getBody().toString());
-            producer.sendGroupMsg(msg);
-        }
-
-        return "Deleted group: \n" + id + "\n" + response.getBody();
+        String result = response.getStatusCode() == HttpStatus.OK ?
+                "Successfully deleted group with ID: " + id :
+                "Some error when delete group with ID:" + id;
+        sendGroupMessage(
+                response,
+                id,
+                HttpMethod.DELETE,
+                result);
+        return result;//"{\"result\":\"" + result + "\"}";
     }
 
-    @RequestMapping(value = "/students/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/students/{id}", method = RequestMethod.GET, produces="application/json")
     public String getStudent(@PathVariable Long id) {
         String url = getInstancesRun();
         log.info("Getting all details for Student " + id + " from " + url);
-        String response = this.restTemplate.exchange(String.format("%s/students/%s", url, id),
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/students/%s", url, id),
                 HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
-                }, id).getBody();
+                }, id);
+        sendStudentMessage(response, id, HttpMethod.GET, response.getBody().toString());
+        log.info("Info about Student: " + response.getBody());
 
-        log.info("Info about Student: " + response);
-
-        return "Id -  " + id + " \n Student Details " + response;
+        return "Id -  " + id + " \n Student Details " + response.getBody();
     }
 
-    @RequestMapping(value = "/students", method = RequestMethod.GET)
+    @RequestMapping(value = "/students", method = RequestMethod.GET, produces="application/json")
     public String getStudents() {
         String url = getInstancesRun();
         log.info("Getting all Students from " + url);
@@ -225,7 +190,7 @@ public class MsgController {
         return "All Students: \n" + response;
     }
 
-    @RequestMapping(value = "/students", method = RequestMethod.POST)
+    @RequestMapping(value = "/students", method = RequestMethod.POST, produces="application/json")
     public String createStudent(@RequestBody String object) {
         String url = getInstancesRun();
         log.info("Posting Student from json from " + url);
@@ -234,14 +199,14 @@ public class MsgController {
 
         HttpEntity<String> entity = new HttpEntity<>(object, headers);
 
-        String response = this.restTemplate.exchange(String.format("%s/students", url),
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/students", url),
                 HttpMethod.POST, entity, new ParameterizedTypeReference<String>() {
-                }).getBody();
-
-        return "All Students: \n" + response;
+                });
+        sendStudentMessage(response, Long.valueOf(0), HttpMethod.POST, response.getBody().toString());
+        return "All Students: \n" + response.getBody();
     }
 
-    @RequestMapping(value = "/students/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/students/{id}", method = RequestMethod.PUT, produces="application/json")
     public String updateStudent(@RequestBody String object, @PathVariable Long id) {
         String url = getInstancesRun();
         log.info("Updating Student from json from " + url);
@@ -250,25 +215,32 @@ public class MsgController {
 
         HttpEntity<String> entity = new HttpEntity<>(object, headers);
 
-        String response = this.restTemplate.exchange(String.format("%s/students/%s", url, id),
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/students/%s", url, id),
                 HttpMethod.PUT, entity, new ParameterizedTypeReference<String>() {
-                }, id).getBody();
-
-        return "Updated Student: \n" + response;
+                }, id);
+        sendStudentMessage(response, id, HttpMethod.PUT, response.getBody().toString());
+        return "Updated Student: \n" + response.getBody();
     }
 
-    @RequestMapping(value = "/students/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/students/{id}", method = RequestMethod.DELETE, produces="application/json")
     public String deleteStudent(@PathVariable Long id) {
         String url = getInstancesRun();
         log.info("Deleting Student from " + url);
-        var response = this.restTemplate.exchange(String.format("%s/students/%s", url, id),
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/students/%s", url, id),
                 HttpMethod.DELETE, null, new ParameterizedTypeReference<String>() {
-                }, id).getBody();
-
-        return "Deleted Student: \n" + response;
+                }, id);
+        String result = response.getStatusCode() == HttpStatus.OK ?
+                "Successfully deleted student with ID: " + id :
+                "Some error when delete student with ID:" + id;
+        sendStudentMessage(
+                response,
+                id,
+                HttpMethod.DELETE,
+                result);
+        return "{\"result\":\"" + result + "\"}";
     }
 
-    @RequestMapping(value="/info-producer",method=RequestMethod.GET,produces="application/json")
+    @RequestMapping(value="/info-producer",method=RequestMethod.GET, produces="application/json")
     public String info()
     {
         ObjectNode root = producer.info();
@@ -276,7 +248,7 @@ public class MsgController {
         return root.toString();
     }
 
-    @RequestMapping(value = "/messages", method = RequestMethod.GET)
+    @RequestMapping(value = "/messages", method = RequestMethod.GET, produces="application/json")
     public String getMessages() {
         String url = getInstancesRun();
         log.info("Getting all messages" + " from " + url);
