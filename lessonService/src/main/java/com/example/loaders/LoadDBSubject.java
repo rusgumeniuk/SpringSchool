@@ -23,7 +23,7 @@ public class LoadDBSubject {
             }
             else{
                 log.info("Current rows in table subject: ");
-                repository.findAll().forEach(subject -> log.info(subject.getId() + ":" + subject.getTitle()));
+                repository.findAll().forEach(subject -> log.info("Subject #" + subject.getId() + " - is a " + subject.getTitle()));
             }
         };
     }

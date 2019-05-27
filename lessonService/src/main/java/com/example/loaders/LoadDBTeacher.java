@@ -24,7 +24,7 @@ public class LoadDBTeacher {
             }
             else{
                 log.info("Current rows in table teacher: ");
-                repository.findAll().forEach(teacher -> log.info(teacher.getId() + ":" + teacher.getFullName()));
+                repository.findAll().forEach(teacher -> log.info("Teacher #" + teacher.getId() + " - " + teacher.getFullName()));
             }
         };
     }

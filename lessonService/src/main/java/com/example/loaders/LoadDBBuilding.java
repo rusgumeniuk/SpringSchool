@@ -22,7 +22,7 @@ public class LoadDBBuilding {
             }
             else{
                 log.info("Current rows in table building: ");
-                repository.findAll().forEach(building -> log.info(building.getId() + ":" + building.getNumber()));
+                repository.findAll().forEach(building -> log.info("Building ID " + building.getId() + "#: number №" + building.getNumber()));
             }
         };
     }

@@ -22,7 +22,7 @@ public class LoadDBGroup {
             }
             else{
                 log.info("Current rows in table groups: ");
-                repository.findAll().forEach(group -> log.info(group.getId() + ":" + group.getTitle()));
+                repository.findAll().forEach(group -> log.info("Group #" + group.getId() + " : " + group.getTitle()));
             }
         };
     }
