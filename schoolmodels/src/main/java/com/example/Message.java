@@ -5,31 +5,38 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.http.HttpMethod;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 
 @Data
 @Entity
 @Table(name = "messages")
 @EntityListeners(AuditingEntityListener.class)
-public class Message {
-    private @Id
-    @GeneratedValue
-    Long msg_id;
+public abstract class Message<T> {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long msg_id;
     @NotNull
     private String description;
     @NotNull
-    private OperationType operationType;
+    private HttpMethod httpMethod;
     @NotNull
     private String statusCode;
     @NotNull
+    @Column(length = 1000)
     private String error;
+    @NotNull
+    private Timestamp dateTime;
 
-    public Message(String description, OperationType operationType, String statusCode, String error) {
+    public Message(String description, HttpMethod httpMethod, String statusCode, Timestamp dateTime, String error) {
         this.description = description;
-        this.operationType = operationType;
+        this.httpMethod = httpMethod;
         this.statusCode = statusCode;
+        this.dateTime = dateTime;
         this.error = error;
     }
 
