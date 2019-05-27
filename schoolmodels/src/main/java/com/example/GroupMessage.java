@@ -1,54 +1,21 @@
 package com.example;
 
+import lombok.Data;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.http.HttpMethod;
 
-public class GroupMessage {
-    private String description;
-    private OperationType operationType;
-    private String statusCode;
-    private String error;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import java.sql.Timestamp;
 
-
-    public GroupMessage(String description, OperationType operationType, String statusCode, String error) {
-        this.description = description;
-        this.operationType = operationType;
-        this.statusCode = statusCode;
-        this.error = error;
+@Data
+@Entity
+@EntityListeners(AuditingEntityListener.class)
+public class GroupMessage extends Message<Group> {
+    public GroupMessage(String description, HttpMethod httpMethod, String statusCode, Timestamp dateTime, String error) {
+        super(description, httpMethod, statusCode, dateTime, error);
     }
 
-
-    public GroupMessage(){
-
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public OperationType getOperationType() {
-        return operationType;
-    }
-
-    public void setOperationType(OperationType operationType) {
-        this.operationType = operationType;
-    }
-
-    public String getStatusCode() {
-        return statusCode;
-    }
-
-    public void setStatusCode(String statusCode) {
-        this.statusCode = statusCode;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public void setError(String error) {
-        this.error = error;
+    public GroupMessage() {
     }
 }
