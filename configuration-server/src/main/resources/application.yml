@@ -10,7 +10,7 @@ spring:
     config:
       server:
         native:
-          search-locations: C:/Users/Omman/Desktop/6s/Jeva 6 s/springschool10/configs-lab-3
+          search-locations: C:/Users/Omman/Desktop/6s/Jeva 6 s/SpringSchool/configs-lab-3
 
 eureka:
   client:
