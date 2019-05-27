@@ -1,5 +1,6 @@
-package com.example;
+package com.example.messages;
 
+import com.example.Group;
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.http.HttpMethod;
@@ -11,11 +12,11 @@ import java.sql.Timestamp;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class StudentMessage extends Message<Student>{
-    public StudentMessage(String description, HttpMethod httpMethod, String statusCode, Timestamp dateTime, String error) {
+public class GroupMessage extends Message<Group> {
+    public GroupMessage(String description, HttpMethod httpMethod, String statusCode, Timestamp dateTime, String error) {
         super(description, httpMethod, statusCode, dateTime, error);
     }
 
-    public StudentMessage() {
+    public GroupMessage() {
     }
 }
