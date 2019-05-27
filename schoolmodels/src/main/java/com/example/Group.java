@@ -33,6 +33,11 @@ public class Group extends com.example.Entity {
     @OneToMany(cascade = {CascadeType.ALL})
     private List<Student> students;
 
+    @OneToOne
+    @JsonIgnore
+    @JoinColumn(name = "fk_teacher_id", referencedColumnName = "id")
+    private Teacher mentor;
+
     public Group(){}
     public Group(String title){
         setTitle(title);
