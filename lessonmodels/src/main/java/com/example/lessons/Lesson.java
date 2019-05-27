@@ -1,25 +1,25 @@
 package com.example.lessons;
-
 import com.example.Group;
 import com.example.Room;
 import com.example.Subject;
 import com.example.Teacher;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.DayOfWeek;
 
+
 @Data
 @Entity
-@Table(name = "rooms")
+@Table(name = "lessons")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = "isDeleted", allowGetters = true)
+
 public class Lesson extends com.example.Entity {
 
     @NotNull
@@ -32,12 +32,19 @@ public class Lesson extends com.example.Entity {
     private DayOfWeek dayOfWeek;
 
     @NotBlank
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Room room;
+
     @NotBlank
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Subject subject;
+
     @NotBlank
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Teacher teacher;
+
     @NotBlank
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Group group;
 
     public Lesson() {}
@@ -63,3 +70,5 @@ public class Lesson extends com.example.Entity {
         this.group = group;
     }
 }
+
+
