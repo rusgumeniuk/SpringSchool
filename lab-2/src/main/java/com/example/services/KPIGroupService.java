@@ -57,25 +57,11 @@ public class KPIGroupService implements GroupService {
 
     @Override
     public Group updateObject(Group newObject, Integer integer) {
-        Optional<Group> foundGroup = groupRepository.findById(integer);
-        if (foundGroup.get().getDeleted())
-            throw new GroupNotFoundException(integer);
-
-        if (foundGroup.isPresent()) {
-            foundGroup
-                    .map(group -> {
-                        group.setTitle(newObject.getTitle());
-                        group.setStudents(newObject.getStudents());
-                        group.setCathedra(newObject.getCathedra());
-                        group.setStartYear(newObject.getStartYear());
-                        group.setId(newObject.getId());
-                        return groupRepository.save(group);
-                    })
-                    .orElseGet(() -> {
-                        newObject.setId(integer);
-                        return groupRepository.save(newObject);
-                    });
-        }
-        throw new GroupNotFoundException(integer);
+        Group foundGroup = getObjectById(integer);
+        foundGroup.setTitle(newObject.getTitle());
+        foundGroup.setStudents(newObject.getStudents());
+        foundGroup.setCathedra(newObject.getCathedra());
+        foundGroup.setStartYear(newObject.getStartYear());
+        return groupRepository.save(foundGroup);
     }
 }

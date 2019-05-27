@@ -54,24 +54,11 @@ public class KPIStudentService implements StudentService {
 
     @Override
     public Student updateObject(Student newObject, Integer integer) {
-        Optional<Student> foundStudent = studentRepository.findById(integer);
-        if (foundStudent.get().getDeleted())
-            throw new StudentNotFoundException(integer);
-        if(foundStudent.isPresent())
-            foundStudent
-                .map(student -> {
-                    student.setName(newObject.getName());
-                    student.setId(newObject.getId());
-                    student.setAge(newObject.getAge());
-                    student.setMale(newObject.getMale());
-                    student.setCity(newObject.getCity());
-                    return studentRepository.save(student);
-                })
-                .orElseGet(() -> {
-                    newObject.setId(integer);
-                    return studentRepository.save(newObject);
-                });
-
-        throw new StudentNotFoundException(integer);
+        Student foundStudent = getObjectById(integer);
+        foundStudent.setName(newObject.getName());
+        foundStudent.setAge(newObject.getAge());
+        foundStudent.setMale(newObject.getMale());
+        foundStudent.setCity(newObject.getCity());
+        return studentRepository.save(foundStudent);
     }
 }
