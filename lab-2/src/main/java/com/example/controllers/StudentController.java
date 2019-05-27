@@ -4,6 +4,7 @@ import com.example.Group;
 import com.example.Student;
 import com.example.assemblers.GroupResourcesAssembler;
 import com.example.assemblers.StudentResourcesAssembler;
+import com.example.exceptions.StudentNotFoundException;
 import com.example.services.GroupService;
 import com.example.services.StudentService;
 import lombok.experimental.var;
@@ -11,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -80,7 +79,10 @@ public class StudentController {
         try {
             changeStudentGroup(studentId, -2);
             studentService.deleteObject(studentId);
-        } catch (Exception ex) {
+        } catch (StudentNotFoundException ex) {
+            return ResponseEntity.notFound().build();
+        }
+        catch (Exception ex){
             System.out.println("ATTENTION " + ex.getMessage());
         }
 
@@ -117,7 +119,7 @@ public class StudentController {
 
     private Resources<Resource<Student>> addStudentToGroup(Student student, Integer groupId) {
         Student stud = studentService.getObjectById(student.getId());
-                
+
         if (groupId == -2)
             return null;
         Group group = groupService.getObjectById(groupId);
@@ -130,7 +132,7 @@ public class StudentController {
     }
 
     private Resources<Resource<Student>> getStudentsOfGroup(Integer groupId) {
-         var group = groupService.getObjectById(groupId);
+        var group = groupService.getObjectById(groupId);
         List<Resource<Student>> list = group.getStudents()
                 .stream()
                 .map(assembler::toResource)
@@ -141,15 +143,4 @@ public class StudentController {
                 linkTo(methodOn(StudentController.class).getStudents()).withSelfRel()
         );
     }
-
-    /*@ExceptionHandler
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ValidationError handleException(MethodArgumentNotValidException exception) {
-        return createValidationError(exception);
-    }
-
-    private ValidationError createValidationError(MethodArgumentNotValidException e) {
-        return ValidationErrorBuilder.fromBindingErrors(e.getBindingResult());
-    }*/
 }
-

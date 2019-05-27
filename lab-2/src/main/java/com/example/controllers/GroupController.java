@@ -12,17 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
-import org.springframework.hateoas.VndErrors;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -82,7 +78,13 @@ public class GroupController {
 
     @DeleteMapping("/{groupId}/delall")
     public ResponseEntity<?> deleteGroupAndStudents(@PathVariable Integer groupId) {
-        groupService.deleteObject(groupId);
+        try{
+            groupService.deleteObject(groupId);
+        }
+        catch (GroupNotFoundException ex){
+            return ResponseEntity.notFound().build();
+        }
+
         return ResponseEntity.ok().build();
     }
 
@@ -132,14 +134,4 @@ public class GroupController {
         }
         return getStudentsOfGroup(groupId);
     }
-
-   /* @ExceptionHandler
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ValidationError handleException(MethodArgumentNotValidException exception) {
-        return createValidationError(exception);
-    }
-
-    private ValidationError createValidationError(MethodArgumentNotValidException e) {
-        return ValidationErrorBuilder.fromBindingErrors(e.getBindingResult());
-    }*/
 }
