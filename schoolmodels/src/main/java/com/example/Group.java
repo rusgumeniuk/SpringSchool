@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +20,7 @@ import java.util.List;
 @Table(name = "groups")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = "isDeleted", allowGetters = true)
-public class Group {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "group_id")
-    private int id;
-
+public class Group extends com.example.Entity {
     @NotBlank(message ="TITLE can not be blank")
     private String title;
 
@@ -39,7 +34,7 @@ public class Group {
     private boolean isDeleted;
 
     @OneToMany(cascade = {CascadeType.ALL})
-    private List<Student> students = new ArrayList<>();
+    private List<Student> students;
 
     public Group(){}
     public Group(String title){
@@ -47,6 +42,7 @@ public class Group {
         cathedra = "unknown";
         startYear = 2018;
     }
+
     public List<Student> addStudent(Student student){
         if(students.contains(student))
             throw new RuntimeException("Student already in this group!");
@@ -78,19 +74,4 @@ public class Group {
         else
             this.startYear = startYear;
     }
-    @Override
-    public String toString() {
-        ObjectMapper mapper = new ObjectMapper();
-
-        String jsonString = "";
-        try {
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            jsonString = mapper.writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        return jsonString;
-    }
 }
-

@@ -13,17 +13,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Data
-@Entity
+@javax.persistence.Entity
 @Table(name = "students")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = "isDeleted", allowGetters = true)
-public class Student {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "student_id")
-    private int id;
-
+public class Student extends com.example.Entity {
     @NotBlank(message ="NAME can not be blank")
     private String name;
 
@@ -62,6 +56,10 @@ public class Student {
         else
             System.out.println("Oooops, student should be elder 15");
     }
+    public int getAge() {
+        return age;
+    }
+
     public void delete(){
         isDeleted = true;
     }
@@ -69,19 +67,17 @@ public class Student {
         return isDeleted;
     }
 
-    @Override
-    public String toString() {
-        ObjectMapper mapper = new ObjectMapper();
+    public String getCity() {
+        return city;
+    }
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-        String jsonString = "";
-        try {
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            jsonString = mapper.writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        return jsonString;
+    public Male getMale() {
+        return male;
+    }
+    public void setMale(Male male) {
+        this.male = male;
     }
 }
-
