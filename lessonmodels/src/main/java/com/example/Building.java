@@ -64,4 +64,22 @@ public class Building extends com.example.Entity {
     private boolean isNaturalNumber(int number){
         return number > 0;
     }
+
+    public List<Room> addRoom(Room room){
+        if(rooms.contains(room))
+            throw new RuntimeException("Room already in this building!");
+        rooms.add(room);
+        return rooms;
+    }
+    
+    public boolean removeRoom(Room room){
+        return rooms.contains(room) && rooms.remove(room);
+    }
+    public boolean removeRoom(Integer id){
+        for(int i = 0; i < rooms.size(); ++i){
+            if(rooms.get(i).getId() == id)
+                return rooms.remove(rooms.get(i));
+        }
+        return false;
+    } 
 }
