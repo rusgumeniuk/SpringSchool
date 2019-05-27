@@ -29,7 +29,7 @@ public class ConsumerController {
     {
         System.out.println("EVENT RECEIVED: " + evt.getMessage().getDescription());
         GroupMessage message = evt.getMessage();
-        msgRepo.save(new Message(message.getDescription(), message.getOperationType(), message.getStatusCode(), message.getError()));
+        msgRepo.save(new GroupMessage(message.getDescription(), message.getHttpMethod(), message.getStatusCode(), message.getDateTime(), message.getError()));
         List<SseEmitter> deadEmitters = new ArrayList<SseEmitter>();
         this.lsEmitters.forEach(emitter -> {
             try {
@@ -49,7 +49,7 @@ public class ConsumerController {
     {
         System.out.println("EVENT RECEIVED: " + evt.getMessage().getDescription());
         StudentMessage message = evt.getMessage();
-        this.msgRepo.save(new Message(message.getDescription(), message.getOperationType(), message.getStatusCode(), message.getError()));
+        msgRepo.save(new StudentMessage(message.getDescription(), message.getHttpMethod(), message.getStatusCode(), message.getDateTime(), message.getError()));
 
         List<SseEmitter> deadEmitters = new ArrayList<SseEmitter>();
         this.lsEmitters.forEach(emitter -> {
