@@ -17,6 +17,7 @@
         <module>schoolmodels</module>
         <module>rabbitmq-consumer</module>
         <module>lessonmodels</module>
+        <module>lessonService</module>
     </modules>
 
 </project>

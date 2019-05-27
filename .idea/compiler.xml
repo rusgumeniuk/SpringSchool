@@ -11,6 +11,7 @@
         <module name="eureka-lab-2" />
         <module name="lab-2" />
         <module name="lessonmodels" />
+        <module name="lessonService" />
         <module name="rabbitmq-consumer" />
         <module name="schoolmodels" />
       </profile>
@@ -26,6 +27,7 @@
       <module name="eureka-lab-2" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
       <module name="lab-2" options="-parameters" />
+      <module name="lessonService" options="-parameters" />
       <module name="rabbitmq-consumer" options="-parameters" />
       <module name="schoolmodels" options="" />
     </option>
