@@ -10,6 +10,7 @@
         <module name="eureka-client-lab-2" />
         <module name="eureka-lab-2" />
         <module name="lab-2" />
+        <module name="lessonmodels" />
         <module name="rabbitmq-consumer" />
         <module name="schoolmodels" />
       </profile>

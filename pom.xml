@@ -16,6 +16,7 @@
         <module>lab-2</module>
         <module>schoolmodels</module>
         <module>rabbitmq-consumer</module>
+        <module>lessonmodels</module>
     </modules>
 
 </project>
