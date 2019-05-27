@@ -23,6 +23,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.security.auth.Subject;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.HashMap;
@@ -85,6 +86,43 @@ public class MsgController {
         ServiceInstance instance = client.choose("lab-2");
         return instance.getUri().toString();
     }
+    /////////////
+    @RequestMapping(value = "/instancesl")
+    public String getLessonInstancesRun(){
+        ServiceInstance instance = client.choose("lessonService");
+        return instance.getUri().toString();
+    }
+    @RequestMapping(value = "/subjects/{id}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    public String getSubject(@PathVariable Long id) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+        HttpEntity httpEntity = new HttpEntity(headers);
+
+        String url = getLessonInstancesRun();
+        log.info("Getting all details for subject " + id + " from " + url);
+        var response = restTemplate.exchange(String.format("%s/subjects/%s", url, Long.toString(id)),
+                HttpMethod.GET, httpEntity, Subject.class, id);
+
+        log.info("Info about subject: " + id);
+
+        sendGroupMessage(response, id, HttpMethod.GET, response.getBody().toString());
+        return response.getBody().toString();
+    }
+
+    @RequestMapping(value = "/subjects", method = RequestMethod.GET, produces="application/json")
+    public String getSubjects() {
+        String url = getLessonInstancesRun();
+        log.info("Getting all subject" + " from " + url);
+        String response = this.restTemplate.exchange(String.format("%s/subjects", url),
+                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
+                }).getBody();
+
+        return "All subjects: \n" + response;
+    }
+
+    //////////////////////
+
 
     @RequestMapping(value = "/groups/{id}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public String getGroup(@PathVariable Long id) {
