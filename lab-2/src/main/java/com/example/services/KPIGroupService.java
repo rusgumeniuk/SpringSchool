@@ -46,11 +46,7 @@ public class KPIGroupService implements GroupService {
 
     @Override
     public void deleteObject(Integer integer) {
-        Group foundGroup = groupRepository.getOne(integer);
-
-        if (foundGroup.getDeleted())
-            throw new GroupNotFoundException(foundGroup.getId());
-
+        Group foundGroup = getObjectById(integer);
         foundGroup.delete();
         groupRepository.save(foundGroup);
     }

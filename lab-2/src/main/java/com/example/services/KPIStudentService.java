@@ -45,9 +45,7 @@ public class KPIStudentService implements StudentService {
 
     @Override
     public void deleteObject(Integer integer) {
-        Student foundStudent = studentRepository.getOne(integer);
-        if (foundStudent.getDeleted())
-            throw new StudentNotFoundException(foundStudent.getId());
+        Student foundStudent = getObjectById(integer);
         foundStudent.delete();
         studentRepository.save(foundStudent);
     }
