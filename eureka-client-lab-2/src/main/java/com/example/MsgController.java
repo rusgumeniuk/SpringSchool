@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.sun.tracing.dtrace.ProviderAttributes;
 import lombok.experimental.var;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -463,6 +464,38 @@ public class MsgController {
                 result);
         return result;//"{\"result\":\"" + result + "\"}";
     }
+    @RequestMapping(value = "/groups/{id}/students", method = RequestMethod.GET, produces = "application/json")
+    public String getGroupStudents(@PathVariable Long id) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+        HttpEntity httpEntity = new HttpEntity(headers);
+
+        String url = getInstancesRun();
+        log.info("Getting all students for group " + id + " from " + url);
+
+        String response = this.restTemplate.exchange(String.format("%s/groups/%s/students", url, Long.toString(id)),
+                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
+                }).getBody();
+
+    }
+    @RequestMapping(value = "/groups/{id}/students/{studentId}", method = RequestMethod.DELETE/*, produces="application/json"*/)
+    public String removeStudentFromGroup(@PathVariable Long id, @PathVariable Long studentId) {
+        String url = getInstancesRun();
+        log.info("Deleting student " + studentId + "# from group " + id + "# from: " + url);
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/groups/%s/students/%s", url, id, studentId),
+                HttpMethod.DELETE, null, new ParameterizedTypeReference<String>() {
+                }, id);
+        String result = response.getStatusCode() == HttpStatus.OK ?
+                "Successfully removed student " + studentId + "# from group " + id + "#" :
+                "Some error when remove student " + studentId + "# from group " + id + "#" ;
+        sendGroupMessage(
+                response,
+                id,
+                HttpMethod.DELETE,
+                result);
+        return result;//"{\"result\":\"" + result + "\"}";
+    }
 
     /* STUDENTS */
     @RequestMapping(value = "/students/{id}", method = RequestMethod.GET, produces="application/json")
@@ -533,6 +566,29 @@ public class MsgController {
                 HttpMethod.DELETE,
                 result);
         return "{\"result\":\"" + result + "\"}";
+    }
+    @RequestMapping(value = "/students/{id}/group", method = RequestMethod.GET, produces="application/json")
+    public String getGroupOfStudent(@PathVariable Long id) {
+        String url = getInstancesRun();
+        log.info("Getting group of student " + id + "# from " + url);
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/students/%s/group", url, id),
+                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
+                }, id);
+        sendStudentMessage(response, id, HttpMethod.GET, response.getBody().toString());
+        log.info("Info about group: " + response.getBody());
+
+        return "Group of student " + id + " ID\n" + response.getBody();
+    }
+    @RequestMapping(value = "/students/{id}/group/{groupId}", method = RequestMethod.POST, produces="application/json")
+    public String addStudentToGroup(@PathVariable Long id, @PathVariable Long groupId) {
+        String url = getInstancesRun();
+        log.info("Add student " + id + "# to group " + groupId + "# from " + url);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/students/%s/group/%s", url, id, groupId),
+                HttpMethod.POST, null, new ParameterizedTypeReference<String>() {
+                });
+//        sendStudentMessage(response, Long.valueOf(0), HttpMethod.POST, response.getBody().toString());
+        return "All Students: \n" + response.getBody();
     }
 
     @RequestMapping(value="/info-producer",method=RequestMethod.GET, produces="application/json")
