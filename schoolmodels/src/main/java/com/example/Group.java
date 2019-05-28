@@ -21,7 +21,7 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = "isDeleted", allowGetters = true)
 public class Group extends com.example.Entity {
-    @NotBlank(message ="TITLE can not be blank")
+    @javax.validation.constraints.NotBlank(message ="TITLE can not be blank")
     private String title;
 
     @NotBlank(message = "Group has to be connected with some cathedra")
@@ -39,8 +39,8 @@ public class Group extends com.example.Entity {
     private Teacher mentor;
 
     public Group(){}
-    public Group(String title){
-        setTitle(title);
+    public Group(@javax.validation.constraints.NotBlank String title){
+        this.title = title;
         cathedra = "unknown";
         startYear = 2018;
     }

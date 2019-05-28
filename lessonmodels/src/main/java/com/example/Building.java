@@ -26,6 +26,10 @@ public class Building extends com.example.Entity {
     private List<Room> rooms;
 
     public Building() {}
+    public Building(@NotNull int number){
+        this.number = number;
+        countOfStoreys = 4;
+    }
     public Building(@NotNull int number, @NotNull short countOfStoreys) {
         setNumber(number);
         setCountOfStoreys(countOfStoreys);

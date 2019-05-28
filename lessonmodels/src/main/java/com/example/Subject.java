@@ -23,6 +23,10 @@ public class Subject extends com.example.Entity {
     @NotNull
     private ControlType controlType;
 
+    public Subject(@NotBlank String title){
+        this.title = title;
+        controlType = ControlType.TEST;
+    }
     public Subject(@NotBlank String title, @NotNull ControlType controlType) {
         this.title = title;
         this.controlType = controlType;

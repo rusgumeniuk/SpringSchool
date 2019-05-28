@@ -31,6 +31,11 @@ public class Teacher extends com.example.Entity {
 
     public Teacher() {}
 
+    public Teacher(@NotBlank String fullName){
+        this.fullName = fullName;
+        teacherRank = TeacherRank.POSTGRADUATE;
+        cathedra = "TK";
+    }
     public Teacher(@NotBlank String fullName, @NotBlank TeacherRank teacherRank, @NotBlank String cathedra) {
         this.fullName = fullName;
         this.teacherRank = teacherRank;
