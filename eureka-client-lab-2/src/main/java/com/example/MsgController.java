@@ -239,6 +239,34 @@ public class MsgController {
                 result);
         return result;//"{\"result\":\"" + result + "\"}";
     }
+    @RequestMapping(value = "/buildings/{id}/rooms", method = RequestMethod.GET, produces = "application/json")
+    public String getBuildingRooms(@PathVariable Long id) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+        HttpEntity httpEntity = new HttpEntity(headers);
+
+        String url = getLessonInstancesRun();
+        log.info("Getting all rooms for building " + id + " from " + url);
+
+        String response = this.restTemplate.exchange(String.format("%s/buildings/%s/rooms", url, Long.toString(id)),
+                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
+                }).getBody();
+
+        return "Rooms of building with id " + id + "ID:" + response;
+    }
+    @RequestMapping(value = "/buildings/{id}/rooms/{roomId}", method = RequestMethod.DELETE/*, produces="application/json"*/)
+    public String removeRoomFromBuilding(@PathVariable Long id, @PathVariable Long roomId) {
+        String url = getLessonInstancesRun();
+        log.info("Deleting room " + roomId + "# from building " + id + "# from: " + url);
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/buildings/%s/rooms/%s", url, id, roomId),
+                HttpMethod.DELETE, null, new ParameterizedTypeReference<String>() {
+                }, id);
+        String result = response.getStatusCode() == HttpStatus.OK ?
+                "Successfully removed room " + roomId + "# from building " + id + "#" :
+                "Some error when remove room " + roomId + "# from building " + id + "#" ;
+        return result;//"{\"result\":\"" + result + "\"}";
+    }
 
     /* ROOMS */
     @RequestMapping(value = "/rooms/{id}", method = RequestMethod.GET, produces="application/json")
@@ -309,6 +337,27 @@ public class MsgController {
                 HttpMethod.DELETE,
                 result);
         return "{\"result\":\"" + result + "\"}";
+    }
+    @RequestMapping(value = "/rooms/{id}/building", method = RequestMethod.GET, produces="application/json")
+    public String getBuildingOfRoom(@PathVariable Long id) {
+        String url = getLessonInstancesRun();
+        log.info("Getting building of room " + id + "# from " + url);
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/rooms/%s/building", url, id),
+                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
+                }, id);
+        log.info("Info about building: " + response.getBody());
+        return "Building of room " + id + " ID\n" + response.getBody();
+    }
+    @RequestMapping(value = "/rooms/{id}/building/{buildingId}", method = RequestMethod.POST, produces="application/json")
+    public String addRoomToBuilding(@PathVariable Long id, @PathVariable Long buildingId) {
+        String url = getLessonInstancesRun();
+        log.info("Add room " + id + "# to building " + buildingId + "# from " + url);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/rooms/%s/building/%s", url, id, buildingId),
+                HttpMethod.POST, null, new ParameterizedTypeReference<String>() {
+                });
+
+        return "All Rooms: \n" + response.getBody();
     }
 
     /* SUBJECTS */
