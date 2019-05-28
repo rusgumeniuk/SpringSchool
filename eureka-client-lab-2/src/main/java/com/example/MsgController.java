@@ -478,6 +478,7 @@ public class MsgController {
                 HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
                 }).getBody();
 
+        return "Students of group with id " + id + "ID:" + response;
     }
     @RequestMapping(value = "/groups/{id}/students/{studentId}", method = RequestMethod.DELETE/*, produces="application/json"*/)
     public String removeStudentFromGroup(@PathVariable Long id, @PathVariable Long studentId) {
