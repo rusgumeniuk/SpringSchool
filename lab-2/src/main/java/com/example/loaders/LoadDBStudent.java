@@ -24,7 +24,7 @@ public class LoadDBStudent {
             }
             else{
                 log.info("Current rows in table students: ");
-                repository.findAll().forEach(student -> log.info("Student #" + student.getId() + " : " + student.getName() + (student.getGroup() != null? " from " + student.getGroup() : "")));
+                repository.findAll().forEach(student -> log.info("Student #" + student.getId() + " : " + student.getName()));
             }
         };
     }

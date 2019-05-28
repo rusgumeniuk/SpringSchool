@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ccde979f-f200-461d-983b-f97878f238e9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/configs-lab-3/lessonService.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/MsgController.java" beforeDir="false" afterPath="$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/MsgController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab-2/src/main/java/com/example/loaders/LoadDBStudent.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab-2/src/main/java/com/example/loaders/LoadDBStudent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lessonService/src/main/java/com/example/loaders/LoadDBRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/lessonService/src/main/java/com/example/loaders/LoadDBRoom.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -50,96 +52,122 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/schoolmodels/src/main/java/com/example/Group.java">
+        <entry file="file://$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/MsgController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="35" column="2" selection-start-line="35" selection-start-column="2" selection-end-line="36" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lessonmodels/src/main/java/com/example/lessons/Lesson.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+            <state relative-caret-position="1071">
+              <caret line="258" column="91" selection-start-line="258" selection-start-column="91" selection-end-line="258" selection-end-column="91" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#Lesson#0;class#Lesson#0" />
-                <element signature="method#Lesson#1;class#Lesson#0" />
+                <element signature="e#1274#1289#0" />
+                <element signature="e#1534#1834#0" />
+                <element signature="e#1940#2160#0" />
+                <element signature="e#2329#3036#0" />
+                <element signature="e#2768#2863#1" />
+                <element signature="e#3042#3246#0" />
+                <element signature="e#3251#3450#0" />
+                <element signature="e#3456#4312#0" />
+                <element signature="e#4317#4800#0" />
+                <element signature="class#4679:4735" />
+                <element signature="e#4805#5615#0" />
+                <element signature="class#5390:5446" />
+                <element signature="e#5620#6454#0" />
+                <element signature="class#6236:6292" />
+                <element signature="e#6459#7314#0" />
+                <element signature="class#6862:6918" />
+                <element signature="e#7320#8181#0" />
+                <element signature="e#8186#8675#0" />
+                <element signature="class#8553:8609" />
+                <element signature="e#8680#9467#0" />
+                <element signature="class#9258:9314" />
+                <element signature="e#9472#10311#0" />
+                <element signature="class#10095:10151" />
+                <element signature="e#10316#11184#0" />
+                <element signature="class#10727:10783" />
+                <element signature="e#11189#11966#0" />
+                <element signature="e#11971#12987#0" />
+                <element signature="e#11190#11905#0" />
+                <element signature="class#11614:11670" />
+                <element signature="e#11910#12374#0" />
+                <element signature="class#12256:12312" />
+                <element signature="e#12379#13172#0" />
+                <element signature="class#12952:13008" />
+                <element signature="e#13177#13997#0" />
+                <element signature="class#13784:13840" />
+                <element signature="e#14002#14835#0" />
+                <element signature="class#14393:14449" />
+                <element signature="e#16655#17382#0" />
+                <element signature="e#17387#18117#0" />
+                <element signature="e#14841#15697#0" />
+                <element signature="e#15702#16185#0" />
+                <element signature="class#16064:16120" />
+                <element signature="e#16190#17000#0" />
+                <element signature="class#16775:16831" />
+                <element signature="e#17005#17839#0" />
+                <element signature="class#17621:17677" />
+                <element signature="e#17844#18699#0" />
+                <element signature="class#18247:18303" />
+                <element signature="e#18706#19525#0" />
+                <element signature="e#19530#19998#0" />
+                <element signature="class#19879:19935" />
+                <element signature="e#20003#20769#0" />
+                <element signature="class#20563:20619" />
+                <element signature="e#20774#21592#0" />
+                <element signature="class#21379:21435" />
+                <element signature="e#21597#22441#0" />
+                <element signature="class#21990:22046" />
+                <element signature="e#22446#23223#0" />
+                <element signature="class#23079:23135" />
+                <element signature="e#23228#24262#0" />
+                <element signature="class#23751:23807" />
+                <element signature="e#24268#24998#0" />
+                <element signature="class#24701:24757" />
+                <element signature="e#25003#25476#0" />
+                <element signature="class#25355:25411" />
+                <element signature="e#25481#26283#0" />
+                <element signature="class#26060:26116" />
+                <element signature="e#26288#27117#0" />
+                <element signature="class#26901:26957" />
+                <element signature="e#27122#27967#0" />
+                <element signature="class#27519:27575" />
+                <element signature="e#27972#28690#0" />
+                <element signature="class#28399:28455" />
+                <element signature="e#28695#29413#0" />
+                <element signature="class#29188:29244" />
+                <element signature="e#29419#29620#0" />
+                <element signature="e#29626#30123#0" />
+                <element signature="class#30002:30058" />
+                <element signature="e#30129#30699#0" />
+                <element signature="e#30704#31280#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+        <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/loaders/LoadDBStudent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="29" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lessonService/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="30" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
+            <state relative-caret-position="134">
+              <caret line="26" column="122" selection-start-line="26" selection-start-column="122" selection-end-line="26" selection-end-column="122" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lessonService/src/main/resources/bootstrap.yml">
+        <entry file="file://$PROJECT_DIR$/lessonService/src/main/java/com/example/loaders/LoadDBRoom.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+            <state relative-caret-position="136">
+              <caret line="24" column="125" lean-forward="true" selection-start-line="24" selection-start-column="125" selection-end-line="24" selection-end-column="125" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lessonService/src/main/java/com/example/LessonServiceApplication.java">
+        <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/SchoolServiceApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/configs-lab-3/lessonService.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="16" selection-start-column="16" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lessonmodels/src/main/java/com/example/lessons/LessonNumber.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lessonmodels/src/main/java/com/example/lessons/LessonType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lessonmodels/src/main/java/com/example/lessons/WeekMode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+            <state relative-caret-position="239">
+              <caret line="27" column="14" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -166,10 +194,12 @@
       <find>\</find>
       <find>GroupMessage</find>
       <find>Optional&lt;Group&gt;</find>
-      <find>student</find>
       <find>mess</find>
-      <find>group</find>
       <find>groupAssembler</find>
+      <find>group</find>
+      <find>Group</find>
+      <find>student</find>
+      <find>Student</find>
     </findStrings>
     <replaceStrings>
       <replace>Order</replace>
@@ -182,6 +212,10 @@
       <replace>Message</replace>
       <replace>message</replace>
       <replace>assembler</replace>
+      <replace>building</replace>
+      <replace>Building</replace>
+      <replace>room</replace>
+      <replace>Room</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -190,8 +224,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Lab-1-MS/src/main/java/com/example/assemblers/GroupResourcesAssembler.java" />
-        <option value="$PROJECT_DIR$/Lab-1-MS/src/main/java/com/example/controllers/GroupController.java" />
         <option value="$PROJECT_DIR$/Lab-1-MS/src/main/java/com/example/controllers/StudentController.java" />
         <option value="$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/EurekaClientLab2Application.java" />
         <option value="$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/MsgProducer.java" />
@@ -231,7 +263,6 @@
         <option value="$PROJECT_DIR$/lab-2/src/main/java/com/example/controllers/GroupController.java" />
         <option value="$PROJECT_DIR$/lab-2/src/main/java/com/example/assemblers/MessageResourcesAssembler.java" />
         <option value="$PROJECT_DIR$/lab-2/src/main/java/com/example/controllers/MessageController.java" />
-        <option value="$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/MsgController.java" />
         <option value="$PROJECT_DIR$/configs-lab-3/lab-2.properties" />
         <option value="$PROJECT_DIR$/rabbitmq-consumer/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/schoolmodels/src/main/java/com/example/Group.java" />
@@ -241,6 +272,9 @@
         <option value="$PROJECT_DIR$/lessonService/src/main/resources/bootstrap.yml" />
         <option value="$PROJECT_DIR$/configs-lab-3/lessonService.properties" />
         <option value="$PROJECT_DIR$/lessonService/src/main/java/com/example/LessonServiceApplication.java" />
+        <option value="$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/MsgController.java" />
+        <option value="$PROJECT_DIR$/lab-2/src/main/java/com/example/loaders/LoadDBStudent.java" />
+        <option value="$PROJECT_DIR$/lessonService/src/main/java/com/example/loaders/LoadDBRoom.java" />
       </list>
     </option>
   </component>
@@ -275,16 +309,6 @@
             <path>
               <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
               <item name="SpringSchool" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SpringSchool" type="462c0819:PsiDirectoryNode" />
-              <item name="configs-lab-3" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SpringSchool" type="462c0819:PsiDirectoryNode" />
-              <item name="lab-2" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="springschool" type="b2602c69:ProjectViewProjectNode" />
@@ -327,7 +351,9 @@
               <item name="lessonService" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+              <item name="loaders" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -345,7 +371,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558966180698" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559052054712" />
     <property name="database.console.LAST_STATE" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -353,6 +379,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2908046" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="show.run.dashboard.notification" value="false" />
@@ -384,7 +411,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.RabbitmqConsumer">
+  <component name="RunManager" selected="Spring Boot.EurekaClient">
     <configuration name="ConfigurationServer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="configuration-server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.ConfigurationServerApplication" />
@@ -410,6 +437,14 @@
     <configuration name="EurekaServer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="eureka-lab-2" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.EurekaLab2Application" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LessonService" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="lessonService" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.SchoolServiceApplication" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -443,6 +478,7 @@
       <item itemvalue="Spring Boot.RabbitmqConsumer" />
       <item itemvalue="Spring Boot.ConfigurationServer" />
       <item itemvalue="Spring Boot.SchoolService" />
+      <item itemvalue="Spring Boot.LessonService" />
       <item itemvalue="Spring Boot.EurekaServer" />
       <item itemvalue="Spring Boot.EurekaClient" />
     </list>
@@ -490,11 +526,12 @@
       <workItem from="1557402636356" duration="2282000" />
       <workItem from="1558937950083" duration="1381000" />
       <workItem from="1558939922302" duration="810000" />
+      <workItem from="1559050400413" duration="1489000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61830000" />
+    <option name="totallyTimeSpent" value="63326000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -509,7 +546,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26174498" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18456376" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info id="Designer" order="3" />
@@ -519,7 +556,7 @@
       <window_info id="Image Layers" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.47450426" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.47733712" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.23371105" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -593,20 +630,6 @@
     </ignored-roots>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/configuration-server/src/main/java/com/example/ConfigurationServerApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eureka-client-lab-2/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="66" column="45" selection-start-line="66" selection-start-column="45" selection-end-line="66" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lab-2/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -671,13 +694,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rabbitmq-consumer/src/main/java/com/example/ConsumerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-19">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/services/Service.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -713,13 +729,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/controllers/StudentController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="45" column="54" selection-start-line="45" selection-start-column="54" selection-end-line="47" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/services/MessageService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -752,22 +761,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/MsgController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2958">
-          <caret line="264" column="48" selection-start-line="264" selection-start-column="48" selection-end-line="264" selection-end-column="48" />
-          <folding>
-            <element signature="method#getGroups#0;class#MsgController#0" />
-            <element signature="method#updateGroup#0;class#MsgController#0" />
-            <element signature="method#getStudent#0;class#MsgController#0" />
-            <element signature="method#getStudents#0;class#MsgController#0" />
-            <element signature="method#createStudent#0;class#MsgController#0" />
-            <element signature="method#updateStudent#0;class#MsgController#0" />
-            <element signature="method#info#0;class#MsgController#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/MsgProducer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -796,27 +789,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/controllers/GroupController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" selection-start-line="6" selection-end-line="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/services/KPIGroupService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1122">
           <caret line="77" column="9" selection-start-line="77" selection-start-column="9" selection-end-line="77" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/SchoolServiceApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="27" column="14" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -877,9 +853,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lessonService/src/main/java/com/example/loaders/LoadDBGroup.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/lessonService/src/main/java/com/example/loaders/LoadDBGroup.java" />
     <entry file="file://$PROJECT_DIR$/lessonmodels/src/main/java/com/example/Subject.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
@@ -943,17 +917,176 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lessonService/src/main/java/com/example/LessonServiceApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/lessonService/src/main/java/com/example/LessonServiceApplication.java" />
     <entry file="file://$PROJECT_DIR$/lessonService/src/main/resources/bootstrap.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/controllers/GroupController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="54" column="37" selection-start-line="54" selection-start-column="37" selection-end-line="54" selection-end-column="82" />
+          <folding>
+            <element signature="e#959#974#0" />
+            <element signature="method#GroupController#0;class#GroupController#0" />
+            <element signature="method#getGroups#0;class#GroupController#0" />
+            <element signature="method#createGroup#0;class#GroupController#0" />
+            <element signature="method#updateGroup#0;class#GroupController#0" />
+            <element signature="method#deleteGroupAndStudents#0;class#GroupController#0" />
+            <element signature="e#3210#3269#0" />
+            <element signature="e#3311#3376#0" />
+            <element signature="method#deleteGroupAndSaveStudents#0;class#GroupController#0" />
+            <element signature="e#3792#4099#1" />
+            <element signature="method#getStudentsOfGroup#0;class#GroupController#0" />
+            <element signature="method#removeStudentFromGroup#0;class#GroupController#0" />
+            <element signature="e#5216#5449#1" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/controllers/StudentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="34" column="54" selection-start-line="34" selection-start-column="54" selection-end-line="34" selection-end-column="54" />
+          <folding>
+            <element signature="e#982#997#0" />
+            <element signature="method#StudentController#0;class#StudentController#0" />
+            <element signature="method#getStudents#0;class#StudentController#0" />
+            <element signature="method#createStudent#0;class#StudentController#0" />
+            <element signature="method#updateStudent#0;class#StudentController#0" />
+            <element signature="method#deleteStudent#0;class#StudentController#0" />
+            <element signature="e#3112#3222#0" />
+            <element signature="e#3259#3324#0" />
+            <element signature="e#3353#3428#0" />
+            <element signature="method#getGroupOfStudent#0;class#StudentController#0" />
+            <element signature="method#removeStudentFromGroup#0;class#StudentController#0" />
+            <element signature="e#4396#4710#1" />
+            <element signature="method#addStudentToGroup#0;class#StudentController#0" />
+            <element signature="method#getStudentsOfGroup#0;class#StudentController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rabbitmq-consumer/src/main/java/com/example/ConsumerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="31" column="158" lean-forward="true" selection-start-line="31" selection-start-column="158" selection-end-line="31" selection-end-column="158" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/SchoolServiceApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="27" column="14" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eureka-client-lab-2/src/main/java/com/example/MsgController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1071">
+          <caret line="258" column="91" selection-start-line="258" selection-start-column="91" selection-end-line="258" selection-end-column="91" />
+          <folding>
+            <element signature="e#1274#1289#0" />
+            <element signature="e#1534#1834#0" />
+            <element signature="e#1940#2160#0" />
+            <element signature="e#2329#3036#0" />
+            <element signature="e#2768#2863#1" />
+            <element signature="e#3042#3246#0" />
+            <element signature="e#3251#3450#0" />
+            <element signature="e#3456#4312#0" />
+            <element signature="e#4317#4800#0" />
+            <element signature="class#4679:4735" />
+            <element signature="e#4805#5615#0" />
+            <element signature="class#5390:5446" />
+            <element signature="e#5620#6454#0" />
+            <element signature="class#6236:6292" />
+            <element signature="e#6459#7314#0" />
+            <element signature="class#6862:6918" />
+            <element signature="e#7320#8181#0" />
+            <element signature="e#8186#8675#0" />
+            <element signature="class#8553:8609" />
+            <element signature="e#8680#9467#0" />
+            <element signature="class#9258:9314" />
+            <element signature="e#9472#10311#0" />
+            <element signature="class#10095:10151" />
+            <element signature="e#10316#11184#0" />
+            <element signature="class#10727:10783" />
+            <element signature="e#11189#11966#0" />
+            <element signature="e#11971#12987#0" />
+            <element signature="e#11190#11905#0" />
+            <element signature="class#11614:11670" />
+            <element signature="e#11910#12374#0" />
+            <element signature="class#12256:12312" />
+            <element signature="e#12379#13172#0" />
+            <element signature="class#12952:13008" />
+            <element signature="e#13177#13997#0" />
+            <element signature="class#13784:13840" />
+            <element signature="e#14002#14835#0" />
+            <element signature="class#14393:14449" />
+            <element signature="e#16655#17382#0" />
+            <element signature="e#17387#18117#0" />
+            <element signature="e#14841#15697#0" />
+            <element signature="e#15702#16185#0" />
+            <element signature="class#16064:16120" />
+            <element signature="e#16190#17000#0" />
+            <element signature="class#16775:16831" />
+            <element signature="e#17005#17839#0" />
+            <element signature="class#17621:17677" />
+            <element signature="e#17844#18699#0" />
+            <element signature="class#18247:18303" />
+            <element signature="e#18706#19525#0" />
+            <element signature="e#19530#19998#0" />
+            <element signature="class#19879:19935" />
+            <element signature="e#20003#20769#0" />
+            <element signature="class#20563:20619" />
+            <element signature="e#20774#21592#0" />
+            <element signature="class#21379:21435" />
+            <element signature="e#21597#22441#0" />
+            <element signature="class#21990:22046" />
+            <element signature="e#22446#23223#0" />
+            <element signature="class#23079:23135" />
+            <element signature="e#23228#24262#0" />
+            <element signature="class#23751:23807" />
+            <element signature="e#24268#24998#0" />
+            <element signature="class#24701:24757" />
+            <element signature="e#25003#25476#0" />
+            <element signature="class#25355:25411" />
+            <element signature="e#25481#26283#0" />
+            <element signature="class#26060:26116" />
+            <element signature="e#26288#27117#0" />
+            <element signature="class#26901:26957" />
+            <element signature="e#27122#27967#0" />
+            <element signature="class#27519:27575" />
+            <element signature="e#27972#28690#0" />
+            <element signature="class#28399:28455" />
+            <element signature="e#28695#29413#0" />
+            <element signature="class#29188:29244" />
+            <element signature="e#29419#29620#0" />
+            <element signature="e#29626#30123#0" />
+            <element signature="class#30002:30058" />
+            <element signature="e#30129#30699#0" />
+            <element signature="e#30704#31280#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab-2/src/main/java/com/example/loaders/LoadDBStudent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="26" column="122" selection-start-line="26" selection-start-column="122" selection-end-line="26" selection-end-column="122" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lessonService/src/main/java/com/example/loaders/LoadDBRoom.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="24" column="125" lean-forward="true" selection-start-line="24" selection-start-column="125" selection-end-line="24" selection-end-column="125" />
         </state>
       </provider>
     </entry>

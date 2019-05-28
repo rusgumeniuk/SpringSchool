@@ -20,10 +20,10 @@ public class LoadDBRoom {
                 log.info("Preloading room " + repository.save((new Room(402))));
                 log.info("Preloading room" + repository.save((new Room(518))));
             }
-          /*  else{
+            else{
                 log.info("Current rows in table room: ");
-                repository.findAll().forEach(room -> log.info("Room ID " + room.getId() + "#: Number №" + room.getNumber() + " in building " + (room.getBuilding() != null ? room.getBuilding() : "nowhere")));
-            }*/
+                repository.findAll().forEach(room -> log.info("Room ID " + room.getId() + "#: Number №" + room.getNumber()));
+            }
         };
     }
 }
