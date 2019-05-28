@@ -6,7 +6,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.experimental.var;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +22,6 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import javax.security.auth.Subject;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.HashMap;
@@ -35,9 +33,7 @@ public class MsgController {
 
     @Autowired
     private MsgProducer producer;
-
     private static Logger log = LoggerFactory.getLogger(EurekaClientLab2Application.class);
-
     private final RestTemplate restTemplate;
 
     @Autowired
@@ -56,21 +52,18 @@ public class MsgController {
     @Autowired
     private Environment env;
 
+    /* REFRESH */
     @PostMapping(value = "/refreshing", produces = "application/json; charset=UTF-8")
-    public String checkRefresh() throws JsonProcessingException
-    {
+    public String checkRefresh() throws JsonProcessingException{
         return refresh() + getPropertiesClient();
     }
-
     @PostMapping(value = "/actuator/bus-refresh", produces = "application/json; charset=UTF-8")
     public String refresh()
     {
         return "Refreshed";
     }
-
     @GetMapping(value = "/properties", produces = "application/json; charset=UTF-8")
-    public String getPropertiesClient() throws JsonProcessingException
-    {
+    public String getPropertiesClient() throws JsonProcessingException{
         Map<String, Object> props = new HashMap<>();
         CompositePropertySource bootstrapProperties = (CompositePropertySource)  ((AbstractEnvironment) env).getPropertySources().get("bootstrapProperties");
         for (String propertyName : bootstrapProperties.getPropertyNames()) {
@@ -81,17 +74,243 @@ public class MsgController {
         return mapper.writeValueAsString(props);
     }
 
+    /* INSTANCES */
     @RequestMapping(value = "/instances")
     public String getInstancesRun(){
         ServiceInstance instance = client.choose("lab-2");
         return instance.getUri().toString();
     }
-    /////////////
     @RequestMapping(value = "/instancesl")
     public String getLessonInstancesRun(){
         ServiceInstance instance = client.choose("lessonService");
         return instance.getUri().toString();
     }
+
+    /* TEACHERS */
+    @RequestMapping(value = "/teachers/{id}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    public String getTeacher(@PathVariable Long id) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+        HttpEntity httpEntity = new HttpEntity(headers);
+
+        String url = getLessonInstancesRun();
+        log.info("Getting all details for teacher " + id + " from " + url);
+        var response = restTemplate.exchange(String.format("%s/teachers/%s", url, Long.toString(id)),
+                HttpMethod.GET, httpEntity, Teacher.class, id);
+
+        log.info("Info about teacher: " + id);
+
+        //sendGroupMessage(response, id, HttpMethod.GET, response.getBody().toString());
+        return response.getBody().toString();
+    }
+    @RequestMapping(value = "/teachers", method = RequestMethod.GET, produces="application/json")
+    public String getTeachers() {
+        String url = getLessonInstancesRun();
+        log.info("Getting all teacher" + " from " + url);
+        String response = this.restTemplate.exchange(String.format("%s/teachers", url),
+                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
+                }).getBody();
+
+        return "All teachers: \n" + response;
+    }
+    @RequestMapping(value = "/teachers", method = RequestMethod.POST, produces="application/json")
+    public String createTeacher(@RequestBody String object) {
+        String url = getLessonInstancesRun();
+        log.info("Posting Teacher from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> entity = new HttpEntity<>(object, headers);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/teachers", url),
+                HttpMethod.POST, entity, new ParameterizedTypeReference<String>() {
+                });
+        //sendStudentMessage(response, Long.valueOf(0), HttpMethod.POST, response.getBody().toString());
+        return "All Teachers: \n" + response.getBody();
+    }
+    @RequestMapping(value = "/teachers/{id}", method = RequestMethod.PUT, produces="application/json")
+    public String updateTeacher(@RequestBody String object, @PathVariable Long id) {
+        String url = getLessonInstancesRun();
+        log.info("Updating Room from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> entity = new HttpEntity<>(object, headers);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/teachers/%s", url, id),
+                HttpMethod.PUT, entity, new ParameterizedTypeReference<String>() {
+                }, id);
+        //sendStudentMessage(response, id, HttpMethod.PUT, response.getBody().toString());
+        return "Updated Teacher: \n" + response.getBody();
+    }
+    @RequestMapping(value = "/teachers/{id}", method = RequestMethod.DELETE, produces="application/json")
+    public String deleteTeacher(@PathVariable Long id) {
+        String url = getLessonInstancesRun();
+        log.info("Deleting Teacher from " + url);
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/teachers/%s", url, id),
+                HttpMethod.DELETE, null, new ParameterizedTypeReference<String>() {
+                }, id);
+        String result = response.getStatusCode() == HttpStatus.OK ?
+                "Successfully deleted Teacher with ID: " + id :
+                "Some error when delete Teacher with ID:" + id;
+       /* sendStudentMessage(
+                response,
+                id,
+                HttpMethod.DELETE,
+                result);*/
+        return "{\"result\":\"" + result + "\"}";
+    }
+
+    /* BUILDINGS */
+    @RequestMapping(value = "/buildings/{id}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    public String getBuilding(@PathVariable Long id) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+        HttpEntity httpEntity = new HttpEntity(headers);
+
+        String url = getLessonInstancesRun();
+        log.info("Getting all details for building " + id + " from " + url);
+        var response = restTemplate.exchange(String.format("%s/buildings/%s", url, Long.toString(id)),
+                HttpMethod.GET, httpEntity, Building.class, id);
+
+        log.info("Info about building: " + id);
+
+        sendGroupMessage(response, id, HttpMethod.GET, response.getBody().toString());
+        return response.getBody().toString();
+    }
+    @RequestMapping(value = "/buildings", method = RequestMethod.GET, produces="application/json")
+    public String getBuildings() {
+        String url = getLessonInstancesRun();
+        log.info("Getting all buildings" + " from " + url);
+        String response = this.restTemplate.exchange(String.format("%s/buildings", url),
+                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
+                }).getBody();
+
+        return "All buildings: \n" + response;
+    }
+    @RequestMapping(value = "/buildings", method = RequestMethod.POST, produces="application/json")
+    public String createBuilding(@RequestBody String object) {
+        String url = getLessonInstancesRun();
+        log.info("Posting building from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> entity = new HttpEntity<>(object, headers);
+
+        var response = this.restTemplate.exchange(String.format("%s/buildings", url),
+                HttpMethod.POST, entity, new ParameterizedTypeReference<String>() {
+                });
+        sendGroupMessage(response, new Long(0), HttpMethod.POST, response.getBody());
+        return "Posted building: \n" + response.getBody();
+    }
+    @RequestMapping(value = "/buildings/{id}", method = RequestMethod.PUT, produces="application/json")
+    public String updateBuilding(@RequestBody String object, @PathVariable Long id) {
+        String url = getLessonInstancesRun();
+        log.info("Updating building from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> entity = new HttpEntity<>(object, headers);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/buildings/%s", url, id),
+                HttpMethod.PUT, entity, new ParameterizedTypeReference<String>() {
+                }, id);
+
+        sendGroupMessage(response, id, HttpMethod.PUT, response.getBody().toString());
+        return "Updated building: \n" + response.getBody();
+    }
+    @RequestMapping(value = "/buildings/{id}", method = RequestMethod.DELETE/*, produces="application/json"*/)
+    public String deleteBuilding(@PathVariable Long id) {
+        String url = getLessonInstancesRun();
+        log.info("Deleting building from " + url);
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/buildings/%s", url, id),
+                HttpMethod.DELETE, null, new ParameterizedTypeReference<String>() {
+                }, id);
+        String result = response.getStatusCode() == HttpStatus.OK ?
+                "Successfully deleted building with ID: " + id :
+                "Some error when delete building with ID:" + id;
+        sendGroupMessage(
+                response,
+                id,
+                HttpMethod.DELETE,
+                result);
+        return result;//"{\"result\":\"" + result + "\"}";
+    }
+
+    /* ROOMS */
+    @RequestMapping(value = "/rooms/{id}", method = RequestMethod.GET, produces="application/json")
+    public String getRoom(@PathVariable Long id) {
+        String url = getLessonInstancesRun();
+        log.info("Getting all details for Room " + id + " from " + url);
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/rooms/%s", url, id),
+                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
+                }, id);
+        sendStudentMessage(response, id, HttpMethod.GET, response.getBody().toString());
+        log.info("Info about Room: " + response.getBody());
+
+        return "Id -  " + id + " \n Room Details " + response.getBody();
+    }
+    @RequestMapping(value = "/rooms", method = RequestMethod.GET, produces="application/json")
+    public String getRooms() {
+        String url = getLessonInstancesRun();
+        log.info("Getting all Rooms from " + url);
+        String response = this.restTemplate.exchange(String.format("%s/rooms", url),
+                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
+                }).getBody();
+
+        return "All Rooms: \n" + response;
+    }
+    @RequestMapping(value = "/rooms", method = RequestMethod.POST, produces="application/json")
+    public String createRoom(@RequestBody String object) {
+        String url = getLessonInstancesRun();
+        log.info("Posting Room from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> entity = new HttpEntity<>(object, headers);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/rooms", url),
+                HttpMethod.POST, entity, new ParameterizedTypeReference<String>() {
+                });
+        sendStudentMessage(response, Long.valueOf(0), HttpMethod.POST, response.getBody().toString());
+        return "All Rooms: \n" + response.getBody();
+    }
+    @RequestMapping(value = "/rooms/{id}", method = RequestMethod.PUT, produces="application/json")
+    public String updateRoom(@RequestBody String object, @PathVariable Long id) {
+        String url = getLessonInstancesRun();
+        log.info("Updating Room from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> entity = new HttpEntity<>(object, headers);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/rooms/%s", url, id),
+                HttpMethod.PUT, entity, new ParameterizedTypeReference<String>() {
+                }, id);
+        sendStudentMessage(response, id, HttpMethod.PUT, response.getBody().toString());
+        return "Updated Room: \n" + response.getBody();
+    }
+    @RequestMapping(value = "/rooms/{id}", method = RequestMethod.DELETE, produces="application/json")
+    public String deleteRoom(@PathVariable Long id) {
+        String url = getLessonInstancesRun();
+        log.info("Deleting Room from " + url);
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/rooms/%s", url, id),
+                HttpMethod.DELETE, null, new ParameterizedTypeReference<String>() {
+                }, id);
+        String result = response.getStatusCode() == HttpStatus.OK ?
+                "Successfully deleted room with ID: " + id :
+                "Some error when delete room with ID:" + id;
+        sendStudentMessage(
+                response,
+                id,
+                HttpMethod.DELETE,
+                result);
+        return "{\"result\":\"" + result + "\"}";
+    }
+
+    /* SUBJECTS */
     @RequestMapping(value = "/subjects/{id}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public String getSubject(@PathVariable Long id) {
         HttpHeaders headers = new HttpHeaders();
@@ -106,10 +325,9 @@ public class MsgController {
 
         log.info("Info about subject: " + id);
 
-        sendGroupMessage(response, id, HttpMethod.GET, response.getBody().toString());
+        //sendGroupMessage(response, id, HttpMethod.GET, response.getBody().toString());
         return response.getBody().toString();
     }
-
     @RequestMapping(value = "/subjects", method = RequestMethod.GET, produces="application/json")
     public String getSubjects() {
         String url = getLessonInstancesRun();
@@ -120,11 +338,57 @@ public class MsgController {
 
         return "All subjects: \n" + response;
     }
+    @RequestMapping(value = "/subjects", method = RequestMethod.POST, produces="application/json")
+    public String createSubject(@RequestBody String object) {
+        String url = getLessonInstancesRun();
+        log.info("Posting Subject from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-    //////////////////////
+        HttpEntity<String> entity = new HttpEntity<>(object, headers);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/subjects", url),
+                HttpMethod.POST, entity, new ParameterizedTypeReference<String>() {
+                });
+        //sendStudentMessage(response, Long.valueOf(0), HttpMethod.POST, response.getBody().toString());
+        return "All Subjects: \n" + response.getBody();
+    }
+    @RequestMapping(value = "/subjects/{id}", method = RequestMethod.PUT, produces="application/json")
+    public String updateSubject(@RequestBody String object, @PathVariable Long id) {
+        String url = getLessonInstancesRun();
+        log.info("Updating Room from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> entity = new HttpEntity<>(object, headers);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/subjects/%s", url, id),
+                HttpMethod.PUT, entity, new ParameterizedTypeReference<String>() {
+                }, id);
+        //sendStudentMessage(response, id, HttpMethod.PUT, response.getBody().toString());
+        return "Updated Subject: \n" + response.getBody();
+    }
+    @RequestMapping(value = "/subjects/{id}", method = RequestMethod.DELETE, produces="application/json")
+    public String deleteSubject(@PathVariable Long id) {
+        String url = getLessonInstancesRun();
+        log.info("Deleting Subject from " + url);
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/subjects/%s", url, id),
+                HttpMethod.DELETE, null, new ParameterizedTypeReference<String>() {
+                }, id);
+        String result = response.getStatusCode() == HttpStatus.OK ?
+                "Successfully deleted Subject with ID: " + id :
+                "Some error when delete Subject with ID:" + id;
+       /* sendStudentMessage(
+                response,
+                id,
+                HttpMethod.DELETE,
+                result);*/
+        return "{\"result\":\"" + result + "\"}";
+    }
 
 
-    @RequestMapping(value = "/groups/{id}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    /* GROUPS */
+    @RequestMapping(value = "/groups/{id}", method = RequestMethod.GET, produces = "application/json")
     public String getGroup(@PathVariable Long id) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
@@ -141,7 +405,6 @@ public class MsgController {
         sendGroupMessage(response, id, HttpMethod.GET, response.getBody().toString());
         return response.getBody().toString();
     }
-
     @RequestMapping(value = "/groups", method = RequestMethod.GET, produces="application/json")
     public String getGroups() {
         String url = getInstancesRun();
@@ -152,7 +415,6 @@ public class MsgController {
 
         return "All groups: \n" + response;
     }
-
     @RequestMapping(value = "/groups", method = RequestMethod.POST, produces="application/json")
     public String createGroup(@RequestBody String object) {
         String url = getInstancesRun();
@@ -168,7 +430,6 @@ public class MsgController {
         sendGroupMessage(response, new Long(0), HttpMethod.POST, response.getBody());
         return "Posted group: \n" + response.getBody();
     }
-
     @RequestMapping(value = "/groups/{id}", method = RequestMethod.PUT, produces="application/json")
     public String updateGroup(@RequestBody String object, @PathVariable Long id) {
         String url = getInstancesRun();
@@ -185,7 +446,6 @@ public class MsgController {
         sendGroupMessage(response, id, HttpMethod.PUT, response.getBody().toString());
         return "Updated group: \n" + response.getBody();
     }
-
     @RequestMapping(value = "/groups/{id}", method = RequestMethod.DELETE/*, produces="application/json"*/)
     public String deleteGroup(@PathVariable Long id) {
         String url = getInstancesRun();
@@ -204,6 +464,7 @@ public class MsgController {
         return result;//"{\"result\":\"" + result + "\"}";
     }
 
+    /* STUDENTS */
     @RequestMapping(value = "/students/{id}", method = RequestMethod.GET, produces="application/json")
     public String getStudent(@PathVariable Long id) {
         String url = getInstancesRun();
@@ -216,7 +477,6 @@ public class MsgController {
 
         return "Id -  " + id + " \n Student Details " + response.getBody();
     }
-
     @RequestMapping(value = "/students", method = RequestMethod.GET, produces="application/json")
     public String getStudents() {
         String url = getInstancesRun();
@@ -227,7 +487,6 @@ public class MsgController {
 
         return "All Students: \n" + response;
     }
-
     @RequestMapping(value = "/students", method = RequestMethod.POST, produces="application/json")
     public String createStudent(@RequestBody String object) {
         String url = getInstancesRun();
@@ -243,7 +502,6 @@ public class MsgController {
         sendStudentMessage(response, Long.valueOf(0), HttpMethod.POST, response.getBody().toString());
         return "All Students: \n" + response.getBody();
     }
-
     @RequestMapping(value = "/students/{id}", method = RequestMethod.PUT, produces="application/json")
     public String updateStudent(@RequestBody String object, @PathVariable Long id) {
         String url = getInstancesRun();
@@ -259,7 +517,6 @@ public class MsgController {
         sendStudentMessage(response, id, HttpMethod.PUT, response.getBody().toString());
         return "Updated Student: \n" + response.getBody();
     }
-
     @RequestMapping(value = "/students/{id}", method = RequestMethod.DELETE, produces="application/json")
     public String deleteStudent(@PathVariable Long id) {
         String url = getInstancesRun();
@@ -279,13 +536,13 @@ public class MsgController {
     }
 
     @RequestMapping(value="/info-producer",method=RequestMethod.GET, produces="application/json")
-    public String info()
-    {
+    public String info(){
         ObjectNode root = producer.info();
 
         return root.toString();
     }
 
+    /* MESSAGES */
     @RequestMapping(value = "/messages", method = RequestMethod.GET, produces="application/json")
     public String getMessages() {
         String url = getInstancesRun();
