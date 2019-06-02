@@ -8,13 +8,11 @@ import javax.persistence.Entity;
 
 @Entity
 @Data
-@Table(name="authorities1")
+@Table(name="authorities")
 @EntityListeners(AuditingEntityListener.class)
 public class Authorities {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     private String username;
     private String authority;
 
