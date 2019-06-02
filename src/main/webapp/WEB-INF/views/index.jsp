@@ -6,6 +6,7 @@
     <link href="../../resources/enterStyle.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
+<h1>HERE U R </h1>
 <div>
     <form method = "post" action="${contextPath}">
         <h2>Log in</h2>
