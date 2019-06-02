@@ -8,6 +8,7 @@
     <title>Subject</title>
     <link href="../../resources/subjectDetailStyle.css" type="text/css" rel="stylesheet" />
 </head>
+
 <body>
 <form action="/subject/{id}" method="get">
     <div class="wrapper1">
@@ -40,4 +41,5 @@
     <button class="btn" onclick="location.href='/menu'">Menu</button>
 </div >
 </body>
+<jsp:include page="../views/footer.jsp" />
 </html>

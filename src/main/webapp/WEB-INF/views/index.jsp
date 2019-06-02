@@ -5,6 +5,7 @@
     <title>Log in</title>
     <link href="../../resources/enterStyle.css" type="text/css" rel="stylesheet" />
 </head>
+<jsp:include page="../views/header.jsp" />
 <body>
 <h1>HERE U R </h1>
 <div>

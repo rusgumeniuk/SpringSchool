@@ -8,6 +8,7 @@
     <title>Student info</title>
     <link href="../../resources/groupDetailStyle.css" type="text/css" rel="stylesheet" />
 </head>
+<jsp:include page="../views/header.jsp" />
 <body>
 <form action="/students/{id}" method="get">
     <div class="wrapper1">
@@ -52,4 +53,5 @@
 </div >
 
 </body>
+<jsp:include page="../views/footer.jsp" />
 </html>

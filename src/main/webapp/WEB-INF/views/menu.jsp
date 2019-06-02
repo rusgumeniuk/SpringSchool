@@ -6,7 +6,7 @@
     <link href="../../resources/menuStyle.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
-<h1>MENU HERE </h1>
+<jsp:include page="../views/header.jsp" />
 <nav class="menu">
     <ul id="head">
         <li class="obj"><a href="/logout">Log out</a> </li>
@@ -16,4 +16,5 @@
     </ul>
 </nav>
 </body>
+<jsp:include page="../views/footer.jsp" />
 </html>

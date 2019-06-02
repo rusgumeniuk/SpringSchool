@@ -8,6 +8,7 @@
     <title>Group info</title>
     <link href="../../resources/groupDetailStyle.css" type="text/css" rel="stylesheet" />
 </head>
+<jsp:include page="../views/header.jsp" />
 <body>
 <form action="/group/{id}" method="get">
     <div class="wrapper1">
@@ -54,4 +55,5 @@
     <button class="btn" onclick="location.href='/menu'">Menu</button>
 </div >
 </body>
+<jsp:include page="../views/footer.jsp" />
 </html>

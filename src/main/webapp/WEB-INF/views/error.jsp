@@ -16,4 +16,5 @@
     <button class="btn" onclick="location.href='/menu'">Menu</button>
 </div >
 </body>
+<jsp:include page="../views/footer.jsp" />
 </html>

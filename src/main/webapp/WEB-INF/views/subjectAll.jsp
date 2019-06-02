@@ -8,6 +8,7 @@
     <title>Subjects</title>
     <link href="../../resources/subjectAllstyle.css" type="text/css" rel="stylesheet" />
 </head>
+<jsp:include page="../views/header.jsp" />
 <body>
 <form action="/subject" method="get">
     <div class="wrapper1">
@@ -48,4 +49,5 @@
     </div >
 </form>
 </body>
+<jsp:include page="../views/footer.jsp" />
 </html>
