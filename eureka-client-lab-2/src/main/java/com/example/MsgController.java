@@ -31,6 +31,7 @@ import java.util.Map;
 
 @RestController
 @EnableDiscoveryClient
+@RequestMapping("/api")
 public class MsgController {
 
     @Autowired

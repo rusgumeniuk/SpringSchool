@@ -1,0 +1,103 @@
+* {
+    padding: 0;
+    margin: 0;
+//border: 1px solid red;
+}
+
+.wrapper1 {
+    display: grid;
+    width: 60%;
+    margin: auto;
+    grid-template-columns: repeat(5, 1fr);
+    align-content: center;
+    padding-top: 2%;
+}
+
+.label {
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    border: 1px solid grey;
+    background-color: black;
+    color: white;
+}
+
+.wrapper2 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-content: center;
+    width: 60%;
+    margin: auto;
+}
+
+.text {
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    border: 1px solid black;
+    background-color: grey;
+    color: black;
+}
+
+.goBack {
+    margin-top: 2%;
+    text-align: center;
+}
+
+.createWr1 {
+    margin: 5% auto 0 auto;
+    width: 58.5%;
+    padding: 10px;
+    background-color: black;
+    border: 1px solid grey;
+}
+
+h2 {
+    text-align: center;
+    color: white;
+}
+
+.createWr2 {
+    display: grid;
+    width: 60%;
+    margin: auto;
+    grid-template-columns: repeat(3, 1fr);
+    align-content: center;
+}
+
+.space {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid black;
+    background-color: grey;
+}
+
+input {
+    width: 70%;
+}
+
+.createWr3 {
+    display: grid;
+    width: 60%;
+    margin-left: 20%;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.forSubmit {
+    margin-top: 2%;
+    text-align: center;
+}
+
+.btn {
+    font-size: 15px;
+    padding: 5px;
+    margin-bottom: 2%;
+}
+
+.btnAction {
+    text-decoration: none;
+    background-color: #000000;
+    color: #FFFFFF;
+    padding: 4px;
+    margin: 0 1% 0 1%;
+}
