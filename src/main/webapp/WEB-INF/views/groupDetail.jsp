@@ -10,14 +10,20 @@
 </head>
 <jsp:include page="../views/header.jsp" />
 <body>
-<form action="/group/{id}" method="get">
+<form action="/groups/{id}" method="get">
     <div class="wrapper1">
         <div class="label">Id</div>
         <div class="label">Title</div>
+        <div class="label">Cathedra</div>
+        <div class="label">Start year</div>
+        <div class="label">Mentor</div>
     </div>
     <div class="wrapper2">
         <div class="text">${Group.id}</div>
         <div class="text">${Group.title}</div>
+        <div class="text">${Group.cathedra}</div>
+        <div class="text">${Group.startYear}</div>
+        <div class="text">${Group.mentor}</div>
     </div>
     <div class="wrapper1">
         <div align="center" class="label">Students of this group:</div>
@@ -35,15 +41,27 @@
 </form>
 
 
-<form action = "/group/update/${Group.id}" method = "post" >
+<form action = "/groups/${Group.id}" method = "post" >
     <div class="updateWr1" >
         <h2 > Update group</h2>
     </div >
-    <div class="updateWr2" >
-        <div class="label" > Title </div >
+    <div class="updateWr4" >
+        <div class="label">Title</div>
+        <div class="label">Cathedra</div>
+        <div class="label">Start year</div>
+        <div class="label">Mentor</div>
     </div >
-    <div class="updateWr3" >
+    <div class="updateWr5" >
         <div class="space" ><input type = "text" name = "title" value="${Group.title}" required ></div >
+        <div class="space" ><input type = "text" name = "cathedra" value="${Group.cathedra}" required ></div >
+        <div class="space" ><input type = "number" min= "1970" max= "2018" name = "startYear" value="${Group.startYear}" required ></div >
+        <div class="space" >
+            <select name="mentor">
+                <c:forEach items="${Mentors}" var="mentor" >
+                    <option value="${mentor.id}">${mentor}</option>
+                </c:forEach>
+            </select>
+        </div >
     </div >
 
     <div class="forSubmit" >

@@ -10,30 +10,48 @@
 </head>
 <jsp:include page="../views/header.jsp" />
 <body>
+<h1>${error != null ? error : "Information about student:"}</h1>
 <form action="/students/{id}" method="get">
     <div class="wrapper1">
         <div class="label">Id</div>
         <div class="label">Name</div>
+        <div class="label">Male</div>
+        <div class="label">City</div>
+        <div class="label">Age</div>
         <div class="label">Group</div>
     </div>
     <div class="wrapper2">
         <div class="text">${Student.id}</div>
         <div class="text">${Student.name}</div>
+        <div class="text">${Student.male}</div>
+        <div class="text">${Student.age}</div>
+        <div class="text">${Student.city}</div>
         <div class="text">${Student.group}</div>
 
     </div>
 </form>
 
-<form action = "/students/${Student.id}" method = "put" >
+<form action = "/students/${Student.id}" method = "post" >
     <div class="updateWr1" >
         <h2 > Update student</h2>
     </div >
     <div class="updateWr2" >
         <div class="label" > Name </div >
+        <div class="label" > City </div >
+        <div class="label" > Age </div >
+        <div class="label" > Male </div >
         <div class="label" > Group </div >
     </div >
     <div class="updateWr3" >
         <div class="space" ><input type = "text" name = "name" required value="${Student.name}" ></div >
+        <div class="space" ><input type = "text" name = "city" required value="${Student.city}" ></div >
+        <div class="space" ><input type = "number" name = "age" min="16" max="100" required value="${Student.age}" ></div >
+        <div class="space" >
+            <select name="male">
+                <option selected="${Student.male == Male.MALE}" value="MALE">Male</option>
+                <option selected="${Student.male == Male.FEMALE}" value="FEMALE">Female</option>
+            </select>
+        </div >
         <div class="space" >
             <select name="group">
                 <c:forEach items="${Groups}" var="group" >
