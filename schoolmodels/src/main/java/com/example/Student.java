@@ -32,7 +32,7 @@ public class Student extends com.example.Entity {
 
     @JsonIgnore
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "group_id")
+    @JoinColumn(name = "fk_group_id", referencedColumnName = "id")
     private Group group;
 
     public Student(){}

@@ -26,6 +26,7 @@ public class Teacher extends com.example.Entity {
     private String cathedra;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_group_id", referencedColumnName = "id")
     private Group mentored_group;
 
 
