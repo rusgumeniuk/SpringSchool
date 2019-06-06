@@ -43,38 +43,25 @@ public class BuildingController {
     }
 
     @GetMapping
-    public Resources<Resource<Building>> getBuildings() {
-        List<Resource<Building>> list = buildingService.getAll().stream()
-                .map(assembler::toResource)
+    public List<Building> getBuildings() {
+        return buildingService.getAll().stream()
                 .collect(Collectors.toList());
-        return new Resources<>(
-                list,
-                linkTo(methodOn(BuildingController.class).getBuildings()).withSelfRel()
-        );
+   
     }
 
     @GetMapping(value = "/{buildingId}", produces = "application/json; charset=UTF-8")
-    public ResponseEntity<ResourceSupport> getBuilding(@PathVariable Integer buildingId) {
-        Building building = buildingService.getObjectById(buildingId);
-        return ResponseEntity.ok(assembler.toResource(building));
+    public Building getBuilding(@PathVariable Integer buildingId) {
+        return buildingService.getObjectById(buildingId);
     }
 
     @PostMapping
-    public ResponseEntity<?> createBuilding(@Valid @RequestBody Building newBuilding) throws URISyntaxException {
-        Resource<Building> resource = assembler.toResource(buildingService.saveObject(newBuilding));
-        return ResponseEntity
-                .created(new URI(resource.getId().expand().getHref()))
-                .body(resource);
+    public Building createBuilding(@Valid @RequestBody Building newBuilding) throws URISyntaxException {
+        return buildingService.saveObject(newBuilding);
     }
 
     @PutMapping(value = "/{buildingId}", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
-    public ResponseEntity<?> updateBuilding(@Valid @RequestBody Building updatedBuilding, @PathVariable Integer buildingId) throws URISyntaxException {
-        Building updatedObj = buildingService.updateObject(updatedBuilding, buildingId);
-
-        Resource<Building> resource = assembler.toResource(updatedObj);
-        return ResponseEntity
-                .created(new URI(resource.getId().expand().getHref()))
-                .body(resource);
+    public Building updateBuilding(@Valid @RequestBody Building updatedBuilding, @PathVariable Integer buildingId) throws URISyntaxException {
+        return buildingService.updateObject(updatedBuilding, buildingId);        
     }
 
     @DeleteMapping("/{buildingId}/delall")
@@ -107,21 +94,15 @@ public class BuildingController {
     }
 
     @GetMapping("/{buildingId}/rooms")
-    public Resources<Resource<Room>> getRoomsOfBuilding(@PathVariable Integer buildingId) {
+    public List<Room> getRoomsOfBuilding(@PathVariable Integer buildingId) {
         var building = buildingService.getObjectById(buildingId);
-        List<Resource<Room>> list = building.getRooms()
+        return building.getRooms()
                 .stream()
-                .map(roomAssembler::toResource)
                 .collect(Collectors.toList());
-        return new Resources<>(
-                list,
-                linkTo(methodOn(BuildingController.class).getBuilding(buildingId)).withSelfRel(),
-                linkTo(methodOn(RoomController.class).getRooms()).withSelfRel()
-        );
     }
 
     @DeleteMapping("/{buildingId}/rooms/{roomId}")
-    public Resources<Resource<Room>> removeRoomFromBuilding(@PathVariable Integer buildingId, @PathVariable Integer roomId) {
+    public List<Room> removeRoomFromBuilding(@PathVariable Integer buildingId, @PathVariable Integer roomId) {
         Room room = roomService.getObjectById(roomId);
         Building building = buildingService.getObjectById(buildingId);
         if (!building.getRooms().contains(room))

@@ -47,38 +47,24 @@ public class TeacherController {
     }
 
     @GetMapping
-    public Resources<Resource<Teacher>> getTeachers() {
-        List<Resource<Teacher>> list = teacherService.getAll().stream()
-                .map(assembler::toResource)
-                .collect(Collectors.toList());
-        return new Resources<>(
-                list,
-                linkTo(methodOn(TeacherController.class).getTeachers()).withSelfRel()
-        );
+    public List<Teacher> getTeachers() {
+        return teacherService.getAll().stream()              
+                .collect(Collectors.toList());        
     }
 
     @GetMapping(value = "/{teacherId}", produces = "application/json; charset=UTF-8")
-    public ResponseEntity<ResourceSupport> getTeacher(@PathVariable Integer teacherId) {
-        Teacher teacher = teacherService.getObjectById(teacherId);
-        return ResponseEntity.ok(assembler.toResource(teacher));
+    public Teacher getTeacher(@PathVariable Integer teacherId) {
+        return teacherService.getObjectById(teacherId);        
     }
 
     @PostMapping
-    public ResponseEntity<?> createTeacher(@Valid @RequestBody Teacher newTeacher) throws URISyntaxException {
-        Resource<Teacher> resource = assembler.toResource(teacherService.saveObject(newTeacher));
-        return ResponseEntity
-                .created(new URI(resource.getId().expand().getHref()))
-                .body(resource);
+    public Teacher createTeacher(@Valid @RequestBody Teacher newTeacher) throws URISyntaxException {
+        return teacherService.saveObject(newTeacher);
     }
 
     @PutMapping(value = "/{teacherId}", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
-    public ResponseEntity<?> updateTeacher(@Valid @RequestBody Teacher updatedTeacher, @PathVariable Integer teacherId) throws URISyntaxException {
-        Teacher updatedObj = teacherService.updateObject(updatedTeacher, teacherId);
-
-        Resource<Teacher> resource = assembler.toResource(updatedObj);
-        return ResponseEntity
-                .created(new URI(resource.getId().expand().getHref()))
-                .body(resource);
+    public Teacher updateTeacher(@Valid @RequestBody Teacher updatedTeacher, @PathVariable Integer teacherId) throws URISyntaxException {
+        return teacherService.updateObject(updatedTeacher, teacherId);
     }
 
     @DeleteMapping("/{teacherId}/delall")
@@ -104,21 +90,20 @@ public class TeacherController {
     }
 
     @GetMapping("/{teacherId}/group")
-    public ResponseEntity<Resource<Group>> getMentoredGroupOfTeacher(@PathVariable Integer teacherId) {
+    public Group getMentoredGroupOfTeacher(@PathVariable Integer teacherId) {
         var teacher = teacherService.getObjectById(teacherId);
-        Group group = teacher.getMentored_group();
-        return ResponseEntity.ok(groupAssembler.toResource(group));
+        return teacher.getMentored_group();
     }
 
 
     @DeleteMapping("/{teacherId}/group/{mentoredGroupId}")
-    public ResponseEntity<Resource<Group>> removeGroupFromMentor(@PathVariable Integer teacherId, @PathVariable Integer mentoredGroupId) {
+    public Group removeGroupFromMentor(@PathVariable Integer teacherId, @PathVariable Integer mentoredGroupId) {
         Group group = groupService.getObjectById(mentoredGroupId);
         Teacher teacher = teacherService.getObjectById(teacherId);
         if (!(teacher.getMentored_group().getId() == group.getId()))
             throw new TeacherDontMentorThisGroup(teacher, group);
         else {
-            //group.setMentor(teacher);
+            group.setMentor(teacher);
             teacher.setMentored_group(group);
             teacherService.saveObject(teacher);
             groupService.saveObject(group);
@@ -127,7 +112,7 @@ public class TeacherController {
     }
 
     @PostMapping("/{teacherId}/group/{mentoredGroupId}")
-    public ResponseEntity<Resource<Group>> addGroupToMentor(@PathVariable Integer teacherId, @PathVariable Integer mentoredGroupId) {
+    public Group addGroupToMentor(@PathVariable Integer teacherId, @PathVariable Integer mentoredGroupId) {
         Group group = groupService.getObjectById(mentoredGroupId);
         Teacher teacher = teacherService.getObjectById(teacherId);
         teacher.setMentored_group(group);

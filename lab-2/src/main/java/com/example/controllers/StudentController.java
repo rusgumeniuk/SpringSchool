@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,37 +42,25 @@ public class StudentController {
     }
 
     @GetMapping
-    public Resources<Resource<Student>> getStudents() {
-        List<Resource<Student>> list = studentService.getAll().stream()
-                .map(assembler::toResource)
+    public Collection<Student> getStudents() {
+        return studentService.getAll().stream()
                 .collect(Collectors.toList());
-        return new Resources<>(
-                list,
-                linkTo(methodOn(StudentController.class).getStudents()).withSelfRel()
-        );
     }
 
     @GetMapping("/{studentId}")
-    public ResponseEntity<ResourceSupport> getStudent(@PathVariable Integer studentId) {
-        var student = studentService.getObjectById(studentId);
-        return ResponseEntity.ok(assembler.toResource(student));
+    public Student getStudent(@PathVariable Integer studentId) {
+        return studentService.getObjectById(studentId);
+        //return ResponseEntity.ok(assembler.toResource(student));
     }
 
     @PostMapping
-    public ResponseEntity<?> createStudent(@Valid @RequestBody Student newStudent) throws URISyntaxException {
-        Resource<Student> resource = assembler.toResource(studentService.saveObject(newStudent));
-        return ResponseEntity
-                .created(new URI(resource.getId().expand().getHref()))
-                .body(resource);
+    public Student createStudent(@Valid @RequestBody Student newStudent) throws URISyntaxException {
+        return studentService.saveObject(newStudent);
     }
 
     @PutMapping("/{studentId}")
-    public ResponseEntity<?> updateStudent(@Valid @RequestBody Student updatedStudent, @PathVariable Integer studentId) throws URISyntaxException {
-        Student updatedObj = studentService.updateObject(updatedStudent, studentId);
-        Resource<Student> resource = assembler.toResource(updatedObj);
-        return ResponseEntity
-                .created(new URI(resource.getId().expand().getHref()))
-                .body(resource);
+    public Student updateStudent(@Valid @RequestBody Student updatedStudent, @PathVariable Integer studentId) throws URISyntaxException {
+        return studentService.updateObject(updatedStudent, studentId);        
     }
 
     @DeleteMapping("/{studentId}")
@@ -90,18 +79,15 @@ public class StudentController {
     }
 
     @GetMapping("/{studentId}/group")
-    public ResponseEntity<ResourceSupport> getGroupOfStudent(@PathVariable Integer studentId) {
+    public Group getGroupOfStudent(@PathVariable Integer studentId) {
         Student student = studentService.getObjectById(studentId);
         if (student.getGroup() == null)
-            return ResponseEntity.noContent().build();
-        var group = groupService.getObjectById(student.getGroup().getId());
-        return  ResponseEntity
-                .ok(groupAssembler.toResource(group));
+            return null;
+        return groupService.getObjectById(student.getGroup().getId());        
     }
 
-
     @PostMapping("/{studentId}/group/{newGroupId}")
-    public Resources<Resource<Student>> changeStudentGroup(@PathVariable Integer studentId, @PathVariable Integer newGroupId) {
+    public List<Student> changeStudentGroup(@PathVariable Integer studentId, @PathVariable Integer newGroupId) {
         Student student = studentService.getObjectById(studentId);
         removeStudentFromGroup(student);
         return addStudentToGroup(student, newGroupId);
@@ -117,7 +103,7 @@ public class StudentController {
         }
     }
 
-    private Resources<Resource<Student>> addStudentToGroup(Student student, Integer groupId) {
+    private List<Student> addStudentToGroup(Student student, Integer groupId) {
         Student stud = studentService.getObjectById(student.getId());
 
         if (groupId == -2)
@@ -131,16 +117,10 @@ public class StudentController {
         return getStudentsOfGroup(groupId);
     }
 
-    private Resources<Resource<Student>> getStudentsOfGroup(Integer groupId) {
+    private List<Student> getStudentsOfGroup(Integer groupId) {
         var group = groupService.getObjectById(groupId);
-        List<Resource<Student>> list = group.getStudents()
+        return group.getStudents()
                 .stream()
-                .map(assembler::toResource)
                 .collect(Collectors.toList());
-        return new Resources<>(
-                list,
-                linkTo(methodOn(GroupController.class).getGroup(groupId)).withSelfRel(),
-                linkTo(methodOn(StudentController.class).getStudents()).withSelfRel()
-        );
     }
 }

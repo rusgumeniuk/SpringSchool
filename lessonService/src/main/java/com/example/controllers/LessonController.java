@@ -38,37 +38,24 @@ public class LessonController {
     }
 
     @GetMapping
-    public Resources<Resource<Lesson>> getLessons() {
-        List<Resource<Lesson>> list = lessonService.getAll().stream()
-                .map(assembler::toResource)
+    public List<Lesson> getLessons() {
+        return lessonService.getAll().stream()                
                 .collect(Collectors.toList());
-        return new Resources<>(
-                list,
-                linkTo(methodOn(LessonController.class).getLessons()).withSelfRel()
-        );
     }
 
     @GetMapping("/{lessonId}")
-    public ResponseEntity<ResourceSupport> getLesson(@PathVariable Integer lessonId) {
-        var lesson = lessonService.getObjectById(lessonId);
-        return ResponseEntity.ok(assembler.toResource(lesson));
+    public Lesson getLesson(@PathVariable Integer lessonId) {
+        return lessonService.getObjectById(lessonId);
     }
 
     @PostMapping
-    public ResponseEntity<?> createLesson(@Valid @RequestBody Lesson newLesson) throws URISyntaxException {
-        Resource<Lesson> resource = assembler.toResource(lessonService.saveObject(newLesson));
-        return ResponseEntity
-                .created(new URI(resource.getId().expand().getHref()))
-                .body(resource);
+    public Lesson createLesson(@Valid @RequestBody Lesson newLesson) throws URISyntaxException {
+        return lessonService.saveObject(newLesson);
     }
 
     @PutMapping("/{lessonId}")
-    public ResponseEntity<?> updateLesson(@Valid @RequestBody Lesson updatedLesson, @PathVariable Integer lessonId) throws URISyntaxException {
-        Lesson updatedObj = lessonService.updateObject(updatedLesson, lessonId);
-        Resource<Lesson> resource = assembler.toResource(updatedObj);
-        return ResponseEntity
-                .created(new URI(resource.getId().expand().getHref()))
-                .body(resource);
+    public Lesson updateLesson(@Valid @RequestBody Lesson updatedLesson, @PathVariable Integer lessonId) throws URISyntaxException {
+        return lessonService.updateObject(updatedLesson, lessonId);
     }
 
     @DeleteMapping("/{lessonId}")

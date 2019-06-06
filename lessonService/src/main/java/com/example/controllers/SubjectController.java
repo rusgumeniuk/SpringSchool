@@ -40,37 +40,24 @@ public class SubjectController {
     }
 
     @GetMapping
-    public Resources<Resource<Subject>> getSubjects() {
-        List<Resource<Subject>> list = subjectService.getAll().stream()
-                .map(assembler::toResource)
+    public List<Subject> getSubjects() {
+        return subjectService.getAll().stream()               
                 .collect(Collectors.toList());
-        return new Resources<>(
-                list,
-                linkTo(methodOn(SubjectController.class).getSubjects()).withSelfRel()
-        );
     }
 
     @GetMapping("/{subjectId}")
-    public ResponseEntity<ResourceSupport> getSubject(@PathVariable Integer subjectId) {
-        var subject = subjectService.getObjectById(subjectId);
-        return ResponseEntity.ok(assembler.toResource(subject));
+    public Subject getSubject(@PathVariable Integer subjectId) {
+        return subjectService.getObjectById(subjectId);        
     }
 
     @PostMapping
-    public ResponseEntity<?> createSubject(@Valid @RequestBody Subject newSubject) throws URISyntaxException {
-        Resource<Subject> resource = assembler.toResource(subjectService.saveObject(newSubject));
-        return ResponseEntity
-                .created(new URI(resource.getId().expand().getHref()))
-                .body(resource);
+    public Subject createSubject(@Valid @RequestBody Subject newSubject) throws URISyntaxException {
+        return subjectService.saveObject(newSubject);
     }
 
     @PutMapping("/{subjectId}")
-    public ResponseEntity<?> updateSubject(@Valid @RequestBody Subject updatedSubject, @PathVariable Integer subjectId) throws URISyntaxException {
-        Subject updatedObj = subjectService.updateObject(updatedSubject, subjectId);
-        Resource<Subject> resource = assembler.toResource(updatedObj);
-        return ResponseEntity
-                .created(new URI(resource.getId().expand().getHref()))
-                .body(resource);
+    public Subject updateSubject(@Valid @RequestBody Subject updatedSubject, @PathVariable Integer subjectId) throws URISyntaxException {
+        return subjectService.updateObject(updatedSubject, subjectId);
     }
 
     @DeleteMapping("/{subjectId}")

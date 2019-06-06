@@ -29,19 +29,14 @@ public class MessageController {
     }
 
     @GetMapping
-    public Resources<Resource<Message>> getMessages() {
-        List<Resource<Message>> list = messageService.getAll().stream()
-                .map(assembler::toResource)
+    public List<Message> getMessages() {
+        return messageService.getAll().stream()               
                 .collect(Collectors.toList());
-        return new Resources<>(
-                list,
-                linkTo(methodOn(MessageController.class).getMessages()).withSelfRel()
-        );
+        
     }
 
     @GetMapping("/{messageId}")
-    public ResponseEntity<ResourceSupport> getMessage(@PathVariable Long messageId) {
-        var message = messageService.getObjectById(messageId);
-        return ResponseEntity.ok(assembler.toResource(message));
+    public Message getMessage(@PathVariable Long messageId) {
+        return messageService.getObjectById(messageId);
     }
 }

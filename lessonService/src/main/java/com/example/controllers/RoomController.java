@@ -41,37 +41,24 @@ public class RoomController {
     }
 
     @GetMapping
-    public Resources<Resource<Room>> getRooms() {
-        List<Resource<Room>> list = roomService.getAll().stream()
-                .map(assembler::toResource)
-                .collect(Collectors.toList());
-        return new Resources<>(
-                list,
-                linkTo(methodOn(RoomController.class).getRooms()).withSelfRel()
-        );
+    public List<Room> getRooms() {
+       return roomService.getAll().stream()
+                .collect(Collectors.toList());        
     }
 
     @GetMapping("/{roomId}")
-    public ResponseEntity<ResourceSupport> getRoom(@PathVariable Integer roomId) {
-        var room = roomService.getObjectById(roomId);
-        return ResponseEntity.ok(assembler.toResource(room));
+    public Room getRoom(@PathVariable Integer roomId) {
+        return roomService.getObjectById(roomId);        
     }
 
     @PostMapping
-    public ResponseEntity<?> createRoom(@Valid @RequestBody Room newRoom) throws URISyntaxException {
-        Resource<Room> resource = assembler.toResource(roomService.saveObject(newRoom));
-        return ResponseEntity
-                .created(new URI(resource.getId().expand().getHref()))
-                .body(resource);
+    public Room createRoom(@Valid @RequestBody Room newRoom) throws URISyntaxException {
+        return roomService.saveObject(newRoom);
     }
 
     @PutMapping("/{roomId}")
-    public ResponseEntity<?> updateRoom(@Valid @RequestBody Room updatedRoom, @PathVariable Integer roomId) throws URISyntaxException {
-        Room updatedObj = roomService.updateObject(updatedRoom, roomId);
-        Resource<Room> resource = assembler.toResource(updatedObj);
-        return ResponseEntity
-                .created(new URI(resource.getId().expand().getHref()))
-                .body(resource);
+    public Room updateRoom(@Valid @RequestBody Room updatedRoom, @PathVariable Integer roomId) throws URISyntaxException {
+       return roomService.updateObject(updatedRoom, roomId);        
     }
 
     @DeleteMapping("/{roomId}")
@@ -89,18 +76,15 @@ public class RoomController {
     }
 
     @GetMapping("/{roomId}/building")
-    public ResponseEntity<ResourceSupport> getBuildingOfRoom(@PathVariable Integer roomId) {
+    public Building getBuildingOfRoom(@PathVariable Integer roomId) {
         Room room = roomService.getObjectById(roomId);
         if (room.getBuilding() == null)
-            return ResponseEntity.noContent().build();
-        var building = buildingService.getObjectById(room.getBuilding().getId());
-        return  ResponseEntity
-                .ok(buildingAssembler.toResource(building));
+            return null;
+        return buildingService.getObjectById(room.getBuilding().getId());
     }
 
-
     @PostMapping("/{roomId}/building/{newBuildingId}")
-    public Resources<Resource<Room>> changeRoomBuilding(@PathVariable Integer roomId, @PathVariable Integer newBuildingId) {
+    public List<Room> changeRoomBuilding(@PathVariable Integer roomId, @PathVariable Integer newBuildingId) {
         Room room = roomService.getObjectById(roomId);
         removeRoomFromBuilding(room);
         return addRoomToBuilding(room, newBuildingId);
@@ -116,7 +100,7 @@ public class RoomController {
         }
     }
 
-    private Resources<Resource<Room>> addRoomToBuilding(Room room, Integer buildingId) {
+    private List<Room> addRoomToBuilding(Room room, Integer buildingId) {
         Room stud = roomService.getObjectById(room.getId());
 
         if (buildingId == -2)
@@ -130,16 +114,10 @@ public class RoomController {
         return getRoomsOfBuilding(buildingId);
     }
 
-    private Resources<Resource<Room>> getRoomsOfBuilding(Integer buildingId) {
+    private List<Room> getRoomsOfBuilding(Integer buildingId) {
         var building = buildingService.getObjectById(buildingId);
-        List<Resource<Room>> list = building.getRooms()
+        return building.getRooms()
                 .stream()
-                .map(assembler::toResource)
                 .collect(Collectors.toList());
-        return new Resources<>(
-                list,
-                linkTo(methodOn(BuildingController.class).getBuilding(buildingId)).withSelfRel(),
-                linkTo(methodOn(RoomController.class).getRooms()).withSelfRel()
-        );
     }
 }
