@@ -17,11 +17,18 @@
             <td><a href="/students">Students</a></td>
             <td><a href="/groups">Groups</a></td>
             <td><a href="/disciplines">Disciplines</a></td>
-            <security:authorize access="hasRole('ROLE_ADMIN')">
-                <td><a href="/messages">Messages</a></td>
-                <td><a href="/admins">Create admin</a> </td>
-            </security:authorize>
             <td><a href="/logout">Log out</a></td>
         </tr>
     </tr>
 </table>
+<security:authorize access="hasRole('ROLE_ADMIN')">
+    <table>
+        <caption>Admin's panel</caption>
+        <tr>
+            <td><a href="/messages">Messages</a></td>
+            <td><a href="/admins">Create admin</a> </td>
+            <td><a href="/allProperties">Show properties of all modules</a></td>
+        </tr>
+    </table>
+
+</security:authorize>
