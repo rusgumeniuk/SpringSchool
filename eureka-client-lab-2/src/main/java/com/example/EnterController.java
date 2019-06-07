@@ -1,13 +1,8 @@
 package com.example;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jdk.nashorn.internal.parser.JSONParser;
 //import org.svenson.JSONParser;
 import lombok.experimental.var;
-import org.bouncycastle.jcajce.provider.asymmetric.ec.KeyFactorySpi;
-import org.slf4j.Logger;
+        import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -16,9 +11,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
-import org.springframework.http.*;
+        import org.springframework.http.*;
+import org.springframework.security.core.Authentication;
+        import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,10 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 //import javax.ws.rs.core.GenericEntity;
-import javax.swing.*;
-import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
+        import java.util.*;
 
 @EnableDiscoveryClient
 @Controller
@@ -124,6 +116,10 @@ public class EnterController {
     }
     @RequestMapping(value = "/students", method = RequestMethod.POST, produces="application/json")
     public ModelAndView createStudent(@ModelAttribute Student object) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("students");
+        }
+
         String url = getInstancesRun();
         log.info("Posting Student from json from " + url);
         HttpHeaders headers = new HttpHeaders();
@@ -147,6 +143,9 @@ public class EnterController {
     }
     @RequestMapping(value = "/students/{id}", method = RequestMethod.POST, produces="application/json")
     public ModelAndView updateStudent(@ModelAttribute Student object, @PathVariable Long id) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("students");
+        }
         String url = getInstancesRun();
         log.info("Updating Student from json from " + url);
         HttpHeaders headers = new HttpHeaders();
@@ -168,6 +167,9 @@ public class EnterController {
     }
     @RequestMapping(value = "/students/delete/{id}", method = RequestMethod.GET, produces="application/json")
     public ModelAndView deleteStudent(@PathVariable Long id) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("students");
+        }
         String url = getInstancesRun();
         log.info("Deleting Student from " + url);
         ResponseEntity response = this.restTemplate.exchange(String.format("%s/students/%s", url, id),
@@ -209,6 +211,9 @@ public class EnterController {
     }
     @RequestMapping(value = "/groups", method = RequestMethod.POST, produces="application/json")
     public ModelAndView createGroup(@ModelAttribute Group object) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("groups");
+        }
         String url = getInstancesRun();
         log.info("Posting Group from json from " + url);
         HttpHeaders headers = new HttpHeaders();
@@ -224,6 +229,9 @@ public class EnterController {
     }
     @RequestMapping(value = "/groups/{id}", method = RequestMethod.POST, produces="application/json")
     public ModelAndView updateGroup(@ModelAttribute Group object, @PathVariable Long id) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("groups");
+        }
         String url = getInstancesRun();
         log.info("Updating Group from json from " + url);
         HttpHeaders headers = new HttpHeaders();
@@ -240,6 +248,9 @@ public class EnterController {
     }
     @RequestMapping(value = "/groups/delete/{id}", method = RequestMethod.GET, produces="application/json")
     public ModelAndView deleteGroup(@PathVariable Long id) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("groups");
+        }
         String url = getInstancesRun();
         log.info("Deleting Group from " + url);
         ResponseEntity response = this.restTemplate.exchange(String.format("%s/groups/%s", url, id),
@@ -251,5 +262,41 @@ public class EnterController {
         ModelAndView view = new ModelAndView("redirect:/groups");
         view.addObject("result", result);
         return view;
+    }
+
+
+    private ModelAndView redirectIfHaveNotAccess(String viewName){
+        return redirectIfHaveNotAccess(new ModelAndView("redirect:/" + viewName));
+    }
+    private ModelAndView redirectIfHaveNotAccess(ModelAndView redirectDesination){
+        if(!isAdmin()){
+            ModelAndView view = redirectDesination;
+            view.addObject("result", getWrongAccessMessage());
+            return view;
+        }
+        return new ModelAndView("/");
+    }
+    private String getWrongAccessMessage(){
+        return "Dear, " + getUsername() + "." +
+                "<br>Unfortunately u have not access to do this :c.<br>But u always can upgrade yourself ;-)";
+    }
+    private boolean isAdmin(){
+        return isHasRole("admin");
+    }
+    private boolean isHasRole(String role){
+        if(!role.equalsIgnoreCase("user") &&!role.equalsIgnoreCase("admin"))
+            return false;
+        var list = getAuthentication().getAuthorities();
+        for (var au: list) {
+            if(au.getAuthority().equalsIgnoreCase("role_" + role))
+                return true;
+        }
+        return false;
+    }
+    private String getUsername(){
+        return getAuthentication().getName();
+    }
+    private Authentication getAuthentication(){
+        return SecurityContextHolder.getContext().getAuthentication();
     }
 }
