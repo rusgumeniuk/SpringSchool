@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jdk.nashorn.internal.parser.JSONParser;
 //import org.svenson.JSONParser;
 import lombok.experimental.var;
+import org.bouncycastle.jcajce.provider.asymmetric.ec.KeyFactorySpi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 //import javax.ws.rs.core.GenericEntity;
+import javax.swing.*;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -100,6 +102,7 @@ public class EnterController {
         log.info("Getting all Students from " + url);
         List<Student> students = restTemplate.getForObject(String.format("%s/students", url), List.class);
         List<Group> groups = restTemplate.getForObject(String.format("%s/groups", url), List.class);
+        groups.add(0, null);
         ModelAndView model = new ModelAndView("studentAll");
         model.addObject("StudentList", students);
         model.addObject("Groups", groups);
@@ -111,6 +114,7 @@ public class EnterController {
         ModelAndView view = new ModelAndView("studentDetail");
         Student object = restTemplate.getForObject(String.format("%s/students/%s", url, id), Student.class);
         List<Group> groups = restTemplate.getForObject(String.format("%s/groups", url), List.class);
+        groups.add(null);
         if(object.getId() == 0)
             view.addObject("error", "We have not student with id: #" + id );
         else
@@ -130,6 +134,14 @@ public class EnterController {
         ResponseEntity response = this.restTemplate.exchange(String.format("%s/students", url),
                 HttpMethod.POST, entity, new ParameterizedTypeReference<String>() {
                 });
+        //Trouble zone starts here
+        if(object.getGroup() != null && !object.getGroup().getTitle().isEmpty() && Integer.valueOf(object.getGroup().getTitle()) > 0){
+            Student[] ar = restTemplate.getForObject(String.format("%s/students", url), Student[].class);
+            var res = this.restTemplate.exchange(String.format("%s/students/%s/group/%s", url,ar[ar.length-1].getId(), object.getGroup().getTitle()),
+                    HttpMethod.POST, null, new ParameterizedTypeReference<String>() {
+                    });
+        }
+        //Trouble zone ends here
         ModelAndView view = new ModelAndView("redirect:/students");
         return view;
     }
@@ -147,6 +159,11 @@ public class EnterController {
                 }, id);
         Student student = restTemplate.getForObject(String.format("%s/students/%s", url, id), Student.class);
 
+        if(object.getGroup() != null && !object.getGroup().getTitle().isEmpty() && Integer.valueOf(object.getGroup().getTitle()) > 0){
+            var res = this.restTemplate.exchange(String.format("%s/students/%s/group/%s", url, id, object.getGroup().getTitle()),
+                    HttpMethod.POST, null, new ParameterizedTypeReference<String>() {
+                    });
+        }
         return getStudent(id);
     }
     @RequestMapping(value = "/students/delete/{id}", method = RequestMethod.GET, produces="application/json")
