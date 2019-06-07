@@ -19,6 +19,7 @@
             <td><a href="/disciplines">Disciplines</a></td>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <td><a href="/messages">Messages</a></td>
+                <td><a href="/admins">Create admin</a> </td>
             </security:authorize>
             <td><a href="/logout">Log out</a></td>
         </tr>
