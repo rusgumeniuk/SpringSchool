@@ -20,12 +20,15 @@ import org.springframework.security.core.Authentication;
         import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 //import javax.ws.rs.core.GenericEntity;
-        import java.util.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 @EnableDiscoveryClient
 @Controller
@@ -89,14 +92,14 @@ public class EnterController {
     @Autowired
     RoleService roleRep;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
         if (error != null)
             model.addAttribute("errorMsg", "Your username or password are invalid.");
 
         if (logout != null)
             model.addAttribute("msg", "You have been logged out successfully.");
-        return "menu";
+        return "login";
     }
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model, String error, String logout) {
@@ -112,6 +115,22 @@ public class EnterController {
         Authorities a = new Authorities(users.getUsername(),"ROLE_"+role.toUpperCase());
         roleRep.save(a);
         return "redirect:/login";
+    }
+    @RequestMapping("/error")
+    public String handleError(HttpServletRequest request) {
+        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+
+        if (status != null) {
+            Integer statusCode = Integer.valueOf(status.toString());
+
+            if(statusCode == HttpStatus.NOT_FOUND.value()) {
+                return "error-404";
+            }
+            else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+                return "error-500";
+            }
+        }
+        return "error";
     }
 
     @GetMapping("/students")
@@ -344,19 +363,38 @@ public class EnterController {
             String schoolServiceProps = restTemplate.exchange(String.format("%s/properties", getInstancesRun()),
                     HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
                     }).getBody();
+            view.addObject("school", schoolServiceProps);
+        }
+        catch (Exception ex){
+            log.info("Error on SCHOOL SERVICE");
+            log.info(ex.getMessage());
+        }
+        try{
             String lessonServiceProps = restTemplate.exchange(String.format("%s/properties", getLessonInstancesRun()),
                     HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
                     }).getBody();
+            view.addObject("lesson", lessonServiceProps);
+        }
+        catch (Exception ex){
+            log.info("Error on LESSON SERVICE");
+            log.info(ex.getMessage());
+        }
+        try{
             String serverProps = restTemplate.exchange("http://Ruthless:7777/properties",
                     HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
                     }).getBody();
             view.addObject("server", serverProps);
-            view.addObject("school", schoolServiceProps);
-            view.addObject("lesson", lessonServiceProps);
-            view.addObject("client", getPropertiesClient());
         }
         catch (Exception ex){
-            System.out.println(ex.getMessage());
+            log.info("Error on SERVER");
+            log.info(ex.getMessage());
+        }
+        try {
+            view.addObject("client", getPropertiesClient());
+        }
+        catch (JsonProcessingException e) {
+            log.info("Error on CLIENT");
+            log.info(e.getMessage());
         }
         return view;
     }
