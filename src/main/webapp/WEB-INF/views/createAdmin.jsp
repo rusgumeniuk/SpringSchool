@@ -10,7 +10,7 @@
 <div>
     <div>
         <form method="post" action="/admins">
-            <h2>Sign un</h2>
+            <h2>Here u can create new user or admin (only admin can create new admin (and db developer ofc))</h2>
 
             <div class="form-group ${error != null ? 'has-error' : ''}">
                 <label for="username">Input username:</label>
@@ -29,11 +29,12 @@
                     </select>
                 </div>
                 <br>
-                <button type="submit">Sign up</button>
+                <button type="submit">Create new user</button>
             </div>
         </form>
     </div>
 </div>
+<button class="btn" onclick="location.href='../..'">Main page</button>
 </body>
 <jsp:include page="../views/footer.jsp" />
 </html>

@@ -6,24 +6,14 @@
     <link href="../../resources/enterStyle.css" type="text/css" rel="stylesheet" />
 </head>
 <jsp:include page="../views/header.jsp" />
-<body>
-<h1>HERE U R </h1>
-<div>
-    <form method = "post" action="${contextPath}">
-        <h2>Log in</h2>
-
-        <div class="form-group ${error != null ? 'has-error' : ''}">
-            <span style="margin-bottom: 10px">${msg}</span>
-            <input name="username" type="text" placeholder="Username" autofocus="true"/>
-            <br>
-            <input name="password" type="password" placeholder="Password"/>
-            <span style="margin-top: 10px">${errorMsg}</span>
-            <br>
-
-            <button type="submit">Log In</button>
-            <a href="/registration" >Sign in</a>
-        </div>
-    </form>
-</div>
+<nav class="menu">
+    <ul id="head">
+        <li class="obj"><a href="/logout">Log out</a> </li>
+        <li class="obj"><a href="/subject">Subjects</a></li>
+        <li class="obj"><a href="/students">Students</a></li>
+        <li class="obj"><a href="/groups">Groups</a></li>
+    </ul>
+</nav>
 </body>
+<jsp:include page="../views/footer.jsp" />
 </html>

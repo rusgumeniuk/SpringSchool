@@ -11,9 +11,10 @@
     <title>Some error</title>
 </head>
 <body>
-<h1>Oooops some error</h1>
+<h3>Oooops some error</h3>
+<h1>${error}</h1>
 <div class="goBack" >
-    <button class="btn" onclick="location.href='/menu'">Menu</button>
+    <button class="btn" onclick="location.href='../..'">Main page</button>
 </div >
 </body>
 <jsp:include page="../views/footer.jsp" />

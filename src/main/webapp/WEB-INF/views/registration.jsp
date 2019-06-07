@@ -8,7 +8,7 @@
 <body>
 <div>
     <div>
-        <form method="post" action="${contextPath}/registration">
+        <form method="post" action="/registration">
             <h2>Sign in</h2>
 
             <div class="form-group ${error != null ? 'has-error' : ''}">
@@ -22,8 +22,7 @@
                 <br>
                 <div>
                     <label for="role">Select role:</label>
-                    <select name="role" id="role">
-                        <option>Admin</option>
+                    <select name="role" id="role" about="Here u can sign up only like user">
                         <option>User</option>
                     </select>
                 </div>
