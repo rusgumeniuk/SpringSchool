@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "messages")
 @EntityListeners(AuditingEntityListener.class)
-public abstract class Message<T> {
+public class Message<T> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long msg_id;
@@ -29,6 +29,55 @@ public abstract class Message<T> {
     @NotNull
     @Column(length = 1000)
     private String error;
+
+    public Long getMsg_id() {
+        return msg_id;
+    }
+
+    public void setMsg_id(Long msg_id) {
+        this.msg_id = msg_id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public HttpMethod getHttpMethod() {
+        return httpMethod;
+    }
+
+    public void setHttpMethod(HttpMethod httpMethod) {
+        this.httpMethod = httpMethod;
+    }
+
+    public String getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(String statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public Timestamp getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(Timestamp dateTime) {
+        this.dateTime = dateTime;
+    }
+
     @NotNull
     private Timestamp dateTime;
 
