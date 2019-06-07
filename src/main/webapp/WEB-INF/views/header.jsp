@@ -1,3 +1,5 @@
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
 <table cellpadding="5" cellspacing="4" border="1" style="border-collapse:collapse">
     <tr>
         <tr>
@@ -15,6 +17,9 @@
             <td><a href="/students">Students</a></td>
             <td><a href="/groups">Groups</a></td>
             <td><a href="/disciplines">Disciplines</a></td>
+            <security:authorize access="hasRole('ROLE_ADMIN')">
+                <td><a href="/messages">Messages</a></td>
+            </security:authorize>
             <td><a href="/logout">Log out</a></td>
         </tr>
     </tr>
