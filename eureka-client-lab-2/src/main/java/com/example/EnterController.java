@@ -279,6 +279,9 @@ public class EnterController {
     }
     @RequestMapping(value = "/messages/{id}", method = RequestMethod.GET)
     public ModelAndView getMessage(@PathVariable Long id) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("");
+        }
         String url = getInstancesRun();
         ModelAndView view = new ModelAndView("messageDetail");
         Message message = restTemplate.getForObject(String.format("%s/messages/%s", url, id), Message.class);
@@ -289,6 +292,21 @@ public class EnterController {
         return view;
     }
 
+    @GetMapping("/admins")
+    public ModelAndView getAdminPage(){
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("");
+        }
+        return new ModelAndView("createAdmin");
+    }
+    @PostMapping("/admins")
+    public ModelAndView createAdmin(@ModelAttribute Users user, String role){
+        user.setEnabled(true);
+        userRep.save(user);
+        Authorities a = new Authorities(user.getUsername(),"ROLE_"+role.toUpperCase());
+        roleRep.save(a);
+        return new ModelAndView("redirect:/login");
+    }
     private ModelAndView redirectIfHaveNotAccess(String viewName){
         return redirectIfHaveNotAccess(new ModelAndView("redirect:/" + viewName));
     }
