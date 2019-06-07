@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE>
 <html>
 <head>
@@ -28,7 +28,9 @@
                 <div class="text">${group.mentor}</div>
                 <div class="text">
                     <a type="button", class="btnAction", href="/groups/${group.id}">Detail</a>
+                    <security:authorize access="hasRole('ROLE_ADMIN')">
                     <a type="button", class="btnAction", href="/groups/delete/${group.id}">Delete</a>
+                    </security:authorize>
                 </div>
             </div>
         </c:forEach>
@@ -38,7 +40,7 @@
 <div class="goBack" >
     <button class="btn" onclick="location.href='/menu'">Menu</button>
 </div >
-
+<security:authorize access="hasRole('ROLE_ADMIN')">
 <form action = "/groups" method = "post" >
     <div class="createWr1" >
         <h2> Add new group</h2>
@@ -66,6 +68,7 @@
         <button type = "submit" class="btn" > Submit </button >
     </div >
 </form>
+</security:authorize>
 </body>
 <jsp:include page="../views/footer.jsp" />
 </html>

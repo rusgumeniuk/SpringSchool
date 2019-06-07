@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE>
 <html>
 <head>
@@ -22,7 +22,9 @@
                 <div class="text">${subject.title}</div>
                 <div class="text">
                     <a type="button", class="btnAction", href="/subject/${subject.id}">Detail</a>
+                    <security:authorize access="hasRole('ROLE_ADMIN')">
                     <a type="button", class="btnAction", href="/subject/delete/${subject.id}">Delete</a>
+                    </security:authorize>
                 </div>
             </div>
         </c:forEach>
@@ -32,7 +34,7 @@
 <div class="forSubmit"  align="center" >
     <button class="btn"  onclick="location.href='/menu'">Menu</button>
 </div >
-
+<security:authorize access="hasRole('ROLE_ADMIN')">
 <form action = "/subject/create" method = "post" >
     <div class="createWr1" >
         <h2> Add new subject</h2>
@@ -48,6 +50,7 @@
         <button type = "submit" class="btn" > Submit </button >
     </div >
 </form>
+</security:authorize>
 </body>
 <jsp:include page="../views/footer.jsp" />
 </html>
