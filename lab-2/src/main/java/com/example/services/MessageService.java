@@ -1,7 +1,9 @@
 package com.example.services;
 
+import com.example.exceptions.MessageNotFoundException;
 import com.example.messages.Message;
 import com.example.messages.MessageRepository;
+import lombok.experimental.var;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -17,7 +19,11 @@ public class MessageService implements Service<Message, Long> {
 
     @Override
     public Message getObjectById(Long aLong) {
-        return null;
+        var message = repository.findById(aLong);
+        if(message.isPresent()){
+            return message.get();
+        }
+        throw new MessageNotFoundException(aLong);
     }
 
     @Override
