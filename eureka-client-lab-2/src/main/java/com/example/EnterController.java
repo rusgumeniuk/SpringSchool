@@ -1,7 +1,8 @@
 package com.example;
-
-//import org.svenson.JSONParser;
 import com.example.messages.Message;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.experimental.var;
         import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,8 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.env.AbstractEnvironment;
+import org.springframework.core.env.CompositePropertySource;
 import org.springframework.core.env.Environment;
         import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
@@ -56,6 +59,28 @@ public class EnterController {
     public String getLessonInstancesRun(){
         ServiceInstance instance = client.choose("lessonService");
         return instance.getUri().toString();
+    }
+
+    /* REFRESH */
+    @PostMapping(value = "/refreshing", produces = "application/json; charset=UTF-8")
+    public String checkRefresh() throws JsonProcessingException {
+        return refresh() + getPropertiesClient();
+    }
+    @PostMapping(value = "/actuator/bus-refresh", produces = "application/json; charset=UTF-8")
+    public String refresh()
+    {
+        return "Refreshed";
+    }
+    @GetMapping(value = "/properties", produces = "application/json; charset=UTF-8")
+    public String getPropertiesClient() throws JsonProcessingException{
+        Map<String, Object> props = new HashMap<>();
+        CompositePropertySource bootstrapProperties = (CompositePropertySource)  ((AbstractEnvironment) env).getPropertySources().get("bootstrapProperties");
+        for (String propertyName : bootstrapProperties.getPropertyNames()) {
+            props.put(propertyName, bootstrapProperties.getProperty(propertyName));
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        return mapper.writeValueAsString(props);
     }
 
     @Autowired
@@ -265,6 +290,7 @@ public class EnterController {
         return view;
     }
 
+    /* Admin's features */
     @GetMapping("/messages")
     public ModelAndView getMessages(){
         if(!isAdmin()){
@@ -307,6 +333,48 @@ public class EnterController {
         roleRep.save(a);
         return new ModelAndView("redirect:/login");
     }
+
+    @GetMapping("/allProperties")
+    public ModelAndView getPropertiesFromAllModules(){
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("");
+        }
+        ModelAndView view = new ModelAndView("propertiesAll");
+        try {
+            String schoolServiceProps = restTemplate.exchange(String.format("%s/properties", getInstancesRun()),
+                    HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
+                    }).getBody();
+            String lessonServiceProps = restTemplate.exchange(String.format("%s/properties", getLessonInstancesRun()),
+                    HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
+                    }).getBody();
+            String serverProps = restTemplate.exchange("http://Ruthless:7777/properties",
+                    HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
+                    }).getBody();
+            view.addObject("server", serverProps);
+            view.addObject("school", schoolServiceProps);
+            view.addObject("lesson", lessonServiceProps);
+            view.addObject("client", getPropertiesClient());
+        }
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return view;
+    }
+    @PostMapping("/updateAllProperties")
+    public ModelAndView updateAllProperties(){
+
+        ResponseEntity response = restTemplate.exchange("http://Ruthless:7777/actuator/bus-refresh",
+                HttpMethod.POST, null, new ParameterizedTypeReference<String>() {
+                });
+
+        ModelAndView view = new ModelAndView("redirect:/allProperties");
+        if(response.getStatusCode() == HttpStatus.NO_CONTENT)
+            view.addObject("result", "Properties are updated!");
+        else
+            view.addObject("result", "Something wrong");
+        return view;
+    }
+
     private ModelAndView redirectIfHaveNotAccess(String viewName){
         return redirectIfHaveNotAccess(new ModelAndView("redirect:/" + viewName));
     }
