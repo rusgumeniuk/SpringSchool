@@ -1,6 +1,7 @@
 package com.example;
 
 //import org.svenson.JSONParser;
+import com.example.messages.Message;
 import lombok.experimental.var;
         import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -264,6 +265,29 @@ public class EnterController {
         return view;
     }
 
+    @GetMapping("/messages")
+    public ModelAndView getMessages(){
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("");
+        }
+        String url = getInstancesRun();
+        log.info("Getting all messages from " + url);
+        List<Message> messages = restTemplate.getForObject(String.format("%s/messages", url), List.class);
+        ModelAndView model = new ModelAndView("messageAll");
+        model.addObject("messageList", messages);
+        return model;
+    }
+    @RequestMapping(value = "/messages/{id}", method = RequestMethod.GET)
+    public ModelAndView getMessage(@PathVariable Long id) {
+        String url = getInstancesRun();
+        ModelAndView view = new ModelAndView("messageDetail");
+        Message message = restTemplate.getForObject(String.format("%s/messages/%s", url, id), Message.class);
+        if(message.getMsg_id() == 0)
+            view.addObject("error", "We have not message with id: #" + id );
+        else
+            view.addObject("Message", message);
+        return view;
+    }
 
     private ModelAndView redirectIfHaveNotAccess(String viewName){
         return redirectIfHaveNotAccess(new ModelAndView("redirect:/" + viewName));
