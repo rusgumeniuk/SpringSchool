@@ -309,6 +309,85 @@ public class EnterController {
         return view;
     }
 
+    @GetMapping("/subjects")
+    public ModelAndView getSubjects(){
+        String url = getLessonInstancesRun();
+        log.info("Getting all subjects from " + url);
+        List<Subject> subjects = restTemplate.getForObject(String.format("%s/subjects", url), List.class);
+        ModelAndView model = new ModelAndView("subjectAll");
+        model.addObject("SubjectList", subjects);
+        return model;
+    }
+    @RequestMapping(value = "/subjects/{id}", method = RequestMethod.GET, produces="application/json")
+    public ModelAndView getSubject(@PathVariable Long id) {
+        String url = getLessonInstancesRun();
+        ModelAndView view = null;
+        Subject object = restTemplate.getForObject(String.format("%s/subjects/%s", url, id), Subject.class);
+        if(object.getId() == 0){
+            view = new ModelAndView("redirect:/subjects");
+            view.addObject("result", "We have not Subject with id: #" + id );
+        }
+        else{
+            view = new ModelAndView("subjectDetail");
+            view.addObject("Subject", object);
+        }
+        return view;
+    }
+    @RequestMapping(value = "/subjects", method = RequestMethod.POST, produces="application/json")
+    public ModelAndView createSubject(@ModelAttribute Subject object) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("subjects");
+        }
+        String url = getLessonInstancesRun();
+        log.info("Posting subjects from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Subject> entity = new HttpEntity<>(object, headers);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/subjects", url),
+                HttpMethod.POST, entity, new ParameterizedTypeReference<String>() {
+                });
+        ModelAndView view = new ModelAndView("redirect:/subjects");
+        return view;
+    }
+    @RequestMapping(value = "/subjects/{id}", method = RequestMethod.POST, produces="application/json")
+    public ModelAndView updateSubject(@ModelAttribute Subject object, @PathVariable Long id) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("subjects");
+        }
+        String url = getLessonInstancesRun();
+        log.info("Updating subjects from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Subject> entity = new HttpEntity<>(object, headers);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/subjects/%s", url, id),
+                HttpMethod.PUT, entity, new ParameterizedTypeReference<String>() {
+                }, id);
+        Subject group = restTemplate.getForObject(String.format("%s/subjects/%s", url, id), Subject.class);
+
+        return getSubject(id);
+    }
+    @RequestMapping(value = "/subjects/delete/{id}", method = RequestMethod.GET, produces="application/json")
+    public ModelAndView deleteSubject(@PathVariable Long id) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("subjects");
+        }
+        String url = getLessonInstancesRun();
+        log.info("Deleting subjects from " + url);
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/subjects/%s", url, id),
+                HttpMethod.DELETE, null, new ParameterizedTypeReference<String>() {
+                }, id);
+        String result = response.getStatusCode() == HttpStatus.OK ?
+                "Successfully deleted subject with ID: " + id :
+                "Some error when delete subject with ID:" + id;
+        ModelAndView view = new ModelAndView("redirect:/subjects");
+        view.addObject("result", result);
+        return view;
+    }
+
     /* Admin's features */
     @GetMapping("/messages")
     public ModelAndView getMessages(){
