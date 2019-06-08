@@ -20,6 +20,7 @@
             <td><a href="/rooms">Rooms</a></td>
             <td><a href="/buildings">Buildings</a></td>
             <td><a href="/teachers">Teachers</a></td>
+            <td><a href="/lessons">Lessons</a></td>
             <td><a href="/logout">Log out</a></td>
         </tr>
     </tr>
