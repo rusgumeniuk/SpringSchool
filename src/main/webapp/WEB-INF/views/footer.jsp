@@ -27,7 +27,7 @@
             <li class="obj"><a href="/index">Main page</a></li>
             <li class="obj"><a href="/students">Students</a></li>
             <li class="obj"><a href="/groups">Groups</a></li>
-            <li class="obj"><a href="/subject">Subjects</a></li>
+            <li class="obj"><a href="/subjects">Subjects</a></li>
             <li class="obj"><a href="/logout">Log out</a> </li>
         </ul>
     </nav>

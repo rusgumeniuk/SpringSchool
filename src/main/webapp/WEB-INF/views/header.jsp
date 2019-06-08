@@ -16,7 +16,7 @@
             <td><a href="/index">Main page</a></td>
             <td><a href="/students">Students</a></td>
             <td><a href="/groups">Groups</a></td>
-            <td><a href="/disciplines">Disciplines</a></td>
+            <td><a href="/subjects">Subjects</a></td>
             <td><a href="/logout">Log out</a></td>
         </tr>
     </tr>
