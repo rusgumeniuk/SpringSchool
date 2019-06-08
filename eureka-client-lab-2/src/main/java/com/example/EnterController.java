@@ -564,6 +564,108 @@ public class EnterController {
         return view;
     }
 
+    @GetMapping("/teachers")
+    public ModelAndView getTeachersView(){
+        String url = getLessonInstancesRun();
+        log.info("Getting all Teachers from " + url);
+        List<Teacher> teachers = restTemplate.getForObject(String.format("%s/teachers", url), List.class);
+        String groupUrl = getInstancesRun();
+        List<Group> groups = restTemplate.getForObject(String.format("%s/groups", groupUrl), List.class);
+        Group nullGroup = new Group();
+        nullGroup.setId(-2);
+        groups.add(0, nullGroup);
+        ModelAndView model = new ModelAndView("teacherAll");
+        model.addObject("TeacherList", teachers);
+        model.addObject("Groups", groups);
+        model.addObject("Ranks", Arrays.asList(TeacherRank.values()));
+        return model;
+    }
+    @RequestMapping(value = "/teachers/{id}", method = RequestMethod.GET, produces="application/json")
+    public ModelAndView getTeacher(@PathVariable Long id) {
+        String url = getLessonInstancesRun();
+        ModelAndView view = new ModelAndView("teacherDetail");
+        Teacher object = restTemplate.getForObject(String.format("%s/teachers/%s", url, id), Teacher.class);
+        String groupUrl = getInstancesRun();
+        List<Group> groups = restTemplate.getForObject(String.format("%s/groups", groupUrl), List.class);
+        Group nullGroup = new Group();
+        nullGroup.setId(-2);
+        groups.add(0, nullGroup);
+        if(object.getId() == 0)
+            view.addObject("error", "We have not teacher with id: #" + id );
+        else
+            view.addObject("Teacher", object);
+        view.addObject("Groups", groups);
+        view.addObject("Ranks", Arrays.asList(TeacherRank.values()));
+        return view;
+    }
+    @RequestMapping(value = "/teachers", method = RequestMethod.POST, produces="application/json")
+    public ModelAndView createTeacher(@RequestParam("fullName")String fullName, @RequestParam("cathedra")String cathedra,
+                                      @RequestParam("teacherRank")TeacherRank teacherRank, @RequestParam("mentored_group")Integer mentored_group) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("teachers");
+        }
+
+        String url = getLessonInstancesRun();
+        log.info("Posting Teacher from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Teacher> entity = new HttpEntity<>(new Teacher(fullName, teacherRank, cathedra), headers);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/teachers", url),
+                HttpMethod.POST, entity, new ParameterizedTypeReference<String>() {
+                });
+        if(mentored_group > 0){
+            Teacher[] ar = restTemplate.getForObject(String.format("%s/teachers", url), Teacher[].class);
+            var res = this.restTemplate.exchange(String.format("%s/teachers/%s/group/%s", url,ar[ar.length-1].getId(), mentored_group),
+                    HttpMethod.POST, null, new ParameterizedTypeReference<String>() {
+                    });
+        }
+        ModelAndView view = new ModelAndView("redirect:/teachers");
+        return view;
+    }
+    @RequestMapping(value = "/teachers/{id}", method = RequestMethod.POST, produces="application/json")
+    public ModelAndView updateTeacher(@RequestParam("fullName")String fullName, @RequestParam("cathedra")String cathedra,
+                                      @RequestParam("teacherRank")TeacherRank teacherRank, @RequestParam("mentored_group")Integer mentored_group, @PathVariable Long id) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("teachers");
+        }
+        String url = getLessonInstancesRun();
+        log.info("Updating Teacher from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Teacher> entity = new HttpEntity<>(new Teacher(fullName, teacherRank, cathedra), headers);
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/teachers/%s", url, id),
+                HttpMethod.PUT, entity, new ParameterizedTypeReference<String>() {
+                }, id);
+        Teacher teacher = restTemplate.getForObject(String.format("%s/teachers/%s", url, id), Teacher.class);
+
+        if(mentored_group > 0 || mentored_group == -2){
+            var res = this.restTemplate.exchange(String.format("%s/teachers/%s/group/%s", url, id, mentored_group),
+                    HttpMethod.POST, null, new ParameterizedTypeReference<String>() {
+                    });
+        }
+        return getTeacher(id);
+    }
+    @RequestMapping(value = "/teachers/delete/{id}", method = RequestMethod.GET, produces="application/json")
+    public ModelAndView deleteTeacher(@PathVariable Long id) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("teachers");
+        }
+        String url = getLessonInstancesRun();
+        log.info("Deleting Teacher from " + url);
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/teachers/%s", url, id),
+                HttpMethod.DELETE, null, new ParameterizedTypeReference<String>() {
+                }, id);
+        String result = response.getStatusCode() == HttpStatus.OK ?
+                "Successfully deleted teacher with ID: " + id :
+                "Some error when delete teacher with ID:" + id;
+        ModelAndView view = new ModelAndView("redirect:/teachers");
+        view.addObject("result", result);
+        return view;
+    }
+
     /* Admin's features */
     @GetMapping("/messages")
     public ModelAndView getMessages(){
