@@ -1,7 +1,6 @@
 package com.example.listeners.events;
 
-import com.example.messages.GroupMessage;
-import com.example.messages.StudentMessage;
+import com.example.messages.Message;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Component;
@@ -17,15 +16,26 @@ public class EventsPublisher implements ApplicationEventPublisherAware {
         this.appPublisher = appPublisher;
     }
 
-    public void publishGroup(GroupMessage message)
+    public void publishStudentGroupTeacher(Message message)
     {
-        GroupEvent evt = new GroupEvent(this, message);
+        StudentGroupTeacherEvent evt = new StudentGroupTeacherEvent(this, message);
         appPublisher.publishEvent(evt);
     }
 
-    public void publishStudent(StudentMessage message)
+    public void publishSystem(Message message)
     {
-        StudentEvent evt = new StudentEvent(this, message);
+        SystemEvent evt = new SystemEvent(this, message);
+        appPublisher.publishEvent(evt);
+    }
+    public void publishArch(Message message)
+    {
+        ArchEvent evt = new ArchEvent(this, message);
+        appPublisher.publishEvent(evt);
+    }
+
+    public void publishLesSub(Message message)
+    {
+        LesSubEvent evt = new LesSubEvent(this, message);
         appPublisher.publishEvent(evt);
     }
 }
