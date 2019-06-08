@@ -16,10 +16,12 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "messages")
 @EntityListeners(AuditingEntityListener.class)
-public class Message<T> {
+public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long msg_id;
+    private Long id;
+    @NotNull
+    private String className;
     @NotNull
     private String description;
     @NotNull
@@ -30,12 +32,36 @@ public class Message<T> {
     @Column(length = 1000)
     private String error;
 
-    public Long getMsg_id() {
-        return msg_id;
+    @NotNull
+    private Timestamp dateTime;
+
+    public Message(Class clas, @NotNull String description, @NotNull HttpMethod httpMethod, @NotNull String statusCode, @NotNull String error) {
+        this(clas.getName(), description, httpMethod, statusCode, new Timestamp(System.currentTimeMillis()), error);
+    }
+    public Message(@NotNull String className, @NotNull String description, @NotNull HttpMethod httpMethod, @NotNull String statusCode, @NotNull String error) {
+        this(className, description, httpMethod, statusCode, new Timestamp(System.currentTimeMillis()), error);
+    }
+    public Message(Class clas, String description, HttpMethod httpMethod, String statusCode, Timestamp dateTime, String error) {
+       this(clas.getName(), description, httpMethod, statusCode, dateTime, error);
+    }
+    public Message(String className, String description, HttpMethod httpMethod, String statusCode, Timestamp dateTime, String error) {
+        this.className = className;
+        this.description = description;
+        this.httpMethod = httpMethod;
+        this.statusCode = statusCode;
+        this.dateTime = dateTime;
+        this.error = error;
+    }
+    public Message(){
+
     }
 
-    public void setMsg_id(Long msg_id) {
-        this.msg_id = msg_id;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -76,21 +102,6 @@ public class Message<T> {
 
     public void setDateTime(Timestamp dateTime) {
         this.dateTime = dateTime;
-    }
-
-    @NotNull
-    private Timestamp dateTime;
-
-    public Message(String description, HttpMethod httpMethod, String statusCode, Timestamp dateTime, String error) {
-        this.description = description;
-        this.httpMethod = httpMethod;
-        this.statusCode = statusCode;
-        this.dateTime = dateTime;
-        this.error = error;
-    }
-
-    public Message(){
-
     }
 
     @Override
