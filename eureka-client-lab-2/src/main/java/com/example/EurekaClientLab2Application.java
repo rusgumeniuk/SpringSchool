@@ -23,11 +23,17 @@ import org.springframework.context.annotation.Primary;
 @RefreshScope
 @Configuration
 public class EurekaClientLab2Application {
-    @Value("${queue.group.name}")
-    private String qGroup;
+    @Value("${queue.studentGroupTeacher.name}")
+    private String qStudentGroupTeacher;
 
-    @Value("${queue.student.name}")
-    private String qStudent;
+    @Value("${queue.system.name}")
+    private String qSystem;
+    
+    @Value("${queue.lesSub.name}")
+    private String qLesSub;
+
+    @Value("${queue.arch.name}")
+    private String qArch;
 
     @Value("${spring.rabbitmq.host}")
     private String brokerUrl;
@@ -45,36 +51,6 @@ public class EurekaClientLab2Application {
 		SpringApplication.run(EurekaClientLab2Application.class, args);
 	}
 
-    @Bean(name ="queueGroup")
-    public Queue queueGroup() {
-        return new Queue(qGroup, true);
-    }
-
-    @Bean(name="exchangeGroup")
-    public TopicExchange exchangeGroup() {
-        return new TopicExchange(topicName);
-    }
-
-    @Bean(name="bindingGroup")
-    public Binding bindingCustomer(Queue queueGroup, TopicExchange exchangeGroup) {
-        return BindingBuilder.bind(queueGroup).to(exchangeGroup).with(qGroup);
-    }
-
-    @Bean(name="queueStudent")
-    public Queue queueStudent() {
-        return new Queue(qStudent, true);
-    }
-
-    @Bean(name="exchangeStudent")
-    public TopicExchange exchangeStudent() {
-        return new TopicExchange(topicName);
-    }
-
-    @Bean(name="bindingStudent")
-    public Binding bindingShop(Queue queueStudent, TopicExchange exchangeStudent) {
-        return BindingBuilder.bind(queueStudent).to(exchangeStudent).with(qStudent);
-    }
-
     @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory(brokerUrl);
@@ -83,25 +59,88 @@ public class EurekaClientLab2Application {
 
         return connectionFactory;
     }
-
     @Bean
     public MessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
+	
+    @Bean(name ="queueLesSub")
+    public Queue queueLesSub() {
+        return new Queue(qLesSub, true);
+    }
+    @Bean(name="queueSystem")
+    public Queue queueSystem() {
+        return new Queue(qSystem, true);
+    }
+    @Bean(name ="queueStudentGroupTeacher")
+    public Queue queueStudentGroupTeacher() {
+        return new Queue(qStudentGroupTeacher, true);
+    }
+    @Bean(name="queueArch")
+    public Queue queueArch() {
+        return new Queue(qArch, true);
+    }
 
-    @Bean(name="rabbitTemplateGroup")
+    @Bean(name="exchangeLesSub")
+    public TopicExchange exchangeLesSub() {
+        return new TopicExchange(topicName);
+    }
+    @Bean(name="exchangeSystem")
+    public TopicExchange exchangeSystem() {
+        return new TopicExchange(topicName);
+    }
+    @Bean(name="exchangeStudentGroupTeacher")
+    public TopicExchange exchangeStudentGroupTeacher() {
+        return new TopicExchange(topicName);
+    }
+    @Bean(name="exchangeArch")
+    public TopicExchange exchangeArch() {
+        return new TopicExchange(topicName);
+    }
+
+    @Bean(name="bindingLesSub")
+    public Binding bindingLesSub(Queue queueLesSub, TopicExchange exchangeLesSub) {
+        return BindingBuilder.bind(queueLesSub).to(exchangeLesSub).with(qLesSub);
+    }
+    @Bean(name="bindingSystem")
+    public Binding bindingSystem(Queue queueSystem, TopicExchange exchangeSystem) {
+        return BindingBuilder.bind(queueSystem).to(exchangeSystem).with(qSystem);
+    }
+    @Bean(name="bindingStudentGroupTeacher")
+    public Binding bindingStudentGroupTeacher(Queue queueStudentGroupTeacher, TopicExchange exchangeStudentGroupTeacher) {
+        return BindingBuilder.bind(queueStudentGroupTeacher).to(exchangeStudentGroupTeacher).with(qStudentGroupTeacher);
+    }
+    @Bean(name="bindingArch")
+    public Binding bindingArch(Queue queueArch, TopicExchange exchangeArch) {
+        return BindingBuilder.bind(queueArch).to(exchangeArch).with(qArch);
+    }
+
+    @Bean(name="rabbitTemplateStudentGroupTeacher")
     @Primary
-    public RabbitTemplate rabbitTemplateGroup() {
+    public RabbitTemplate rabbitTemplateStudentGroupTeacher() {
         RabbitTemplate template = new RabbitTemplate(connectionFactory());
-        template.setRoutingKey(qGroup);
+        template.setRoutingKey(qStudentGroupTeacher);
         template.setMessageConverter(jsonMessageConverter());
         return template;
     }
-
-    @Bean(name="rabbitTemplateStudent")
-    public RabbitTemplate rabbitTemplateStudent() {
+    @Bean(name="rabbitTemplateLesSub")
+    public RabbitTemplate rabbitTemplateLesSub() {
         RabbitTemplate template = new RabbitTemplate(connectionFactory());
-        template.setRoutingKey(qStudent);
+        template.setRoutingKey(qLesSub);
+        template.setMessageConverter(jsonMessageConverter());
+        return template;
+    }
+    @Bean(name="rabbitTemplateSystem")
+    public RabbitTemplate rabbitTemplateSystem() {
+        RabbitTemplate template = new RabbitTemplate(connectionFactory());
+        template.setRoutingKey(qSystem);
+        template.setMessageConverter(jsonMessageConverter());
+        return template;
+    }
+    @Bean(name="rabbitTemplateArch")
+    public RabbitTemplate rabbitTemplateArch() {
+        RabbitTemplate template = new RabbitTemplate(connectionFactory());
+        template.setRoutingKey(qArch);
         template.setMessageConverter(jsonMessageConverter());
         return template;
     }
