@@ -1,4 +1,8 @@
 package com.example;
+import com.example.lessons.Lesson;
+import com.example.lessons.LessonNumber;
+import com.example.lessons.LessonType;
+import com.example.lessons.WeekMode;
 import com.example.messages.Message;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 //import javax.ws.rs.core.GenericEntity;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import java.time.DayOfWeek;
 import java.util.*;
 
 @EnableDiscoveryClient
@@ -665,6 +670,199 @@ public class EnterController {
         view.addObject("result", result);
         return view;
     }
+
+
+
+    @GetMapping("/lessons")
+    public ModelAndView getLessons(){
+        String schoolUrl = getInstancesRun();
+        String lessonUrl= getLessonInstancesRun();
+        log.info("Getting all lessons from " + lessonUrl);
+        ModelAndView model = new ModelAndView("lessonAll");
+        List<Lesson> lessons = null;
+        List<Subject> subjects = null;
+        List<Group> groups = null;
+        List<Room> rooms = null;
+        List<Teacher> teachers = null;
+        try{
+            lessons = restTemplate.getForObject(String.format("%s/lessons", lessonUrl), List.class);
+            subjects = restTemplate.getForObject(String.format("%s/subjects", lessonUrl), List.class);
+            rooms = restTemplate.getForObject(String.format("%s/rooms", lessonUrl), List.class);
+            teachers = restTemplate.getForObject(String.format("%s/teachers", lessonUrl), List.class);
+        }
+        catch (Exception ex){
+            System.out.println("Lesson service doesn't work");
+            System.out.println(ex.getMessage());
+        }
+        try{
+            groups = restTemplate.getForObject(String.format("%s/groups", getInstancesRun()), List.class);
+        }
+        catch (Exception ex){
+            System.out.println("School service doesn't work");
+            System.out.println(ex.getMessage());
+        }
+
+        model.addObject("LessonList", lessons);
+        model.addObject("Groups", groups);
+        model.addObject("Subjects", subjects);
+        model.addObject("Teachers", teachers);
+        model.addObject("Rooms", rooms);
+        model.addObject("DaysOfWeek", DayOfWeek.values());
+        model.addObject("LessonTypes", LessonType.values());
+        model.addObject("LessonNumbers", LessonNumber.values());
+        model.addObject("WeekModes", WeekMode.values());
+        return model;
+    }
+    @RequestMapping(value = "/lessons/{id}", method = RequestMethod.GET, produces="application/json")
+    public ModelAndView getLesson(@PathVariable Long id) {
+        String url = getLessonInstancesRun();
+        ModelAndView view = null;
+        Lesson object = restTemplate.getForObject(String.format("%s/lessons/%s", url, id), Lesson.class);
+        if(object.getId() == 0){
+            view = new ModelAndView("redirect:/lessons");
+            view.addObject("result", "We have not Lesson with id: #" + id );
+        }
+        else{
+            view = new ModelAndView("lessonDetail");
+            view.addObject("Lesson", object);
+
+
+            Subject[] subjects = null;
+            Group[] groups = null;
+            Room[] rooms = null;
+            Teacher[] teachers = null;
+            Group group = null;
+            Teacher teacher = null;
+            Room room = null;
+            Subject subject = null;
+            try{
+                subjects = restTemplate.getForObject(String.format("%s/subjects", url), Subject[].class);
+                rooms = restTemplate.getForObject(String.format("%s/rooms", url), Room[].class);
+                teachers = restTemplate.getForObject(String.format("%s/teachers", url), Teacher[].class);
+                subject= restTemplate.getForObject(String.format("%s/subjects/%s", url, object.getSubject()), Subject.class);
+                teacher = restTemplate.getForObject(String.format("%s/teachers/%s", url, object.getTeacher()), Teacher.class);
+                room = restTemplate.getForObject(String.format("%s/rooms/%s", url, object.getRoom()), Room.class);
+
+            }
+            catch (Exception ex){
+                System.out.println("Lesson service doesn't work");
+                System.out.println(ex.getMessage());
+            }
+            try{
+                groups = restTemplate.getForObject(String.format("%s/groups", getInstancesRun()), Group[].class);
+                group = restTemplate.getForObject(String.format("%s/groups/%s", getInstancesRun(), object.getGroup()), Group.class);
+            }
+            catch (Exception ex){
+                System.out.println("School service doesn't work");
+                System.out.println(ex.getMessage());
+            }
+            view.addObject("Groups", groups);
+            view.addObject("Subjects", subjects);
+            view.addObject("Teachers", teachers);
+            view.addObject("Rooms", rooms);
+
+            view.addObject("Group", group);
+            view.addObject("Subject", subject);
+            view.addObject("Teacher", teacher);
+            view.addObject("Room", room);
+
+            List<DayOfWeek> days = Arrays.asList(DayOfWeek.values());
+            view.addObject("DaysOfWeek", days);
+            view.addObject("LessonTypes", LessonType.values());
+            view.addObject("LessonNumbers", LessonNumber.values());
+            view.addObject("WeekModes", WeekMode.values());
+        }
+        return view;
+    }
+    @RequestMapping(value = "/lessons", method = RequestMethod.POST, produces="application/json")
+    public ModelAndView createLesson(@RequestParam("lessonNumber")LessonNumber lessonNumber,
+                                     @RequestParam("lessonType")LessonType lessonType,
+                                     @RequestParam("weekMode")WeekMode weekMode,
+                                     @RequestParam("dayOfWeek")DayOfWeek dayOfWeek,
+                                     @RequestParam("room")Integer room,
+                                     @RequestParam("subject")Integer subject,
+                                     @RequestParam("teacher")Integer teacher,
+                                     @RequestParam("group")Integer group) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("lessons");
+        }
+        String url = getLessonInstancesRun();
+        log.info("Posting lessons from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        Room roomObj = null;
+        Subject subjectObj = null;
+        Teacher teacherObj = null;
+        Group groupObj = null;
+        boolean isAllExist = true;
+        try{
+            subjectObj = restTemplate.getForObject(String.format("%s/subjects/%s", url, subject), Subject.class);
+            teacherObj = restTemplate.getForObject(String.format("%s/teachers/%s", url, teacher), Teacher.class);
+            roomObj = restTemplate.getForObject(String.format("%s/rooms/%s", url, room), Room.class);
+        }
+        catch (Exception ex){
+            isAllExist = false;
+            System.out.println("Lesson service doesn't work");
+            System.out.println(ex.getMessage());
+        }
+        try{
+            groupObj = restTemplate.getForObject(String.format("%s/groups/%s", getInstancesRun(), group), Group.class);
+        }
+        catch (Exception ex){
+            isAllExist = false;
+            System.out.println("School service doesn't work");
+            System.out.println(ex.getMessage());
+        }
+        if(!isAllExist)
+            return new ModelAndView("redirect:/lessons");
+        HttpEntity<Lesson> entity = new HttpEntity<>(new Lesson(
+                lessonNumber, lessonType, weekMode, dayOfWeek, room, subject, teacher, group)
+                , headers);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/lessons", url),
+                HttpMethod.POST, entity, new ParameterizedTypeReference<String>() {
+                });
+        ModelAndView view = new ModelAndView("redirect:/lessons");
+        return view;
+    }
+    @RequestMapping(value = "/lessons/{id}", method = RequestMethod.POST, produces="application/json")
+    public ModelAndView updateLesson(@ModelAttribute Lesson object, @PathVariable Long id) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("lessons");
+        }
+        String url = getLessonInstancesRun();
+        log.info("Updating lessons from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Lesson> entity = new HttpEntity<>(object, headers);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/lessons/%s", url, id),
+                HttpMethod.PUT, entity, new ParameterizedTypeReference<String>() {
+                }, id);
+        Lesson lesson = restTemplate.getForObject(String.format("%s/lessons/%s", url, id), Lesson.class);
+
+        return getLesson(id);
+    }
+    @RequestMapping(value = "/lessons/delete/{id}", method = RequestMethod.GET, produces="application/json")
+    public ModelAndView deleteLesson(@PathVariable Long id) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("lessons");
+        }
+        String url = getLessonInstancesRun();
+        log.info("Deleting lessons from " + url);
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/lessons/%s", url, id),
+                HttpMethod.DELETE, null, new ParameterizedTypeReference<String>() {
+                }, id);
+        String result = response.getStatusCode() == HttpStatus.OK ?
+                "Successfully deleted lesson with ID: " + id :
+                "Some error when delete lesson with ID:" + id;
+        ModelAndView view = new ModelAndView("redirect:/lessons");
+        view.addObject("result", result);
+        return view;
+    }
+
 
     /* Admin's features */
     @GetMapping("/messages")
