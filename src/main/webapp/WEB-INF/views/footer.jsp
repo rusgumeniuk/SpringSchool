@@ -31,6 +31,7 @@
             <li class="obj"><a href="/subjects">Subjects</a></li>
             <li class="obj"><a href="/rooms">Rooms</a></li>
             <li class="obj"><a href="/building">Buildings</a></li>
+            <li class="obj"><a href="/teachers">Teachers</a></li>
             <li class="obj"><a href="/logout">Log out</a> </li>
         </ul>
     </nav>
