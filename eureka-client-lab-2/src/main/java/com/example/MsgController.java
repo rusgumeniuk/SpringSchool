@@ -1,13 +1,10 @@
 package com.example;
 
 import com.example.lessons.Lesson;
-import com.example.messages.GroupMessage;
-import com.example.messages.StudentMessage;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.sun.tracing.dtrace.ProviderAttributes;
 import lombok.experimental.var;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -738,7 +735,7 @@ public class MsgController {
     }
 
     private void sendGroupMessage(ResponseEntity response, Long id, HttpMethod httpMethod, String error){
-        producer.sendGroupMsg(
+       /* producer.sendGroupMsg(
                 new GroupMessage(
                         "ID: " + (id == 0 ? "not have ID yet" : id) + ". " + response.getStatusCode().getReasonPhrase() + ". Is error: " + response.getStatusCode().isError(),
                         httpMethod,
@@ -746,10 +743,10 @@ public class MsgController {
                         new Timestamp(System.currentTimeMillis()),
                         error
                 )
-        );
+        );*/
     }
     private void sendStudentMessage(ResponseEntity response, Long id, HttpMethod httpMethod, String error){
-        producer.sendStudentMsg(
+       /* producer.sendStudentMsg(
                 new StudentMessage(
                         "ID: " + (id == 0 ? "not have ID yet" : id) + ". " + response.getStatusCode().getReasonPhrase() + ". Is error: " + response.getStatusCode().isError(),
                         httpMethod,
@@ -757,6 +754,6 @@ public class MsgController {
                         new Timestamp(System.currentTimeMillis()),
                         error
                 )
-        );
+        );*/
     }
 }
