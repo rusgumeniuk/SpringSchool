@@ -14,7 +14,7 @@ public class MessageResourcesAssembler implements ResourceAssembler<Message, Res
     public Resource<Message> toResource(Message message) {
         return new Resource<>(
                 message,
-                linkTo(methodOn(MessageController.class).getMessage(message.getMsg_id())).withSelfRel(),
+                linkTo(methodOn(MessageController.class).getMessage(message.getId())).withSelfRel(),
                 linkTo(methodOn(MessageController.class).getMessages()).withRel("messages")
         );
     }
