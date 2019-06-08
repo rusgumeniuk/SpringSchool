@@ -4,10 +4,10 @@
     <tr>
         <tr>
             <td colspan="4" align="center">
-                Ruslanius school
+                <a href="/">Ruslanius school</a>
             </td>
             <td>
-                ${user.name},
+                <security:authentication property="principal.username" />,
                 <br> u r here,
                 <br> welcome
             </td>
@@ -17,6 +17,8 @@
             <td><a href="/students">Students</a></td>
             <td><a href="/groups">Groups</a></td>
             <td><a href="/subjects">Subjects</a></td>
+            <td><a href="/rooms">Rooms</a></td>
+            <td><a href="/buildings">Buildings</a></td>
             <td><a href="/logout">Log out</a></td>
         </tr>
     </tr>

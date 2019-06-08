@@ -1,3 +1,4 @@
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <div>
     <h2>
         Designed by Ruslan Humeniuk
@@ -15,7 +16,7 @@
             Ruslanius school
         </h1>
         <h3>
-            ${user.name}
+            <security:authentication property="principal.username" />
         </h3>
         <h4>, u r here,</h4>
         <br>
@@ -28,6 +29,8 @@
             <li class="obj"><a href="/students">Students</a></li>
             <li class="obj"><a href="/groups">Groups</a></li>
             <li class="obj"><a href="/subjects">Subjects</a></li>
+            <li class="obj"><a href="/rooms">Rooms</a></li>
+            <li class="obj"><a href="/building">Buildings</a></li>
             <li class="obj"><a href="/logout">Log out</a> </li>
         </ul>
     </nav>
