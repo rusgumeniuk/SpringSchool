@@ -1,7 +1,6 @@
 package com.example;
 
-import com.example.messages.GroupMessage;
-import com.example.messages.StudentMessage;
+import com.example.messages.Message;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.slf4j.Logger;
@@ -17,36 +16,34 @@ import java.text.MessageFormat;
 @Component
 public class MsgProducer {
 
-    @Autowired
-    @Qualifier("rabbitTemplateGroup")
-    private RabbitTemplate rabbitGroup;
-
-    @Autowired
-    @Qualifier("rabbitTemplateStudent")
-    private RabbitTemplate rabbitStudent;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(MsgProducer.class);
 
-    public void sendGroupMsg(GroupMessage msg)
-    {
-        try {
-            LOGGER.debug("<<<<<< SENDING MESSAGE");
-            rabbitGroup.convertAndSend(msg);
-            LOGGER.debug(MessageFormat.format("MESSAGE SENT TO {0} >>>>>>", rabbitGroup.getRoutingKey()));
-
-        } catch (AmqpException e) {
-            LOGGER.error("Error sending Customer: ",e);
-        }
+    public void sendMessage(Message message){
+        RabbitTemplate rabbitTemplate = null;
+        if(message.getClassName().equalsIgnoreCase("student")
+                || message.getClassName().equalsIgnoreCase("group")
+                || message.getClassName().equalsIgnoreCase("teacher"))
+            rabbitTemplate = rabbitStudentGroupTeacher;
+        else
+            if(message.getClassName().equalsIgnoreCase("subject")
+                    || message.getClassName().equalsIgnoreCase("lesson"))
+            rabbitTemplate = rabbitLesSub;
+        else
+            if(message.getClassName().equalsIgnoreCase("room")
+                    || message.getClassName().equalsIgnoreCase("building"))
+            rabbitTemplate = rabbitArch;
+        else
+            rabbitTemplate = rabbitSystem;
+        sendMessage(rabbitTemplate, message);
     }
 
-    public void sendStudentMsg(StudentMessage msg)
-    {
+    private void sendMessage(RabbitTemplate rabbitTemplate, Message message){
         try {
             LOGGER.debug("<<<<< SENDING MESSAGE");
-            rabbitStudent.convertAndSend(msg);
-            LOGGER.debug(MessageFormat.format("MESSAGE SENT TO {0} >>>>>>", rabbitStudent.getRoutingKey()));
+            rabbitTemplate.convertAndSend(message);
+            LOGGER.debug(MessageFormat.format("MESSAGE SENT TO {0} >>>>>>", rabbitTemplate.getRoutingKey()));
         } catch (AmqpException e) {
-            LOGGER.error("Error sending Shop: ",e);
+            LOGGER.error("Error sending " + message.getClassName() + " message : " + e);
         }
     }
 
@@ -54,13 +51,31 @@ public class MsgProducer {
     {
         JsonNodeFactory factory = JsonNodeFactory.instance;
         ObjectNode root = factory.objectNode();
-        root.put("host", rabbitGroup.getConnectionFactory().getHost());
-        root.put("port", rabbitGroup.getConnectionFactory().getPort());
-        root.put("Group UUID", rabbitGroup.getUUID());
-        root.put("Student UUID", rabbitStudent.getUUID());
-        root.put("queueGroup", rabbitGroup.getRoutingKey());
-        root.put("queueStudent", rabbitStudent.getRoutingKey());
+        root.put("host", rabbitSystem.getConnectionFactory().getHost());
+        root.put("port", rabbitSystem.getConnectionFactory().getPort());
 
+        root.put("Student Group Teacher UUID", rabbitStudentGroupTeacher.getUUID());
+        root.put("Room and Building UUID", rabbitArch.getUUID());
+        root.put("Lesson and Subject UUID", rabbitLesSub.getUUID());
+        root.put("System UUID", rabbitSystem.getUUID());
+
+        root.put("queueStudentGroupTeacher", rabbitStudentGroupTeacher.getRoutingKey());
+        root.put("queueArch", rabbitArch.getRoutingKey());
+        root.put("queueLesSub", rabbitLesSub.getRoutingKey());
+        root.put("queueSystem", rabbitSystem.getRoutingKey());
         return root;
     }
+
+    @Autowired
+    @Qualifier("rabbitTemplateStudentGroupTeacher")
+    private RabbitTemplate rabbitStudentGroupTeacher;
+    @Autowired
+    @Qualifier("rabbitTemplateArch")
+    private RabbitTemplate rabbitArch;
+    @Autowired
+    @Qualifier("rabbitTemplateSystem")
+    private RabbitTemplate rabbitSystem;
+    @Autowired
+    @Qualifier("rabbitTemplateLesSub")
+    private RabbitTemplate rabbitLesSub;
 }
