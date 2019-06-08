@@ -15,7 +15,11 @@
         <table border="0">
             <tr>
                 <td>Id</td>
-                <td>${Message.msg_id}</td>
+                <td>${Message.id}</td>
+            </tr>
+            <tr>
+                <td>Class name</td>
+                <td>${Message.className}</td>
             </tr>
             <tr>
                 <td>Status code</td>

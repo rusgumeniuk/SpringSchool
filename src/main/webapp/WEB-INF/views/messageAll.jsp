@@ -22,6 +22,9 @@
             <c:forEach items = "${messageList}" var="message">
             <tr>
                 <tr>
+                    <td rowspan="2">
+                            ${message.className}
+                    </td>
                     <td>${message.httpMethod}</td>
                     <td>${message.statusCode}</td>
                     <td rowspan="2">
@@ -29,7 +32,7 @@
                     </td>
                     <td rowspan="2">${message.error}</td>
                     <td rowspan="2">
-                        <a type="button", class="btnAction", href="/messages/${message.msg_id}">Detail</a>
+                        <a type="button", class="btnAction", href="/messages/${message.id}">Detail</a>
                     </td>
                 </tr>
                 <tr>
