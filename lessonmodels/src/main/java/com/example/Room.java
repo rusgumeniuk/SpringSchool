@@ -19,9 +19,9 @@ public class Room extends com.example.Entity {
     @NotNull
     private int number;
 
-   @JsonIgnore
+    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "building_id")
+    @JoinColumn(name = "fk_building_id", referencedColumnName = "id")
     private Building building;
 
 

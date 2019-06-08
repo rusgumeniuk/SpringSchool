@@ -53,7 +53,6 @@ public class KPIRoomService implements RoomService {
     public Room updateObject(Room newObject, Integer integer) {
         Room foundRoom = getObjectById(integer);
         foundRoom.setNumber(newObject.getNumber());
-        foundRoom.setBuilding(newObject.getBuilding());
         return roomRepository.save(foundRoom);
     }
 }
