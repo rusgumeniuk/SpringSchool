@@ -388,6 +388,182 @@ public class EnterController {
         return view;
     }
 
+    @GetMapping("/rooms")
+    public ModelAndView getRoomsView(){
+        String url = getLessonInstancesRun();
+        log.info("Getting all Rooms from " + url);
+        List<Room> rooms = restTemplate.getForObject(String.format("%s/rooms", url), List.class);
+        List<Building> buildings = restTemplate.getForObject(String.format("%s/buildings", url), List.class);
+        Building nullBuild = new Building();
+        nullBuild.setId(-2);
+        buildings.add(0, nullBuild);
+        ModelAndView model = new ModelAndView("roomAll");
+        model.addObject("RoomList", rooms);
+        model.addObject("Buildings", buildings);
+        return model;
+    }
+    @RequestMapping(value = "/rooms/{id}", method = RequestMethod.GET, produces="application/json")
+    public ModelAndView getRoom(@PathVariable Long id) {
+        String url = getLessonInstancesRun();
+        ModelAndView view = new ModelAndView("roomDetail");
+        Room object = restTemplate.getForObject(String.format("%s/rooms/%s", url, id), Room.class);
+        List<Building> buildings = restTemplate.getForObject(String.format("%s/buildings", url), List.class);
+        Building nullBuild = new Building();
+        nullBuild.setId(-2);
+        buildings.add(0, nullBuild);
+        if(object.getId() == 0)
+            view.addObject("error", "We have not room with id: #" + id );
+        else
+            view.addObject("Room", object);
+        view.addObject("Buildings", buildings);
+        return view;
+    }
+    @RequestMapping(value = "/rooms", method = RequestMethod.POST, produces="application/json")
+    public ModelAndView createRoom(@RequestParam("number")Integer number, @RequestParam("building")String building) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("rooms");
+        }
+        String url = getLessonInstancesRun();
+        log.info("Posting Room from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Room> entity = new HttpEntity<>(new Room(number), headers);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/rooms", url),
+                HttpMethod.POST, entity, new ParameterizedTypeReference<String>() {
+                });
+
+        if(!building.isEmpty() && (Integer.valueOf(building) > 0 || Integer.valueOf(building) == -2))
+        {
+            Room[] ar = restTemplate.getForObject(String.format("%s/rooms", url), Room[].class);
+            var res = this.restTemplate.exchange(String.format("%s/rooms/%s/building/%s", url,ar[ar.length-1].getId(), building),
+                    HttpMethod.POST, null, new ParameterizedTypeReference<String>() {
+                    });
+        }
+        ModelAndView view = new ModelAndView("redirect:/rooms");
+        return view;
+    }
+    @RequestMapping(value = "/rooms/{id}", method = RequestMethod.POST, produces="application/json")
+    public ModelAndView updateRoom(@RequestParam("number")Integer number, @RequestParam("building")String building, @PathVariable Long id) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("rooms");
+        }
+        String url = getLessonInstancesRun();
+        log.info("Updating Room from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Room> entity = new HttpEntity<>(new Room(number), headers);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/rooms/%s", url, id),
+                HttpMethod.PUT, entity, new ParameterizedTypeReference<String>() {
+                }, id);
+        Room room = restTemplate.getForObject(String.format("%s/rooms/%s", url, id), Room.class);
+
+        if(!building.isEmpty() && (Integer.valueOf(building) > 0 || Integer.valueOf(building) == -2))
+        {var res = this.restTemplate.exchange(String.format("%s/rooms/%s/building/%s", url, id, building),
+                    HttpMethod.POST, null, new ParameterizedTypeReference<String>() {
+                    });
+        }
+        return getRoom(id);
+    }
+    @RequestMapping(value = "/rooms/delete/{id}", method = RequestMethod.GET, produces="application/json")
+    public ModelAndView deleteRoom(@PathVariable Long id) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("rooms");
+        }
+        String url = getLessonInstancesRun();
+        log.info("Deleting Room from " + url);
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/rooms/%s", url, id),
+                HttpMethod.DELETE, null, new ParameterizedTypeReference<String>() {
+                }, id);
+        String result = response.getStatusCode() == HttpStatus.OK ?
+                "Successfully deleted room with ID: " + id :
+                "Some error when delete room with ID:" + id;
+        ModelAndView view = new ModelAndView("redirect:/rooms");
+        view.addObject("result", result);
+        return view;
+    }
+
+    @GetMapping("/buildings")
+    public ModelAndView getBuildingsView(){
+        String url = getLessonInstancesRun();
+        String lessonUrl = getLessonInstancesRun();
+        log.info("Getting all Buildings from " + url);
+        List<Building> buildings = restTemplate.getForObject(String.format("%s/buildings", url), List.class);
+        List<Teacher> mentors = restTemplate.getForObject(String.format("%s/teachers", lessonUrl), List.class);
+        ModelAndView model = new ModelAndView("buildingAll");
+        model.addObject("BuildingList", buildings);
+        model.addObject("Mentors", mentors);
+        return model;
+    }
+    @RequestMapping(value = "/buildings/{id}", method = RequestMethod.GET, produces="application/json")
+    public ModelAndView getBuilding(@PathVariable Long id) {
+        String url = getLessonInstancesRun();
+        ModelAndView view = new ModelAndView("buildingDetail");
+        Building object = restTemplate.getForObject(String.format("%s/buildings/%s", url, id), Building.class);
+        if(object.getId() == 0)
+            view.addObject("error", "We have not building with id: #" + id );
+        else
+            view.addObject("Building", object);
+        return view;
+    }
+    @RequestMapping(value = "/buildings", method = RequestMethod.POST, produces="application/json")
+    public ModelAndView createBuilding(@ModelAttribute Building object) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("buildings");
+        }
+        String url = getLessonInstancesRun();
+        log.info("Posting Building from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Building> entity = new HttpEntity<>(object, headers);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/buildings", url),
+                HttpMethod.POST, entity, new ParameterizedTypeReference<String>() {
+                });
+        ModelAndView view = new ModelAndView("redirect:/buildings");
+        return view;
+    }
+    @RequestMapping(value = "/buildings/{id}", method = RequestMethod.POST, produces="application/json")
+    public ModelAndView updateBuilding(@ModelAttribute Building object, @PathVariable Long id) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("buildings");
+        }
+        String url = getLessonInstancesRun();
+        log.info("Updating Building from json from " + url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Building> entity = new HttpEntity<>(object, headers);
+
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/buildings/%s", url, id),
+                HttpMethod.PUT, entity, new ParameterizedTypeReference<String>() {
+                }, id);
+        Building building = restTemplate.getForObject(String.format("%s/buildings/%s", url, id), Building.class);
+
+        return getBuilding(id);
+    }
+    @RequestMapping(value = "/buildings/delete/{id}", method = RequestMethod.GET, produces="application/json")
+    public ModelAndView deleteBuilding(@PathVariable Long id) {
+        if(!isAdmin()){
+            return redirectIfHaveNotAccess("buildings");
+        }
+        String url = getLessonInstancesRun();
+        log.info("Deleting Building from " + url);
+        ResponseEntity response = this.restTemplate.exchange(String.format("%s/buildings/%s", url, id),
+                HttpMethod.DELETE, null, new ParameterizedTypeReference<String>() {
+                }, id);
+        String result = response.getStatusCode() == HttpStatus.OK ?
+                "Successfully deleted building with ID: " + id :
+                "Some error when delete building with ID:" + id;
+        ModelAndView view = new ModelAndView("redirect:/buildings");
+        view.addObject("result", result);
+        return view;
+    }
+
     /* Admin's features */
     @GetMapping("/messages")
     public ModelAndView getMessages(){
