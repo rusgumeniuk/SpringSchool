@@ -19,10 +19,14 @@ spring:
       indent_output: true
 
 queue:
-  group:
-    name: LAB.GROUP
-  student:
-    name: LAB.STUDENT
+  studentGroupTeacher:
+    name: LAB.STUDGRTEACH
+  arch:
+    name: LAB.ARCH
+  system:
+    name: LAB.SYSTEM
+  lesSub:
+    name: LAB.LESSUB
 topic:
   exchange:
     name: LAB.TOPIC.EXCHANGE
