@@ -24,7 +24,6 @@ import org.springframework.security.core.Authentication;
         import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -243,6 +242,7 @@ public class EnterController {
       ModelAndView model = new ModelAndView("groupAll");
       model.addObject("GroupList", groups);
       model.addObject("Mentors", mentors);
+      sendMessage("Groups", "Getting all groups", 0l, HttpMethod.GET, HttpStatus.OK.toString(), "No error");
       return model;
   }
     @RequestMapping(value = "/groups/{id}", method = RequestMethod.GET, produces="application/json")
@@ -817,7 +817,7 @@ public class EnterController {
         if(!isAllExist)
             return new ModelAndView("redirect:/lessons");
         HttpEntity<Lesson> entity = new HttpEntity<>(new Lesson(
-                lessonNumber, lessonType, weekMode, dayOfWeek, room, subject, teacher, group)
+                lessonNumber, lessonType, weekMode, dayOfWeek, roomObj, subjectObj, teacherObj, groupObj)
                 , headers);
 
         ResponseEntity response = this.restTemplate.exchange(String.format("%s/lessons", url),
@@ -885,7 +885,7 @@ public class EnterController {
         String url = getInstancesRun();
         ModelAndView view = new ModelAndView("messageDetail");
         Message message = restTemplate.getForObject(String.format("%s/messages/%s", url, id), Message.class);
-        if(message.getMsg_id() == 0)
+        if(message.getId() == 0)
             view.addObject("error", "We have not message with id: #" + id );
         else
             view.addObject("Message", message);
@@ -905,6 +905,7 @@ public class EnterController {
         userRep.save(user);
         Authorities a = new Authorities(user.getUsername(),"ROLE_"+role.toUpperCase());
         roleRep.save(a);
+        sendMessage("Admin", "Created new Admin.", 0l, HttpMethod.POST, HttpStatus.CREATED.toString(), "Admin username: " + user.getUsername());
         return new ModelAndView("redirect:/login");
     }
 
@@ -961,10 +962,15 @@ public class EnterController {
                 });
 
         ModelAndView view = new ModelAndView("redirect:/allProperties");
-        if(response.getStatusCode() == HttpStatus.NO_CONTENT)
+        if(response.getStatusCode() == HttpStatus.NO_CONTENT){
             view.addObject("result", "Properties are updated!");
+            sendMessage("Admin", "Updated all configs", 0l, HttpMethod.POST, HttpStatus.OK.toString(), "No error");
+        }
         else
+        {
             view.addObject("result", "Something wrong");
+            sendMessage("Admin", "Fail when update configs\r\n" + response, 0l, HttpMethod.POST, HttpStatus.INTERNAL_SERVER_ERROR.toString(), response.getBody().toString());
+        }
         return view;
     }
 
@@ -975,6 +981,7 @@ public class EnterController {
         if(!isAdmin()){
             ModelAndView view = redirectDesination;
             view.addObject("result", getWrongAccessMessage());
+            sendMessage("User", "Access failed", 0l, HttpMethod.GET, HttpStatus.METHOD_NOT_ALLOWED.toString(), " User with username '" + getUsername() + "' try do smth forbidden!");
             return view;
         }
         return new ModelAndView("/");
@@ -1001,5 +1008,32 @@ public class EnterController {
     }
     private Authentication getAuthentication(){
         return SecurityContextHolder.getContext().getAuthentication();
+    }
+
+
+    private void sendMessage(Class clas, ResponseEntity response, Long id, HttpMethod httpMethod, String error){
+       sendMessage(clas.getName(), response, id, httpMethod, error);
+    }
+    private void sendMessage(String classname, ResponseEntity response, Long id, HttpMethod httpMethod, String error){
+        producer.sendMessage(
+                new Message(
+                        classname,
+                        "ID: " + (id == 0 ? "not have ID yet" : id) + ". " + response.getStatusCode().getReasonPhrase() + ". Is error: " + response.getStatusCode().isError(),
+                        httpMethod,
+                        response.getStatusCode().toString(),
+                        error
+                )
+        );
+    }
+    private void sendMessage(String classname, String response, Long id, HttpMethod httpMethod, String status, String error){
+        producer.sendMessage(
+                new Message(
+                        classname,
+                        response,
+                        httpMethod,
+                        status,
+                        error
+                )
+        );
     }
 }
