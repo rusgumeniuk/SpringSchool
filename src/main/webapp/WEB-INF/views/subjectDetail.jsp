@@ -8,29 +8,40 @@
     <title>Subject</title>
     <link href="../../resources/subjectDetailStyle.css" type="text/css" rel="stylesheet" />
 </head>
-
+<jsp:include page="../views/header.jsp" />
 <body>
-<form action="/subject/{id}" method="get">
+<h1>${result != null ? result : ""}</h1>
+<form action="/subjects/{id}" method="get">
     <div class="wrapper1">
         <div class="label">Id</div>
         <div class="label">Title</div>
+        <div class="label">Control type</div>
     </div>
     <div class="wrapper2">
         <div class="text">${Subject.id}</div>
         <div class="text">${Subject.title}</div>
+        <div class="text">${Subject.controlType}</div>
     </div>
 </form>
 
 <security:authorize access="hasRole('ROLE_ADMIN')">
-<form action = "/subject/update/${Subject.id}" method = "post" >
+<form action = "/subjects/${Subject.id}" method = "post" >
     <div class="updateWr1" >
         <h2 > Update subject</h2>
     </div >
     <div class="updateWr2" >
         <div class="label" > Title </div >
+        <div class="label" > Control type </div >
     </div >
     <div class="updateWr3" >
         <div class="space" ><input type = "text" name = "title" required value="${Subject.title}" ></div >
+        <div class="space" required >
+            <select name="controlType">
+                <option value="TEST">Test</option>
+                <option value="EXAM">Exam</option>
+                <option value="DIFFTEST">Diff test</option>
+            </select>
+        </div >
     </div >
 
     <div class="forSubmit" >
@@ -39,7 +50,7 @@
 </form>
 </security:authorize>
 <div class="forSubmit" >
-    <button class="btn" onclick="location.href='/menu'">Menu</button>
+    <button class="btn" onclick="location.href='/'">Menu</button>
 </div >
 </body>
 <jsp:include page="../views/footer.jsp" />
