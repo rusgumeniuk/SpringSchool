@@ -1,76 +1,110 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Student info</title>
-    <link href="../../resources/groupDetailStyle.css" type="text/css" rel="stylesheet" />
-</head>
-<jsp:include page="../views/header.jsp" />
-<body>
-<h1>${error != null ? error : "Information about student:"}</h1>
-<form action="/students/{id}" method="get">
-    <div class="wrapper1">
-        <div class="label">Id</div>
-        <div class="label">Name</div>
-        <div class="label">Male</div>
-        <div class="label">City</div>
-        <div class="label">Age</div>
-        <div class="label">Group</div>
-    </div>
-    <div class="wrapper2">
-        <div class="text">${Student.id}</div>
-        <div class="text">${Student.name}</div>
-        <div class="text">${Student.male}</div>
-        <div class="text">${Student.age}</div>
-        <div class="text">${Student.city}</div>
-        <div class="text">${Student.group}</div>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+            <!DOCTYPE>
+            <html>
 
-    </div>
-</form>
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+                <title>Student info</title>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            </head>
+            <jsp:include page="../views/header.jsp" />
 
-<security:authorize access="hasRole('ROLE_ADMIN')">
-<form action = "/students/${Student.id}" method = "post" >
-    <div class="updateWr1" >
-        <h2 > Update student</h2>
-    </div >
-    <div class="updateWr2" >
-        <div class="label" > Name </div >
-        <div class="label" > City </div >
-        <div class="label" > Age </div >
-        <div class="label" > Male </div >
-        <div class="label" > Group </div >
-    </div >
-    <div class="updateWr3" >
-        <div class="space" ><input type = "text" name = "name" required value="${Student.name}" ></div >
-        <div class="space" ><input type = "text" name = "city" required value="${Student.city}" ></div >
-        <div class="space" ><input type = "number" name = "age" min="16" max="100" required value="${Student.age}" ></div >
-        <div class="space" >
-            <select name="male">
-                <option selected="${Student.male == Male.MALE}" value="MALE">Male</option>
-                <option selected="${Student.male == Male.FEMALE}" value="FEMALE">Female</option>
-            </select>
-        </div >
-        <div class="space" >
-            <select name="group">
-                <c:forEach items="${Groups}" var="group" >
-                    <option value="${group.id}">${group}</option>
-                </c:forEach>
-            </select>
-        </div >
-    </div >
+            <body>
+                <div class="container table justify-content-center">
+                    <h1>${error != null ? error : "Information about student:"}</h1>
+                    <table class="table">
+                        <tbody class="tbody-dark">
+                            <tr>
+                                <th scape="col" class="text">Id</th>
+                                <td class="text">${Student.id}</td>
+                            </tr>
+                            <tr>
+                                <th scape="col" class="text">Name</th>
+                                <td class="text">${Student.name}</td>
+                            </tr>
+                            <tr>
+                                <th scape="col" class="text">Male</th>
+                                <td class="text">${Student.male}</td>
+                            </tr>
+                            <tr>
+                                <th scape="col" class="text">City</th>
+                                <td class="text">${Student.city}</td>
+                            </tr>
+                            <tr>
+                                <th scape="col" class="text">Age</th>
+                                <td class="text">${Student.age}</td>
+                            </tr>
+                            <tr>
+                                <th scape="col" class="text">Group</th>
+                                <td class="text">${Student.group.title}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <security:authorize access="hasRole('ROLE_ADMIN')">
+                        <form action="/students/${Student.id}" method="post">
+                            <div class="form-group">
+                                <div class="title">
+                                    <h2> Update student</h2>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="nameInput" class="label"> Name </label>
+                                        <input class="form-control" id="nameInput" type="text" name="name" value="${Student.name}" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <div class="label"> Age </div>
+                                        <input class="form-control" type="number" min="16" max="100" name="age" required value="${Student.age}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <div class="label"> City </div>
+                                        <input class="form-control" type="text" name="city" required value="${Student.city}">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="maleSelect">Select student's male</label>
+                                        <select name="male" id="maleSelect" required class="form-control">
+                                <option value="MALE">Male</option>
+                                <option value="FEMALE">Female</option>
+                            </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="groupSelect">Select group</label>
+                                        <select class="form-control" name="group" id="groupSelect">
+                                <c:forEach items="${Groups}" var="group">
+                                    <option value="${group.id}">${group.title}</option>
+                                </c:forEach>
+                            </select>
+                                    </div>
+                                </div>
+                                <div class="col" aria-rowspan="2">
+                                    <div class="form-group">
+                                        <div class="forSubmit">
+                                            <button type="submit" class="btn btn-outline-success"> Submit </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </security:authorize>
+                </div>
+            </body>
+            <jsp:include page="../views/footer.jsp" />
 
-    <div class="forSubmit" >
-        <button type = "submit" class="btn" > Submit </button >
-    </div >
-</form>
-</security:authorize>
-<div class="goBack" >
-    <button class="btn" onclick="location.href='/menu'">Menu</button>
-</div >
-
-</body>
-<jsp:include page="../views/footer.jsp" />
-</html>
+            </html>

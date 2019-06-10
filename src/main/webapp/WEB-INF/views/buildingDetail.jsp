@@ -1,63 +1,91 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Building info</title>
-    <link href="../../resources/buildingDetailStyle.css" type="text/css" rel="stylesheet" />
-</head>
-<jsp:include page="../views/header.jsp" />
-<body>
-<form action="/buildings/{id}" method="get">
-    <div class="wrapper1">
-        <div class="label">Id</div>
-        <div class="label">Number </div>
-        <div class="label">Count of storeys</div>
-    </div>
-    <div class="wrapper2">
-        <div class="text">${Building.id}</div>
-        <div class="text">${building.number}</div>
-        <div class="text">${building.countOfStoreys}</div>
-    </div>
-    <div class="wrapper1">
-        <div align="center" class="label">Rooms of this building:</div>
-    </div>
-    <div class="wrapper1">
-        <div class="label">Id</div>
-        <div class="label">Number</div>
-    </div>
-    <c:forEach items="${Building.rooms}" var="room">
-        <div class="wrapper2">
-            <div class="text">${room.id}</div>
-            <div class="text">${room.number}</div>
-        </div>
-    </c:forEach>
-</form>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+            <!DOCTYPE>
+            <html>
 
-<security:authorize access="hasRole('ROLE_ADMIN')">
-<form action = "/buildings/${Building.id}" method = "post" >
-    <div class="updateWr1" >
-        <h2 > Update building</h2>
-    </div >
-    <div class="updateWr4" >
-        <div class="label">Number </div>
-        <div class="label">Count of storeys</div>
-    </div >
-    <div class="updateWr5" >
-        <div class="space" ><input type = "number" min="1" max="1000" name = "number" required ></div >
-        <div class="space" ><input type = "number" min="100" max="1000" name = "countOfStoreys" required ></div >
-    </div >
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+                <title>Building info</title>
+                <link href="../../resources/buildingDetailStyle.css" type="text/css" rel="stylesheet" />
+            </head>
+            <jsp:include page="../views/header.jsp" />
 
-    <div class="forSubmit" >
-        <button type = "submit" class="btn" > Submit </button >
-    </div >
-</form>
-</security:authorize>
-<div class="goBack" >
-    <button class="btn" onclick="location.href='/'">Menu</button>
-</div >
-</body>
-<jsp:include page="../views/footer.jsp" />
-</html>
+            <body>
+                <div class="container table justify-content-center">
+                    <h1>${error != null ? error : "Information about building:"}</h1>
+                    <table class="table">
+                        <tbody class="tbody-dark">
+                            <tr>
+                                <th scape="col" class="text">Id</th>
+                                <td class="text">${Building.id}</td>
+                            </tr>
+                            <tr>
+                                <th scape="col" class="text">Number</th>
+                                <td class="text">${Building.number}</td>
+                            </tr>
+                            <tr>
+                                <th scape="col" class="text">Count of storeys</th>
+                                <td class="text">${Building.countOfStoreys}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="container">
+                        <p>
+                            <h3>Rooms of this building:</h3>
+                        </p>
+                        <table class="table">
+                            <tr>
+                                <th scape="col">Id</th>
+                                <th scape="col">Number</th>
+                            </tr>
+                            <c:forEach items="${Building.rooms}" var="room">
+                                <tr>
+                                    <td class="text text-light">${room.id}</td>
+                                    <td class="text text-dark">${room.number}</td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </div>
+
+                    <security:authorize access="hasRole('ROLE_ADMIN')">
+                        <div class="row justify-content-center">
+                            <div class="col-8">
+                                <form action="/buildings/${Building.id}" method="post">
+                                    <div class="form-group">
+                                        <div class="title">
+                                            <h2> Update building</h2>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div class="label"> Number </div>
+                                                <input class="form-control" type="number" min="1" max="50" name="number" required value="${Building.number}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div class="label"> Count of storeys </div>
+                                                <input class="form-control" type="number" min="1" max="50" name="countOfStoreys" required value="${Building.countOfStoreys}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div class="forSubmit">
+                                                    <button type="submit" class="btn btn-outline-success"> Submit </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </security:authorize>
+                </div>
+            </body>
+            <jsp:include page="../views/footer.jsp" />
+
+            </html>

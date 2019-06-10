@@ -9,7 +9,7 @@
 
     <body>
         <div class="container justify-content-center">
-            <table class="table table-bordered" style="width: 80% ">
+            <table class="table table-bordered" style="margin-left: 20px; margin-right: 20px">
                 <tr>
                     <td colspan="4" style="text-align: center">
                         <a class="nav-link" href="/">

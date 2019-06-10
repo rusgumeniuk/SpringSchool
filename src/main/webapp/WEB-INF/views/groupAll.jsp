@@ -1,74 +1,104 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Groups</title>
-    <link href="../../resources/studentAllstyle.css" type="text/css" rel="stylesheet" />
-</head>
-<jsp:include page="../views/header.jsp" />
-<body>
-<form action="/groups" method="get">
-    <div class="wrapper1">
-        <div class="label">Id</div>
-        <div class="label">Title</div>
-        <div class="label">Cathedra</div>
-        <div class="label">Start year</div>
-        <div class="label">Mentor</div>
-    </div>
-    <div>
-        <c:forEach  items="${GroupList}" var ="group">
-            <div class="wrapper2">
-                <div class="text">${group.id}</div>
-                <div class="text">${group.title}</div>
-                <div class="text">${group.cathedra}</div>
-                <div class="text">${group.startYear}</div>
-                <div class="text">${group.mentor}</div>
-                <div class="text">
-                    <a type="button", class="btnAction", href="/groups/${group.id}">Detail</a>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+            <!DOCTYPE>
+            <html>
+
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+                <title>Groups</title>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            </head>
+            <jsp:include page="../views/header.jsp" />
+
+            <body>
+                <div class="container justify-content-center col-8">
+                    <table class="table table-striped table-hover table-bordered col-8">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scape="col">Id</th>
+                                <th scape="col">Title</th>
+                                <th scape="col">Cathedra</th>
+                                <th scape="col">Start year</th>
+                                <th scape="col">Mentor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${GroupList}" var="group">
+                                <tr>
+                                    <th scape="col" class="text">${group.id}</th>
+                                    <td class="text">${group.title}</td>
+                                    <td class="text">${group.cathedra}</td>
+                                    <td class="text">${group.startYear}</td>
+                                    <td class="text">${group.mentor.fullName}</td>
+                                    <td class="text">
+                                        <a type="button" class="btn btn-sm btn-outline-secondary" href="/groups/${group.id}">Detail</a>
+                                        <security:authorize access="hasRole('ROLE_ADMIN')">
+                                            <a type="button" class="btn btn-sm btn-outline-danger" href="/groups/delete/${group.id}">Delete</a>
+                                        </security:authorize>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
                     <security:authorize access="hasRole('ROLE_ADMIN')">
-                    <a type="button", class="btnAction", href="/groups/delete/${group.id}">Delete</a>
+                        <div class="row justify-content-center">
+                            <div class="col-8">
+                                <form action="/groups" method="post">
+                                    <div class="form-group">
+                                        <div class="title">
+                                            <h2>Add new group</h2>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="titleInput" class="label"> Title </label>
+                                                <input class="form-control" id="titleInput" type="text" name="title" required placeholder="Input title">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div class="label"> Cathedra </div>
+                                                <input class="form-control" type="text" name="cathedra" required placeholder="Input cathedra">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div class="label"> Start year </div>
+                                                <input class="form-control" type="number" min="1980" max="2018" name="startYear" required>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="mentorSelect">Select mentor</label>
+                                                <select class="form-control" name="group" id="mentorSelect">
+                                                    <c:forEach items="${Mentors}" var="mentor">
+                                                        <option value="${mentor.id}">${mentor.fullName}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div class="forSubmit">
+                                                    <button type="submit" class="btn btn-outline-success"> Submit </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </security:authorize>
                 </div>
-            </div>
-        </c:forEach>
-    </div>
-</form>
+            </body>
+            <jsp:include page="../views/footer.jsp" />
 
-<div class="goBack" >
-    <button class="btn" onclick="location.href='/menu'">Menu</button>
-</div >
-<security:authorize access="hasRole('ROLE_ADMIN')">
-<form action = "/groups" method = "post" >
-    <div class="createWr1" >
-        <h2> Add new group</h2>
-    </div>
-    <div class="createWr4" >
-        <div class="label">Title</div>
-        <div class="label">Cathedra</div>
-        <div class="label">Start year</div>
-        <div class="label">Mentor</div>
-    </div >
-    <div class="createWr5" >
-        <div class="space" ><input type = "text" name = "title" required ></div >
-        <div class="space" ><input type = "text" name = "cathedra" required ></div >
-        <div class="space" ><input type = "number" min="1970" max="2018" name = "startYear" required ></div >
-        <div class="space" >
-            <select name="mentor" >
-                <c:forEach items="${Mentors}" var="mentor">
-                    <option value="${mentor.id}">${mentor}</option>
-                </c:forEach>
-            </select>
-        </div >
-    </div >
-
-    <div class="forSubmit" >
-        <button type = "submit" class="btn" > Submit </button >
-    </div >
-</form>
-</security:authorize>
-</body>
-<jsp:include page="../views/footer.jsp" />
-</html>
+            </html>
