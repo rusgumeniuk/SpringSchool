@@ -139,14 +139,20 @@ public class EnterController {
 
     @GetMapping("/students")
     public ModelAndView getStudentsView(){
-        String url = getInstancesRun();
-        log.info("Getting all Students from " + url);
-        List<Student> students = restTemplate.getForObject(String.format("%s/students", url), List.class);
-        List<Group> groups = restTemplate.getForObject(String.format("%s/groups", url), List.class);
-        groups.add(0, null);
         ModelAndView model = new ModelAndView("studentAll");
-        model.addObject("StudentList", students);
-        model.addObject("Groups", groups);
+        try{
+            String url = getInstancesRun();
+            log.info("Getting all Students from " + url);
+            List<Student> students = restTemplate.getForObject(String.format("%s/students", url), List.class);
+            List<Group> groups = restTemplate.getForObject(String.format("%s/groups", url), List.class);
+            groups.add(0, null);
+            model.addObject("StudentList", students);
+            model.addObject("Groups", groups);
+        }
+        catch (Exception ex){
+            sendMessage("Student", "Error when Getting all Students", 0l, HttpMethod.GET, HttpStatus.OK.toString(), ex.getMessage());
+            model.addObject("error", ex.getMessage());
+        }
         return model;
     }
     @RequestMapping(value = "/students/{id}", method = RequestMethod.GET, produces="application/json")
@@ -234,15 +240,20 @@ public class EnterController {
 
     @GetMapping("/groups")
     public ModelAndView getGroupsView(){
-      String url = getInstancesRun();
-      String lessonUrl = getLessonInstancesRun();
-      log.info("Getting all Groups from " + url);
-      List<Group> groups = restTemplate.getForObject(String.format("%s/groups", url), List.class);
-      List<Teacher> mentors = restTemplate.getForObject(String.format("%s/teachers", lessonUrl), List.class);
-      ModelAndView model = new ModelAndView("groupAll");
-      model.addObject("GroupList", groups);
-      model.addObject("Mentors", mentors);
-      sendMessage("Groups", "Getting all groups", 0l, HttpMethod.GET, HttpStatus.OK.toString(), "No error");
+        ModelAndView model = new ModelAndView("groupAll");
+        try{
+            String url = getInstancesRun();
+            String lessonUrl = getLessonInstancesRun();
+            log.info("Getting all Groups from " + url);
+            List<Group> groups = restTemplate.getForObject(String.format("%s/groups", url), List.class);
+            List<Teacher> mentors = restTemplate.getForObject(String.format("%s/teachers", lessonUrl), List.class);
+            model.addObject("GroupList", groups);
+            model.addObject("Mentors", mentors);
+        }
+        catch (Exception ex){
+            sendMessage("Groups", "Error when Getting all groups", 0l, HttpMethod.GET, HttpStatus.OK.toString(), ex.getMessage());
+            model.addObject("error", ex.getMessage());
+        }
       return model;
   }
     @RequestMapping(value = "/groups/{id}", method = RequestMethod.GET, produces="application/json")
@@ -316,11 +327,17 @@ public class EnterController {
 
     @GetMapping("/subjects")
     public ModelAndView getSubjects(){
-        String url = getLessonInstancesRun();
-        log.info("Getting all subjects from " + url);
-        List<Subject> subjects = restTemplate.getForObject(String.format("%s/subjects", url), List.class);
         ModelAndView model = new ModelAndView("subjectAll");
-        model.addObject("SubjectList", subjects);
+        try{
+            String url = getLessonInstancesRun();
+            log.info("Getting all subjects from " + url);
+            List<Subject> subjects = restTemplate.getForObject(String.format("%s/subjects", url), List.class);
+            model.addObject("SubjectList", subjects);
+        }
+        catch (Exception ex){
+            sendMessage("Subject", "Error when Getting all Subjects", 0l, HttpMethod.GET, HttpStatus.OK.toString(), ex.getMessage());
+            model.addObject("error", ex.getMessage());
+    }
         return model;
     }
     @RequestMapping(value = "/subjects/{id}", method = RequestMethod.GET, produces="application/json")
@@ -395,16 +412,22 @@ public class EnterController {
 
     @GetMapping("/rooms")
     public ModelAndView getRoomsView(){
-        String url = getLessonInstancesRun();
-        log.info("Getting all Rooms from " + url);
-        List<Room> rooms = restTemplate.getForObject(String.format("%s/rooms", url), List.class);
-        List<Building> buildings = restTemplate.getForObject(String.format("%s/buildings", url), List.class);
-        Building nullBuild = new Building();
-        nullBuild.setId(-2);
-        buildings.add(0, nullBuild);
         ModelAndView model = new ModelAndView("roomAll");
-        model.addObject("RoomList", rooms);
-        model.addObject("Buildings", buildings);
+        try{
+            String url = getLessonInstancesRun();
+            log.info("Getting all Rooms from " + url);
+            List<Room> rooms = restTemplate.getForObject(String.format("%s/rooms", url), List.class);
+            List<Building> buildings = restTemplate.getForObject(String.format("%s/buildings", url), List.class);
+            Building nullBuild = new Building();
+            nullBuild.setId(-2);
+            buildings.add(0, nullBuild);
+            model.addObject("RoomList", rooms);
+            model.addObject("Buildings", buildings);
+        }
+        catch (Exception ex){
+            sendMessage("Room", "Error when Getting all Rooms", 0l, HttpMethod.GET, HttpStatus.OK.toString(), ex.getMessage());
+            model.addObject("error", ex.getMessage());
+        }
         return model;
     }
     @RequestMapping(value = "/rooms/{id}", method = RequestMethod.GET, produces="application/json")
@@ -493,14 +516,20 @@ public class EnterController {
 
     @GetMapping("/buildings")
     public ModelAndView getBuildingsView(){
-        String url = getLessonInstancesRun();
-        String lessonUrl = getLessonInstancesRun();
-        log.info("Getting all Buildings from " + url);
-        List<Building> buildings = restTemplate.getForObject(String.format("%s/buildings", url), List.class);
-        List<Teacher> mentors = restTemplate.getForObject(String.format("%s/teachers", lessonUrl), List.class);
         ModelAndView model = new ModelAndView("buildingAll");
-        model.addObject("BuildingList", buildings);
-        model.addObject("Mentors", mentors);
+        try{
+            String url = getLessonInstancesRun();
+            String lessonUrl = getLessonInstancesRun();
+            log.info("Getting all Buildings from " + url);
+            List<Building> buildings = restTemplate.getForObject(String.format("%s/buildings", url), List.class);
+            List<Teacher> mentors = restTemplate.getForObject(String.format("%s/teachers", lessonUrl), List.class);
+            model.addObject("BuildingList", buildings);
+            model.addObject("Mentors", mentors);
+        }
+        catch (Exception ex){
+            sendMessage("Building", "Error when Getting all Building", 0l, HttpMethod.GET, HttpStatus.OK.toString(), ex.getMessage());
+            model.addObject("error", ex.getMessage());
+        }
         return model;
     }
     @RequestMapping(value = "/buildings/{id}", method = RequestMethod.GET, produces="application/json")
@@ -571,18 +600,24 @@ public class EnterController {
 
     @GetMapping("/teachers")
     public ModelAndView getTeachersView(){
-        String url = getLessonInstancesRun();
-        log.info("Getting all Teachers from " + url);
-        List<Teacher> teachers = restTemplate.getForObject(String.format("%s/teachers", url), List.class);
-        String groupUrl = getInstancesRun();
-        List<Group> groups = restTemplate.getForObject(String.format("%s/groups", groupUrl), List.class);
-        Group nullGroup = new Group();
-        nullGroup.setId(-2);
-        groups.add(0, nullGroup);
         ModelAndView model = new ModelAndView("teacherAll");
-        model.addObject("TeacherList", teachers);
-        model.addObject("Groups", groups);
-        model.addObject("Ranks", Arrays.asList(TeacherRank.values()));
+        try{
+            String url = getLessonInstancesRun();
+            log.info("Getting all Teachers from " + url);
+            List<Teacher> teachers = restTemplate.getForObject(String.format("%s/teachers", url), List.class);
+            String groupUrl = getInstancesRun();
+            List<Group> groups = restTemplate.getForObject(String.format("%s/groups", groupUrl), List.class);
+            Group nullGroup = new Group();
+            nullGroup.setId(-2);
+            groups.add(0, nullGroup);
+            model.addObject("TeacherList", teachers);
+            model.addObject("Groups", groups);
+            model.addObject("Ranks", Arrays.asList(TeacherRank.values()));
+        }
+        catch (Exception ex){
+            sendMessage("Teacher", "Error when Getting all Teachers", 0l, HttpMethod.GET, HttpStatus.OK.toString(), ex.getMessage());
+            model.addObject("error", ex.getMessage());
+        }
         return model;
     }
     @RequestMapping(value = "/teachers/{id}", method = RequestMethod.GET, produces="application/json")
@@ -675,42 +710,48 @@ public class EnterController {
 
     @GetMapping("/lessons")
     public ModelAndView getLessons(){
-        String schoolUrl = getInstancesRun();
-        String lessonUrl= getLessonInstancesRun();
-        log.info("Getting all lessons from " + lessonUrl);
         ModelAndView model = new ModelAndView("lessonAll");
-        List<Lesson> lessons = null;
-        List<Subject> subjects = null;
-        List<Group> groups = null;
-        List<Room> rooms = null;
-        List<Teacher> teachers = null;
         try{
-            lessons = restTemplate.getForObject(String.format("%s/lessons", lessonUrl), List.class);
-            subjects = restTemplate.getForObject(String.format("%s/subjects", lessonUrl), List.class);
-            rooms = restTemplate.getForObject(String.format("%s/rooms", lessonUrl), List.class);
-            teachers = restTemplate.getForObject(String.format("%s/teachers", lessonUrl), List.class);
-        }
-        catch (Exception ex){
-            System.out.println("Lesson service doesn't work");
-            System.out.println(ex.getMessage());
-        }
-        try{
-            groups = restTemplate.getForObject(String.format("%s/groups", getInstancesRun()), List.class);
-        }
-        catch (Exception ex){
-            System.out.println("School service doesn't work");
-            System.out.println(ex.getMessage());
-        }
+            String schoolUrl = getInstancesRun();
+            String lessonUrl= getLessonInstancesRun();
+            log.info("Getting all lessons from " + lessonUrl);
+            List<Lesson> lessons = null;
+            List<Subject> subjects = null;
+            List<Group> groups = null;
+            List<Room> rooms = null;
+            List<Teacher> teachers = null;
+            try{
+                lessons = restTemplate.getForObject(String.format("%s/lessons", lessonUrl), List.class);
+                subjects = restTemplate.getForObject(String.format("%s/subjects", lessonUrl), List.class);
+                rooms = restTemplate.getForObject(String.format("%s/rooms", lessonUrl), List.class);
+                teachers = restTemplate.getForObject(String.format("%s/teachers", lessonUrl), List.class);
+            }
+            catch (Exception ex){
+                System.out.println("Lesson service doesn't work");
+                System.out.println(ex.getMessage());
+            }
+            try{
+                groups = restTemplate.getForObject(String.format("%s/groups", getInstancesRun()), List.class);
+            }
+            catch (Exception ex){
+                System.out.println("School service doesn't work");
+                System.out.println(ex.getMessage());
+            }
 
-        model.addObject("LessonList", lessons);
-        model.addObject("Groups", groups);
-        model.addObject("Subjects", subjects);
-        model.addObject("Teachers", teachers);
-        model.addObject("Rooms", rooms);
-        model.addObject("DaysOfWeek", DayOfWeek.values());
-        model.addObject("LessonTypes", LessonType.values());
-        model.addObject("LessonNumbers", LessonNumber.values());
-        model.addObject("WeekModes", WeekMode.values());
+            model.addObject("LessonList", lessons);
+            model.addObject("Groups", groups);
+            model.addObject("Subjects", subjects);
+            model.addObject("Teachers", teachers);
+            model.addObject("Rooms", rooms);
+            model.addObject("DaysOfWeek", DayOfWeek.values());
+            model.addObject("LessonTypes", LessonType.values());
+            model.addObject("LessonNumbers", LessonNumber.values());
+            model.addObject("WeekModes", WeekMode.values());
+        }
+        catch (Exception ex){
+            sendMessage("Student", "Error when Getting all Students", 0l, HttpMethod.GET, HttpStatus.OK.toString(), ex.getMessage());
+            model.addObject("error", ex.getMessage());
+        }
         return model;
     }
     @RequestMapping(value = "/lessons/{id}", method = RequestMethod.GET, produces="application/json")
@@ -867,14 +908,20 @@ public class EnterController {
     /* Admin's features */
     @GetMapping("/messages")
     public ModelAndView getMessages(){
-        if(!isAdmin()){
-            return redirectIfHaveNotAccess("");
-        }
-        String url = getInstancesRun();
-        log.info("Getting all messages from " + url);
-        List<Message> messages = restTemplate.getForObject(String.format("%s/messages", url), List.class);
         ModelAndView model = new ModelAndView("messageAll");
-        model.addObject("messageList", messages);
+        try{
+            if(!isAdmin()){
+                return redirectIfHaveNotAccess("");
+            }
+            String url = getInstancesRun();
+            log.info("Getting all messages from " + url);
+            List<Message> messages = restTemplate.getForObject(String.format("%s/messages", url), List.class);
+            model.addObject("messageList", messages);
+        }
+        catch (Exception ex){
+            sendMessage("Student", "Error when Getting all Students", 0l, HttpMethod.GET, HttpStatus.OK.toString(), ex.getMessage());
+            model.addObject("error", ex.getMessage());
+        }
         return model;
     }
     @RequestMapping(value = "/messages/{id}", method = RequestMethod.GET)
