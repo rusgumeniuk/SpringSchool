@@ -1,39 +1,28 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<div>
-    <h2>
-        Designed by Ruslan Humeniuk
-    </h2>
-    <h3>Here u can leave a feedback:</h3>
-    <ul>
-        <li>t.me/mr.omman</li>
-        <li>rus.gumeniuk@gmail.com</li>
-    </ul>
-</div>
+    <html>
 
-<div>
-    <div>
-        <h1 align="right">
-            Ruslanius school
-        </h1>
-        <h3>
-            <security:authentication property="principal.username" />
-        </h3>
-        <h4>, u r here,</h4>
-        <br>
-        <h4>welcome</h4>
-    </div>
-    <br>
-    <nav class="menu">
-        <ul id="head">
-            <li class="obj"><a href="/index">Main page</a></li>
-            <li class="obj"><a href="/students">Students</a></li>
-            <li class="obj"><a href="/groups">Groups</a></li>
-            <li class="obj"><a href="/subjects">Subjects</a></li>
-            <li class="obj"><a href="/rooms">Rooms</a></li>
-            <li class="obj"><a href="/building">Buildings</a></li>
-            <li class="obj"><a href="/teachers">Teachers</a></li>
-            <li class="obj"><a href="/lessons">Lessons</a></li>
-            <li class="obj"><a href="/logout">Log out</a> </li>
-        </ul>
-    </nav>
-</div>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <div class="container" style="vertical-align: bottom; width: 100%">
+            <hr>
+            <div class="container" style="margin-left: 20px; margin-right: 20px">
+                <div class="row justify-content-start">
+                    <h2>Designed by Ruslan Humeniuk</h2>
+                </div>
+            </div>
+            <div class="row justify-content-end">
+                <h3>Here you can leave a feedback:</h3>
+                <ul>
+                    <li><a href="https://t.me/mr_omman">Telegram</a></li>
+                    <li>rus.gumeniuk@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+
+    </html>
