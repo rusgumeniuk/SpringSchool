@@ -93,8 +93,10 @@
                             </select>
                                     </div>
                                 </div>
-                                <div class="col" aria-rowspan="2">
-                                    <div class="form-group">
+                            </div>
+                            <div class="form-row">
+                                <div class="col-1">
+                                    <div class="form-group justify-content-center">
                                         <div class="forSubmit">
                                             <button type="submit" class="btn btn-outline-success"> Submit </button>
                                         </div>

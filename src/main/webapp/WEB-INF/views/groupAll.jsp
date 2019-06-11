@@ -15,6 +15,7 @@
 
             <body>
                 <div class="container justify-content-center col-8">
+                    <h1>${error != null ? error : "Group list:"}</h1>
                     <table class="table table-striped table-hover table-bordered col-8">
                         <thead class="thead-light">
                             <tr>
@@ -76,11 +77,11 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="mentorSelect">Select mentor</label>
-                                                <select class="form-control" name="group" id="mentorSelect">
-                                                    <c:forEach items="${Mentors}" var="mentor">
-                                                        <option value="${mentor.id}">${mentor.fullName}</option>
-                                                    </c:forEach>
-                                                </select>
+                                                <select class="form-control" name="mentor" id="mentorSelect">
+                                        <c:forEach items="${Mentors}" var="mentor">
+                                            <option value="${mentor.id}">${mentor.fullName}</option>
+                                        </c:forEach>
+                                    </select>
                                             </div>
                                         </div>
                                     </div>

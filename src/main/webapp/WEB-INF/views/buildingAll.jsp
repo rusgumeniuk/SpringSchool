@@ -15,6 +15,7 @@
 
             <body>
                 <div class="container justify-content-center col-8">
+                    <h1>${result != null ? result : ""}</h1>
                     <table class="table table-striped table-hover table-bordered col-8">
                         <thead class="thead-light">
                             <tr>
@@ -30,9 +31,11 @@
                                     <td class="text">${building.number}</td>
                                     <td class="text">${building.countOfStoreys}</td>
                                     <td class="justify-content-between">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary"> <a href="/buildings/${building.id}">Detail</a></button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary"> <a
+                                    href="/buildings/${building.id}">Detail</a></button>
                                         <security:authorize access="hasRole('ROLE_ADMIN')">
-                                            <button type="button" class="btn btn-sm btn-outline-danger"><a href="/buildings/delete/${building.id}">Delete</a></button>
+                                            <button type="button" class="btn btn-sm btn-outline-danger"><a
+                                        href="/buildings/delete/${building.id}">Delete</a></button>
                                         </security:authorize>
                                     </td>
                                 </tr>
