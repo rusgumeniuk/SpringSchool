@@ -333,6 +333,7 @@ public class EnterController {
             log.info("Getting all subjects from " + url);
             List<Subject> subjects = restTemplate.getForObject(String.format("%s/subjects", url), List.class);
             model.addObject("SubjectList", subjects);
+            model.addObject("ControlTypes", ControlType.values());
         }
         catch (Exception ex){
             sendMessage("Subject", "Error when Getting all Subjects", 0l, HttpMethod.GET, HttpStatus.OK.toString(), ex.getMessage());
@@ -348,6 +349,7 @@ public class EnterController {
         if(object.getId() == 0){
             view = new ModelAndView("redirect:/subjects");
             view.addObject("result", "We have not Subject with id: #" + id );
+            view.addObject("ControlTypes", ControlType.values());
         }
         else{
             view = new ModelAndView("subjectDetail");
@@ -952,7 +954,7 @@ public class EnterController {
         userRep.save(user);
         Authorities a = new Authorities(user.getUsername(),"ROLE_"+role.toUpperCase());
         roleRep.save(a);
-        sendMessage("Admin", "Created new Admin.", 0l, HttpMethod.POST, HttpStatus.CREATED.toString(), "Admin username: " + user.getUsername());
+        sendMessage("Admin", "Created new " + role, 0l, HttpMethod.POST, HttpStatus.CREATED.toString(), role + " username: " + user.getUsername());
         return new ModelAndView("redirect:/login");
     }
 
