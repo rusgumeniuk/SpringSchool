@@ -5,6 +5,7 @@ import com.example.lessons.LessonType;
 import com.example.lessons.WeekMode;
 import com.example.messages.Message;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.experimental.var;
@@ -33,6 +34,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import java.time.DayOfWeek;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @EnableDiscoveryClient
 @Controller
@@ -906,6 +908,52 @@ public class EnterController {
         return view;
     }
 
+    @GetMapping("/schedules")
+    public ModelAndView getSchedules(){
+        ModelAndView model = new ModelAndView("scheduleAll");
+        try{
+            String url = getInstancesRun();
+            List<Group> groups = restTemplate.getForObject(String.format("%s/groups", url), List.class);
+            model.addObject("groupList", groups);
+        }
+        catch (Exception ex){
+            sendMessage("Student", "Error when Getting all Students", 0l, HttpMethod.GET, HttpStatus.OK.toString(), ex.getMessage());
+            model.addObject("error", ex.getMessage());
+        }
+        return model;
+    }
+    @RequestMapping(value = "/schedules", method = RequestMethod.POST)
+    public ModelAndView getGroupSchedule(@RequestParam("groupId") Long groupId) {
+        ModelAndView view = new ModelAndView("scheduleDetail");
+        Group group = null;
+        try{
+            group = restTemplate.getForObject(String.format("%s/groups/%s", getInstancesRun(), groupId), Group.class);
+        }
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        if(group != null){
+            try{
+                String lessonUrl = getLessonInstancesRun();
+                Lesson[] lessons = restTemplate.getForObject(String.format("%s/lessons", lessonUrl), Lesson[].class);
+                List<Lesson> groupLesson = Arrays.asList(lessons)
+                        .stream()
+                        .filter(lesson -> lesson.getGroup().getId() == groupId)
+                        .collect(Collectors.toList());
+                view.addObject("GroupLessons", groupLesson);
+            }
+            catch (Exception ex){
+
+                System.out.println(ex.getMessage());
+            }
+        }
+        view.addObject("DaysOfWeek", DayOfWeek.values());
+        view.addObject("LessonTypes", LessonType.values());
+        view.addObject("LessonNumbers", LessonNumber.values());
+        view.addObject("WeekModes", WeekMode.values());
+        view.addObject("group", group);
+        return view;
+    }
 
     /* Admin's features */
     @GetMapping("/messages")

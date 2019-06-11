@@ -20,7 +20,7 @@
                     <td colspan="2" style="text-align: center; vertical-align:center">
                         <label>User: "<security:authentication property="principal.username" />"</label>
                     </td>
-                    <td align="center" style="align-content: center; justify-content: center">
+                    <td colspan="2"  align="center" style="align-content: center; justify-content: center">
                         <a class="nav-link" href="/logout"> Log out</a>
                     </td>
                 </tr>
@@ -36,6 +36,9 @@
                                 </td>
                                 <td>
                                     <a class="nav-item nav-link" href="/subjects">Subjects</a>
+                                </td>
+                                <td>
+                                    <a class="nav-item nav-link" href="/schedules">Schedule</a>
                                 </td>
                                 <td>
                                     <a class="nav-item nav-link" href="/rooms">Rooms</a>
