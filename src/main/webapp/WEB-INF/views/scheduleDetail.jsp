@@ -15,7 +15,7 @@
             </head>
             <jsp:include page="../views/header.jsp" />
             <body>
-            <div class="container justify-content-center>
+            <div class="container justify-content-center">
                 <h1>${group != null ? group.title : "We don`t have group with same id"}</h1>
             </div>
 <table class="table table-bordered col-7">
