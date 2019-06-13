@@ -21,7 +21,7 @@
                             <tr>
                                 <th scape="col">Id</th>
                                 <th scape="col">Name</th>
-                                <th scape="col">Group</th>
+                                <%--<th scape="col">Group</th>--%>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,7 +29,7 @@
                                 <tr>
                                     <th scape="col" class="text">${student.id}</th>
                                     <td class="text">${student.name}</td>
-                                    <td class="text">${student.group.title}</td>
+                                    <%--<td class="text">${student.group.title}</td>--%>
                                     <td class="text">
                                         <a type="button" class="btn btn-sm btn-outline-secondary" href="/students/${student.id}">Detail</a>
                                         <security:authorize access="hasRole('ROLE_ADMIN')">

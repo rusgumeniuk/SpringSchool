@@ -26,10 +26,10 @@
                                 <th scape="col" class="text">Number</th>
                                 <td class="text">${Room.number}</td>
                             </tr>
-                            <tr>
+                           <%-- <tr>
                                 <th scape="col" class="text">Building</th>
                                 <td class="text">${Room.building}</td>
-                            </tr>
+                            </tr>--%>
                         </tbody>
                     </table>
 

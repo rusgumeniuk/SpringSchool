@@ -38,10 +38,10 @@
                                 <th scape="col" class="text">Age</th>
                                 <td class="text">${Student.age}</td>
                             </tr>
-                            <tr>
+                            <%--<tr>
                                 <th scape="col" class="text">Group</th>
                                 <td class="text">${Student.group.title}</td>
-                            </tr>
+                            </tr>--%>
                         </tbody>
                     </table>
                     <security:authorize access="hasRole('ROLE_ADMIN')">

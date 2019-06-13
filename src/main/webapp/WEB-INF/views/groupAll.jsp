@@ -23,7 +23,7 @@
                                 <th scape="col">Title</th>
                                 <th scape="col">Cathedra</th>
                                 <th scape="col">Start year</th>
-                                <th scape="col">Mentor</th>
+                                <%--<th scape="col">Mentor</th>--%>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,7 +33,7 @@
                                     <td class="text">${group.title}</td>
                                     <td class="text">${group.cathedra}</td>
                                     <td class="text">${group.startYear}</td>
-                                    <td class="text">${group.mentor.fullName}</td>
+                                    <%--<td class="text">${group.mentor.fullName}</td>--%>
                                     <td class="text">
                                         <a type="button" class="btn btn-sm btn-outline-secondary" href="/groups/${group.id}">Detail</a>
                                         <security:authorize access="hasRole('ROLE_ADMIN')">

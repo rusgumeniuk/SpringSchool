@@ -1,35 +1,35 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-    <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-            <!DOCTYPE>
-            <html>
+                                        <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+                                        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+                                    <!DOCTYPE>
+                                    <html>
 
-            <head>
-                <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-                <title>Rooms</title>
-                <meta charset="utf-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-            </head>
-            <jsp:include page="../views/header.jsp" />
+                                    <head>
+                                        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+                                        <title>Rooms</title>
+                                        <meta charset="utf-8">
+                                        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                                        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+                                    </head>
+                                    <jsp:include page="../views/header.jsp" />
 
-            <body>
-                <div class="container justify-content-center col-8">
-                    <h1>${result != null ? result : ""}</h1>
-                    <table class="table table-striped table-hover table-bordered col-8">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scape="col">Id</th>
-                                <th scape="col">Number</th>
-                                <th scape="col">Building</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${RoomList}" var="room">
-                                <tr>
-                                    <th scape="col" class="text">${room.id}</th>
-                                    <td class="text">${room.number}</td>
-                                    <td class="text">${room.countOfStoreys}</td>
+                                    <body>
+                                    <div class="container justify-content-center col-8">
+                                        <h1>${result != null ? result : ""}</h1>
+                                        <table class="table table-striped table-hover table-bordered col-8">
+                                            <thead class="thead-light">
+                                            <tr>
+                                                <th scape="col">Id</th>
+                                                <th scape="col">Number</th>
+                                                    <%--<th scape="col">Building</th>--%>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <c:forEach items="${RoomList}" var="room">
+                                                <tr>
+                                                    <th scape="col" class="text">${room.id}</th>
+                                                    <td class="text">${room.number}</td>
+                                                    <%--<td class="text">${room.building.number}</td>--%>
                                     <td class="justify-content-between">
                                         <button type="button" class="btn btn-sm btn-outline-secondary"> <a
                                     href="/rooms/${room.id}">Detail</a></button>

@@ -34,10 +34,10 @@
                                 <th scape="col" class="text">Start year</th>
                                 <td class="text">${Group.startYear}</td>
                             </tr>
-                            <tr>
+                            <%--<tr>
                                 <th scape="col" class="text">Mentor</th>
                                 <td class="text">${Group.mentor}</td>
-                            </tr>
+                            </tr>--%>
                         </tbody>
                     </table>
                     <div class="container">
