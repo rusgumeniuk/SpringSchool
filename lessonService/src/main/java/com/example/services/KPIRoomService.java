@@ -7,8 +7,8 @@ import lombok.experimental.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class KPIRoomService implements RoomService {
@@ -18,13 +18,10 @@ public class KPIRoomService implements RoomService {
 
     @Override
     public List<Room> getAll() {
-        List<Room> allRooms = roomRepository.findAll();
-        List<Room> notDeletedRooms = new ArrayList<>();
-        for (Room room : allRooms) {
-            if(!room.getDeleted())
-                notDeletedRooms.add(room);
-        }
-        return notDeletedRooms;
+        return roomRepository.findAll()
+                .stream()
+                .filter(room -> !room.getDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

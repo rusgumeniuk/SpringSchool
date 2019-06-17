@@ -2,28 +2,17 @@ package com.example.controllers;
 
 import com.example.Building;
 import com.example.Room;
-import com.example.assemblers.BuildingResourcesAssembler;
-import com.example.assemblers.RoomResourcesAssembler;
-import com.example.exceptions.BuildingNotFoundException;
 import com.example.exceptions.BuildingDoesNotHaveRoomExceprion;
+import com.example.exceptions.BuildingNotFoundException;
 import com.example.services.BuildingService;
 import com.example.services.RoomService;
 import lombok.experimental.var;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.ResourceSupport;
-import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/buildings")
@@ -34,18 +23,9 @@ public class BuildingController {
     @Autowired
     private RoomService roomService;
 
-    private final BuildingResourcesAssembler assembler;
-    private final RoomResourcesAssembler roomAssembler;
-
-    public BuildingController(BuildingResourcesAssembler assembler, RoomResourcesAssembler roomResourcesAssembler) {
-        this.assembler = assembler;
-        this.roomAssembler = roomResourcesAssembler;
-    }
-
     @GetMapping
     public List<Building> getBuildings() {
-        return buildingService.getAll().stream()
-                .collect(Collectors.toList());
+        return buildingService.getAll();
    
     }
 
@@ -55,12 +35,12 @@ public class BuildingController {
     }
 
     @PostMapping
-    public Building createBuilding(@Valid @RequestBody Building newBuilding) throws URISyntaxException {
+    public Building createBuilding(@Valid @RequestBody Building newBuilding){
         return buildingService.saveObject(newBuilding);
     }
 
     @PutMapping(value = "/{buildingId}", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
-    public Building updateBuilding(@Valid @RequestBody Building updatedBuilding, @PathVariable Integer buildingId) throws URISyntaxException {
+    public Building updateBuilding(@Valid @RequestBody Building updatedBuilding, @PathVariable Integer buildingId){
         return buildingService.updateObject(updatedBuilding, buildingId);        
     }
 
@@ -96,9 +76,7 @@ public class BuildingController {
     @GetMapping("/{buildingId}/rooms")
     public List<Room> getRoomsOfBuilding(@PathVariable Integer buildingId) {
         var building = buildingService.getObjectById(buildingId);
-        return building.getRooms()
-                .stream()
-                .collect(Collectors.toList());
+        return building.getRooms();
     }
 
     @DeleteMapping("/{buildingId}/rooms/{roomId}")

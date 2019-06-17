@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import lombok.experimental.var;
 
 @Service
@@ -19,13 +21,10 @@ public class KPIGroupService implements GroupService {
 
     @Override
     public List<Group> getAll() {
-        List<Group> allGroups = groupRepository.findAll();
-        List<Group> notDeletedGroup = new ArrayList<>();
-        for (Group group : allGroups) {
-            if (!group.getDeleted())
-                notDeletedGroup.add(group);
-        }
-        return notDeletedGroup;
+        return groupRepository.findAll()
+                .stream()
+                .filter(group -> !group.getDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -55,7 +54,6 @@ public class KPIGroupService implements GroupService {
     public Group updateObject(Group newObject, Integer integer) {
         Group foundGroup = getObjectById(integer);
         foundGroup.setTitle(newObject.getTitle());
-        foundGroup.setStudents(newObject.getStudents());
         foundGroup.setCathedra(newObject.getCathedra());
         foundGroup.setStartYear(newObject.getStartYear());
         return groupRepository.save(foundGroup);

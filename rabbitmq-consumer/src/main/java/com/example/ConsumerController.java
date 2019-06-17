@@ -1,12 +1,10 @@
 package com.example;
 
 import com.example.listeners.events.*;
-import com.example.messages.Message;
 import com.example.messages.MessageRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -45,13 +43,12 @@ public class ConsumerController {
 
     private void handleEvent(MyEvent event){
         System.out.println("EVENT RECEIVED: " + event.getMessage().getDescription());
-        Message message = event.getMessage();
-        msgRepo.save(new Message(message.getClassName(), message.getDescription(), message.getHttpMethod(), message.getStatusCode(), message.getDateTime(), message.getError()));
+        msgRepo.save(event.getMessage());
 
         List<SseEmitter> deadEmitters = new ArrayList<SseEmitter>();
         this.lsEmitters.forEach(emitter -> {
             try {
-                emitter.send(message);
+                emitter.send(event.getMessage());
             }
             catch (Exception e) {
                 LOGGER.error("Error ",e);

@@ -2,27 +2,16 @@ package com.example.controllers;
 
 import com.example.Building;
 import com.example.Room;
-import com.example.assemblers.BuildingResourcesAssembler;
-import com.example.assemblers.RoomResourcesAssembler;
 import com.example.exceptions.RoomNotFoundException;
 import com.example.services.BuildingService;
 import com.example.services.RoomService;
 import lombok.experimental.var;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.ResourceSupport;
-import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/rooms")
@@ -32,18 +21,9 @@ public class RoomController {
     private RoomService roomService;
     @Autowired
     BuildingService buildingService;
-    private final RoomResourcesAssembler assembler;
-    private final BuildingResourcesAssembler buildingAssembler;
-
-    public RoomController(RoomResourcesAssembler assembler, BuildingResourcesAssembler buildingResourcesAssembler) {
-        this.assembler = assembler;
-        this.buildingAssembler = buildingResourcesAssembler;
-    }
-
     @GetMapping
     public List<Room> getRooms() {
-       return roomService.getAll().stream()
-                .collect(Collectors.toList());        
+       return roomService.getAll();        
     }
 
     @GetMapping("/{roomId}")
@@ -52,12 +32,12 @@ public class RoomController {
     }
 
     @PostMapping
-    public Room createRoom(@Valid @RequestBody Room newRoom) throws URISyntaxException {
+    public Room createRoom(@Valid @RequestBody Room newRoom){
         return roomService.saveObject(newRoom);
     }
 
     @PutMapping("/{roomId}")
-    public Room updateRoom(@Valid @RequestBody Room updatedRoom, @PathVariable Integer roomId) throws URISyntaxException {
+    public Room updateRoom(@Valid @RequestBody Room updatedRoom, @PathVariable Integer roomId){
        return roomService.updateObject(updatedRoom, roomId);        
     }
 
@@ -116,8 +96,6 @@ public class RoomController {
 
     private List<Room> getRoomsOfBuilding(Integer buildingId) {
         var building = buildingService.getObjectById(buildingId);
-        return building.getRooms()
-                .stream()
-                .collect(Collectors.toList());
+        return building.getRooms();
     }
 }

@@ -1,4 +1,4 @@
-package com.example;
+package com.example.security;
 
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 @Data
 @Table(name="users")
 @EntityListeners(AuditingEntityListener.class)
-public class Users {
+public class User {
 
     @Id
     private String username;
@@ -26,12 +26,12 @@ public class Users {
 
     private Boolean enabled;
 
-    public Users(String username,String password){
+    public User(String username, String password){
         this.username = username;
         this.password = password;
     }
 
-    public Users(){
+    public User(){
 
     }
 

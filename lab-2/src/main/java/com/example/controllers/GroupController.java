@@ -2,28 +2,17 @@ package com.example.controllers;
 
 import com.example.Group;
 import com.example.Student;
-import com.example.assemblers.GroupResourcesAssembler;
-import com.example.assemblers.StudentResourcesAssembler;
+
 import com.example.exceptions.*;
 import com.example.services.GroupService;
 import com.example.services.StudentService;
 import lombok.experimental.var;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.ResourceSupport;
-import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/groups")
@@ -34,18 +23,9 @@ public class GroupController {
     @Autowired
     private StudentService studentService;
 
-    private final GroupResourcesAssembler assembler;
-    private final StudentResourcesAssembler studentAssembler;
-
-    public GroupController(GroupResourcesAssembler assembler, StudentResourcesAssembler studentResourcesAssembler) {
-        this.assembler = assembler;
-        this.studentAssembler = studentResourcesAssembler;
-    }
-
     @GetMapping
     public Collection<Group> getGroups() {
-        return groupService.getAll().stream()
-                .collect(Collectors.toList());
+        return groupService.getAll();
     }
 
     @GetMapping(value = "/{groupId}", produces = "application/json; charset=UTF-8")
@@ -54,12 +34,12 @@ public class GroupController {
     }
 
     @PostMapping
-    public Group createGroup(@Valid @RequestBody Group newGroup) throws URISyntaxException {
+    public Group createGroup(@Valid @RequestBody Group newGroup) {
         return groupService.saveObject(newGroup);
     }
 
     @PutMapping(value = "/{groupId}", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
-    public Group updateGroup(@Valid @RequestBody Group updatedGroup, @PathVariable Integer groupId) throws URISyntaxException {
+    public Group updateGroup(@Valid @RequestBody Group updatedGroup, @PathVariable Integer groupId) {
         return groupService.updateObject(updatedGroup, groupId);
     }
 
@@ -95,9 +75,7 @@ public class GroupController {
     @GetMapping("/{groupId}/students")
     public List<Student> getStudentsOfGroup(@PathVariable Integer groupId) {
         var group = groupService.getObjectById(groupId);
-        return group.getStudents()
-                .stream()
-                .collect(Collectors.toList());
+        return group.getStudents();
     }
 
     @DeleteMapping("/{groupId}/students/{studentId}")

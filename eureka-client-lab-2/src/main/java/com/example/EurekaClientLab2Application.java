@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-@SpringBootApplication(exclude = {ErrorMvcAutoConfiguration.class})
+@SpringBootApplication
 @RefreshScope
 @Configuration
 public class EurekaClientLab2Application {

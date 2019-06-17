@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="520.0" y="89.0">com.example.Building</node>
+    <node x="488.0" y="163.0">com.example.lessons.LessonType</node>
+    <node x="153.0" y="237.0">com.example.Male</node>
+    <node x="217.0" y="89.0">com.example.Group</node>
+    <node x="0.0" y="163.0">com.example.lessons.LessonNumber</node>
+    <node x="317.0" y="89.0">com.example.lessons.Lesson</node>
+    <node x="109.0" y="89.0">com.example.Student</node>
+    <node x="171.0" y="163.0">com.example.TeacherRank</node>
+    <node x="331.0" y="163.0">com.example.ControlType</node>
+    <node x="0.0" y="237.0">com.example.lessons.WeekMode</node>
+    <node x="420.0" y="89.0">com.example.Room</node>
+    <node x="0.0" y="89.0">com.example.Teacher</node>
+    <node x="632.0" y="89.0">com.example.Subject</node>
+    <node x="320.0" y="0.0">com.example.Entity</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.example.Building" target="com.example.Entity">
+      <point x="0.0" y="-14.5" />
+      <point x="566.0" y="59.0" />
+      <point x="380.5" y="59.0" />
+      <point x="22.0" y="14.5" />
+    </edge>
+    <edge source="com.example.Room" target="com.example.Entity">
+      <point x="0.0" y="-14.5" />
+      <point x="460.0" y="69.0" />
+      <point x="369.5" y="69.0" />
+      <point x="11.0" y="14.5" />
+    </edge>
+    <edge source="com.example.Subject" target="com.example.Entity">
+      <point x="0.0" y="-14.5" />
+      <point x="675.5" y="49.0" />
+      <point x="391.5" y="49.0" />
+      <point x="33.0" y="14.5" />
+    </edge>
+    <edge source="com.example.Student" target="com.example.Entity">
+      <point x="0.0" y="-14.5" />
+      <point x="153.0" y="59.0" />
+      <point x="336.5" y="59.0" />
+      <point x="-22.0" y="14.5" />
+    </edge>
+    <edge source="com.example.lessons.Lesson" target="com.example.Entity">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.example.Group" target="com.example.Entity">
+      <point x="0.0" y="-14.5" />
+      <point x="257.0" y="69.0" />
+      <point x="347.5" y="69.0" />
+      <point x="-11.0" y="14.5" />
+    </edge>
+    <edge source="com.example.Teacher" target="com.example.Entity">
+      <point x="0.0" y="-14.5" />
+      <point x="44.5" y="49.0" />
+      <point x="325.5" y="49.0" />
+      <point x="-33.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="570.5" y="228.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

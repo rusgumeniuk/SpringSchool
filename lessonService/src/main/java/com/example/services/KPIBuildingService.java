@@ -7,8 +7,8 @@ import lombok.experimental.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class KPIBuildingService implements BuildingService {
@@ -18,13 +18,10 @@ public class KPIBuildingService implements BuildingService {
 
     @Override
     public List<Building> getAll() {
-        List<Building> allBuildings = buildingRepository.findAll();
-        List<Building> notDeletedBuildings = new ArrayList<>();
-        for (Building building : allBuildings) {
-            if(!building.getDeleted())
-                notDeletedBuildings.add(building);
-        }
-        return notDeletedBuildings;
+        return buildingRepository.findAll()
+                .stream()
+                .filter(building -> !building.getDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

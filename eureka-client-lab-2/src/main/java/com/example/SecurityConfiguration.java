@@ -39,17 +39,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().logout().logoutSuccessUrl("/login").permitAll()
                 .and().exceptionHandling().accessDeniedPage("/error")
                 .and().csrf().disable();
-/*
-        http.authorizeRequests().antMatchers("/","/registration")
-                .permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/")
-                .defaultSuccessUrl("/menu")
-                .permitAll()
-                .and()
-                .logout().permitAll();
-        http.csrf().disable();*/
     }
 }

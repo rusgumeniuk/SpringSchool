@@ -68,8 +68,8 @@
                                     <div class="form-row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="groupSelect">Lesson number</label>
-                                                <select class="form-control" name="lessonNumber" id="controlTypeSelect">
+                                                <label for="lessonNumberSelect">Lesson number</label>
+                                                <select class="form-control" name="lessonNumber" id="lessonNumberSelect">
                                         <c:forEach items="${LessonNumbers}" var="lessonNumber">
                                             <option value="${lessonNumber}">${lessonNumber}</option>
                                         </c:forEach>
@@ -78,8 +78,8 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="groupSelect">Select lesson type</label>
-                                                <select class="form-control" name="lessonType" id="controlTypeSelect">
+                                                <label for="lessonTypeSelect">Select lesson type</label>
+                                                <select class="form-control" name="lessonType" id="lessonTypeSelect">
                                         <c:forEach items="${LessonTypes}" var="lessonType">
                                             <option value="${lessonType}">${lessonType}</option>
                                         </c:forEach>
@@ -90,8 +90,8 @@
                                     <div class="form-row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="groupSelect">Select day of week</label>
-                                                <select class="form-control" name="dayOfWeek" id="controlTypeSelect">
+                                                <label for="dayOfWeekSelect">Select day of week</label>
+                                                <select class="form-control" name="dayOfWeek" id="dayOfWeekSelect">
                                         <c:forEach items="${DaysOfWeek}" var="dayOfWeek">
                                             <option value="${dayOfWeek}">${dayOfWeek}</option>
                                         </c:forEach>
@@ -100,8 +100,8 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="groupSelect">Select week mode</label>
-                                                <select class="form-control" name="weekMode" id="controlTypeSelect">
+                                                <label for="weekModeSelect">Select week mode</label>
+                                                <select class="form-control" name="weekMode" id="weekModeSelect">
                                         <c:forEach items="${WeekModes}" var="weekMode">
                                             <option value="${weekMode}">${weekMode}</option>
                                         </c:forEach>
@@ -112,8 +112,8 @@
                                     <div class="form-row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="groupSelect">Select teacher</label>
-                                                <select class="form-control" name="teacher" id="controlTypeSelect">
+                                                <label for="teacherSelect">Select teacher</label>
+                                                <select class="form-control" name="teacher" id="teacherSelect">
                                         <c:forEach items="${Teachers}" var="teacher">
                                             <option value="${teacher}">${teacher.fullName}</option>
                                         </c:forEach>
@@ -122,8 +122,8 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="groupSelect">Select subject</label>
-                                                <select class="form-control" name="controlType" id="controlTypeSelect">
+                                                <label for="subjectSelect">Select subject</label>
+                                                <select class="form-control" name="controlType" id="subjectSelect">
                                         <c:forEach items="${Subjects}" var="subject">
                                             <option value="${subject}">${subject.title}</option>
                                         </c:forEach>
@@ -135,7 +135,7 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="groupSelect">Select group</label>
-                                                <select class="form-control" name="controlType" id="controlTypeSelect">
+                                                <select class="form-control" name="controlType" id="groupSelect">
                                         <c:forEach items="${Groups}" var="group">
                                             <option value="${group}">${group.title}</option>
                                         </c:forEach>
@@ -144,8 +144,8 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="groupSelect">Select room</label>
-                                                <select class="form-control" name="controlType" id="controlTypeSelect">
+                                                <label for="roomSelect">Select room</label>
+                                                <select class="form-control" name="controlType" id="roomSelect">
                                         <c:forEach items="${Rooms}" var="room">
                                             <option value="${room}">${room.number}</option>
                                         </c:forEach>

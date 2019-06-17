@@ -13,7 +13,7 @@
 <div class="container-fluid">
     <div class="row">
         <form method="post" action="/login"  style="max-width: 600px;padding-left: 0;margin-top: 30px;" class="col-7 offset-4">
-            <h2 class="form-heading">Welcome in da Ruslanius school</h2><br>
+            <h2 class="form-heading">Welcome in the Ruslanius school</h2><br>
             <h2 class="form-heading">Please, log in firstly</h2><br>
 
             <div class="form-group ${error != null ? 'has-error' : null}">

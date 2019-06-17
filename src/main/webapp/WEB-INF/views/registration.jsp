@@ -30,8 +30,8 @@
                 </div>
                 <br>
                 <div class="row justify-content-around">
-                    <button class="btn btn-outline-success" type="submit">Sign in</button>
-                    <button class="btn btn-outline-info"><a href="/login">Back to login page</a></button>
+                    <button class="btn btn-outline-success" type="submit">Sign up</button>
+                    <button class="btn btn-outline-info"><a href="/login">Back to the login page</a></button>
                 </div>
 
             </div>

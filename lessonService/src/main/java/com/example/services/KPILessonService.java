@@ -7,8 +7,8 @@ import lombok.experimental.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class KPILessonService implements LessonService {
@@ -18,13 +18,10 @@ public class KPILessonService implements LessonService {
 
     @Override
     public List<Lesson> getAll() {
-        List<Lesson> allLessons = lessonRepository.findAll();
-        List<Lesson> notDeletedLessons = new ArrayList<>();
-        for (Lesson lesson : allLessons) {
-            if(!lesson.getDeleted())
-                notDeletedLessons.add(lesson);
-        }
-        return notDeletedLessons;
+        return lessonRepository.findAll()
+                .stream()
+                .filter(lesson -> !lesson.getDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

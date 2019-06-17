@@ -2,9 +2,6 @@ package com.example.controllers;
 
 import com.example.Group;
 import com.example.Teacher;
-import com.example.Student;
-import com.example.assemblers.GroupResourcesAssembler;
-import com.example.assemblers.TeacherResourcesAssembler;
 import com.example.exceptions.TeacherDontMentorThisGroup;
 import com.example.exceptions.TeacherNotFoundException;
 import com.example.services.GroupService;
@@ -12,20 +9,11 @@ import com.example.services.TeacherService;
 import lombok.experimental.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.ResourceSupport;
-import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RefreshScope
@@ -38,18 +26,9 @@ public class TeacherController {
     @Autowired
     private GroupService groupService;
 
-    private final TeacherResourcesAssembler assembler;
-    private final GroupResourcesAssembler groupAssembler;
-
-    public TeacherController(TeacherResourcesAssembler assembler, GroupResourcesAssembler groupAssembler) {
-        this.assembler = assembler;
-        this.groupAssembler = groupAssembler;
-    }
-
     @GetMapping
     public List<Teacher> getTeachers() {
-        return teacherService.getAll().stream()              
-                .collect(Collectors.toList());        
+        return teacherService.getAll();
     }
 
     @GetMapping(value = "/{teacherId}", produces = "application/json; charset=UTF-8")
@@ -58,12 +37,12 @@ public class TeacherController {
     }
 
     @PostMapping
-    public Teacher createTeacher(@Valid @RequestBody Teacher newTeacher) throws URISyntaxException {
+    public Teacher createTeacher(@Valid @RequestBody Teacher newTeacher){
         return teacherService.saveObject(newTeacher);
     }
 
     @PutMapping(value = "/{teacherId}", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
-    public Teacher updateTeacher(@Valid @RequestBody Teacher updatedTeacher, @PathVariable Integer teacherId) throws URISyntaxException {
+    public Teacher updateTeacher(@Valid @RequestBody Teacher updatedTeacher, @PathVariable Integer teacherId){
         return teacherService.updateObject(updatedTeacher, teacherId);
     }
 

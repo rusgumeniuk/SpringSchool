@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import lombok.experimental.var;
 
 @Service
@@ -19,13 +21,10 @@ public class KPIStudentService implements StudentService {
 
     @Override
     public List<Student> getAll() {
-        List<Student> allStudents = studentRepository.findAll();
-        List<Student> notDeletedStudents = new ArrayList<>();
-        for (Student student : allStudents) {
-            if(!student.getDeleted())
-                notDeletedStudents.add(student);
-        }
-        return notDeletedStudents;
+        return studentRepository.findAll()
+                .stream()
+                .filter(student -> !student.getDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

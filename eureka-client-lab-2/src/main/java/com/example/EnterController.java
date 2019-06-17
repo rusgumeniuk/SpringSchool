@@ -4,12 +4,15 @@ import com.example.lessons.LessonNumber;
 import com.example.lessons.LessonType;
 import com.example.lessons.WeekMode;
 import com.example.messages.Message;
+import com.example.security.Authority;
+import com.example.security.RoleRepository;
+import com.example.security.User;
+import com.example.security.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.experimental.var;
-        import org.slf4j.Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -20,18 +23,15 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.AbstractEnvironment;
 import org.springframework.core.env.CompositePropertySource;
 import org.springframework.core.env.Environment;
-        import org.springframework.http.*;
+import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
-        import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-//import javax.ws.rs.core.GenericEntity;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServletRequest;
 import java.time.DayOfWeek;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -93,12 +93,12 @@ public class EnterController {
     }
 
     @Autowired
-    UserService userRep;
+    UserRepository userRep;
 
     @Autowired
-    RoleService roleRep;
+    RoleRepository roleRep;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @GetMapping("/login")
     public String login(Model model, String error, String logout) {
         if (error != null)
             model.addAttribute("errorMsg", "Your username or password are invalid.");
@@ -107,36 +107,20 @@ public class EnterController {
             model.addAttribute("msg", "You have been logged out successfully.");
         return "login";
     }
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    @GetMapping("/registration")
     public String registration(Model model, String error, String logout) {
         if (error != null)
             model.addAttribute("errorMsg", "Your username and password are invalid.");
 
         return "registration";
     }
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration_post(@ModelAttribute Users users, String role) {
-        users.setEnabled(true);
-        userRep.save(users);
-        Authorities a = new Authorities(users.getUsername(),"ROLE_"+role.toUpperCase());
+    @PostMapping("/registration")
+    public String registration(@ModelAttribute User user, String role) {
+        user.setEnabled(true);
+        userRep.save(user);
+        Authority a = new Authority(user.getUsername(),"ROLE_"+role.toUpperCase());
         roleRep.save(a);
         return "redirect:/login";
-    }
-    @RequestMapping("/error")
-    public String handleError(HttpServletRequest request) {
-        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-
-        if (status != null) {
-            Integer statusCode = Integer.valueOf(status.toString());
-
-            if(statusCode == HttpStatus.NOT_FOUND.value()) {
-                return "error-404";
-            }
-            else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                return "error-500";
-            }
-        }
-        return "error";
     }
 
     @GetMapping("/students")
@@ -997,10 +981,10 @@ public class EnterController {
         return new ModelAndView("createAdmin");
     }
     @PostMapping("/admins")
-    public ModelAndView createAdmin(@ModelAttribute Users user, String role){
+    public ModelAndView createAdmin(@ModelAttribute User user, String role){
         user.setEnabled(true);
         userRep.save(user);
-        Authorities a = new Authorities(user.getUsername(),"ROLE_"+role.toUpperCase());
+        Authority a = new Authority(user.getUsername(),"ROLE_"+role.toUpperCase());
         roleRep.save(a);
         sendMessage("Admin", "Created new " + role, 0l, HttpMethod.POST, HttpStatus.CREATED.toString(), role + " username: " + user.getUsername());
         return new ModelAndView("redirect:/login");

@@ -7,8 +7,8 @@ import lombok.experimental.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class KPISubjectService implements SubjectService {
@@ -18,13 +18,10 @@ public class KPISubjectService implements SubjectService {
 
     @Override
     public List<Subject> getAll() {
-        List<Subject> allSubjects = subjectRepository.findAll();
-        List<Subject> notDeletedSubjects = new ArrayList<>();
-        for (Subject subject : allSubjects) {
-            if(!subject.getDeleted())
-                notDeletedSubjects.add(subject);
-        }
-        return notDeletedSubjects;
+        return subjectRepository.findAll()
+                .stream()
+                .filter(subject -> !subject.getDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

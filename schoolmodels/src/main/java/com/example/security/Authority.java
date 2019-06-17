@@ -1,4 +1,4 @@
-package com.example;
+package com.example.security;
 
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 @Data
 @Table(name="authorities")
 @EntityListeners(AuditingEntityListener.class)
-public class Authorities {
+public class Authority {
 
     @Id
     private String username;
@@ -34,12 +34,12 @@ public class Authorities {
     }
 
 
-    public Authorities(String username,String authority){
+    public Authority(String username, String authority){
         this.username = username;
         this.authority = authority;
     }
 
-    public Authorities(){
+    public Authority(){
 
     }
 
